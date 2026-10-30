@@ -1,0 +1,58 @@
+# =====================================================================
+# Compiles the template in the three languages on every change.
+# - The PDFs can be downloaded from the "Actions" tab (artifact).
+# - When a version tag is pushed (e.g. v1.0), a release is created with
+#   the three PDFs and the template ready to download as a zip file.
+# =====================================================================
+name: Build PDFs
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Install TeX Live, latexmk and Biber
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            latexmk biber texlive-xetex texlive-latex-extra \
+            texlive-science texlive-bibtex-extra texlive-pictures \
+            texlive-fonts-extra texlive-lang-spanish texlive-lang-french
+
+      - name: Compile the template in the three languages
+        run: bash .github/scripts/build_all_languages.sh
+
+      - name: Upload the PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: TFG-template-PDFs
+          path: TFG_template_*.pdf
+
+      - name: Package the template
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          git archive --format=zip \
+            --prefix=tfg-infor-gestion-eivg-ehu/ \
+            -o tfg-infor-gestion-eivg-ehu.zip HEAD
+
+      - name: Publish the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            tfg-infor-gestion-eivg-ehu.zip
+            TFG_template_es.pdf
+            TFG_template_eus.pdf
+            TFG_template_en.pdf

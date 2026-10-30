@@ -1,0 +1,390 @@
+% =====================================================================
+% USER GUIDE OF THE TEMPLATE
+% This chapter only explains how to work with the template.
+% Remove the line \include{chapters/0_template} from main.tex when you
+% start writing your thesis. All the texts of this chapter are defined
+% in the three languages in template/my-packages.tex.
+% =====================================================================
+
+% Macro used to draw keyboard keys in this guide
+\providecommand{\tecla}[1]{\fbox{\footnotesize\texttt{#1}}\allowbreak}
+
+\chapter{\guideTitle}
+\label{ch:guide}
+
+% ---------------------------------------------------------------------
+% Credits
+% ---------------------------------------------------------------------
+\section{\guideCredits}
+\label{sec:guide_credits}
+{\small\itshape\color{gray} \guideCreditsText}
+\begin{itemize}
+    \item \textbf{plantilla-tfg-lsi-gasteiz} (JeremiasPerez) \\ \url{https://github.com/JeremiasPerez/plantilla-tfg-lsi-gasteiz}
+    \item \textbf{EIB\_TFG} (avazquezrd) \\ \url{https://github.com/avazquezrd/EIB_TFG}
+    \item \textbf{EHUTFMTemplate} (haritzmedina) \\ \url{https://github.com/haritzmedina/EHUTFMTemplate}
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% Working environment: Visual Studio Code
+% ---------------------------------------------------------------------
+\section{\gdVsTitle}
+\label{sec:vscode}
+
+\gdVsIntro
+
+\subsection{\gdReqTitle}
+\label{subsec:vscode_prerequisites}
+
+\gdReqIntro
+
+\begin{itemize}
+    \item \gdReqWindows
+    \item \gdReqLinux
+\begin{lstlisting}[numbers=none, basicstyle=\footnotesize\ttfamily, caption={\gdReqLinuxCaption}, label={lst:linux_packages}]
+sudo apt install latexmk biber texlive-xetex \
+     texlive-latex-extra texlive-science \
+     texlive-bibtex-extra texlive-fonts-extra \
+     texlive-lang-spanish texlive-lang-french
+\end{lstlisting}
+    \gdReqLinuxNote
+    \item \gdReqMac
+    \item \gdReqMiktex
+\end{itemize}
+
+\gdReqCheck
+
+\begin{lstlisting}[numbers=none, caption={\gdReqCheckCaption}, label={lst:check_installation}]
+xelatex --version
+latexmk --version
+biber --version
+\end{lstlisting}
+
+\subsection{\gdInstallTitle}
+\label{subsec:vscode_install}
+
+\gdInstallIntro
+
+\begin{itemize}
+    \item \gdInstallWindows
+    \item \gdInstallMac
+    \item \gdInstallLinux
+\end{itemize}
+
+\subsection{\gdExtTitle}
+\label{subsec:vscode_extensions}
+
+\gdExtIntro
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|p{3.4cm}|p{2.6cm}|p{7.2cm}|}
+        \hline
+        \textbf{\gdExtHeadExt} & \textbf{\gdExtHeadType} & \textbf{\gdExtHeadFunc} \\ \hline
+        LaTeX Workshop (James Yu) & \gdExtRequired    & \gdExtWorkshopDesc \\ \hline
+        LTeX+                     & \gdExtRecommended & \gdExtLtexDesc \\ \hline
+    \end{tabular}
+    \caption{\gdExtCaption}
+    \label{tab:vscode_extensions}
+\end{table}
+
+\subsection{\gdOpenTitle}
+\label{subsec:vscode_open}
+
+\gdOpenText
+
+\gdOpenMain
+
+\subsection{\gdCompilerTitle}
+\label{subsec:vscode_compiler}
+
+\gdCompilerText
+
+\gdCompilerCheck
+
+\subsection{\gdBuildTitle}
+\label{subsec:vscode_build}
+
+\gdBuildText
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|p{4.4cm}|p{8.6cm}|}
+        \hline
+        \textbf{\gdKeysHeadShortcut} & \textbf{\gdKeysHeadAction} \\ \hline
+        \tecla{Ctrl}+\tecla{Alt}+\tecla{B}   & \gdKeyBuild \\ \hline
+        \tecla{Ctrl}+\tecla{Alt}+\tecla{V}   & \gdKeyView \\ \hline
+        \tecla{Ctrl}+\tecla{Alt}+\tecla{J}   & \gdKeySync \\ \hline
+        \tecla{Ctrl}+\gdClickPdf             & \gdKeySyncBack \\ \hline
+        \tecla{Ctrl}+\tecla{Shift}+\tecla{P} & \gdKeyPalette \\ \hline
+    \end{tabular}
+    \caption{\gdKeysCaption}
+    \label{tab:vscode_shortcuts}
+\end{table}
+
+\gdBuildSideBySide
+
+\begin{formulaBox}
+    \small \gdBuildWarning
+\end{formulaBox}
+
+\subsection{\gdErrorsTitle}
+\label{subsec:vscode_errors}
+
+\gdErrorsText
+
+\gdErrorsAux
+
+\subsection{\gdTroubleTitle}
+\label{subsec:vscode_troubleshooting}
+
+\gdTroubleIntro
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{4.1cm}|>{\raggedright\arraybackslash}p{4.1cm}|>{\raggedright\arraybackslash}p{4.8cm}|}
+        \hline
+        \textbf{\gdTrHeadSymptom} & \textbf{\gdTrHeadCause} & \textbf{\gdTrHeadSolution} \\ \hline
+        \gdTrTaskS    & \gdTrTaskC    & \gdTrTaskF \\ \hline
+        \gdTrNoBuildS & \gdTrNoBuildC & \gdTrNoBuildF \\ \hline
+        \gdTrFontS    & \gdTrFontC    & \gdTrFontF \\ \hline
+        \gdTrStyS     & \gdTrStyC     & \gdTrStyF \\ \hline
+        \gdTrBasqueS  & \gdTrBasqueC  & \gdTrBasqueF \\ \hline
+        \gdTrBiberS   & \gdTrBiberC   & \gdTrBiberF \\ \hline
+        \gdTrPerlS    & \gdTrPerlC    & \gdTrPerlF \\ \hline
+    \end{tabular}
+    \caption{\gdTrCaption}
+    \label{tab:vscode_troubleshooting}
+\end{table}
+
+% ---------------------------------------------------------------------
+% Getting started with LaTeX
+% ---------------------------------------------------------------------
+\section{\gdBasicsTitle}
+\label{sec:latex_basics}
+
+\gdBasicsIntro
+
+\subsection{\gdSpecialTitle}
+\label{subsec:special_characters}
+
+\gdSpecialText
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|c|l|p{7.4cm}|}
+        \hline
+        \textbf{\gdSpecialHeadChar} & \textbf{\gdSpecialHeadWrite} & \textbf{\gdSpecialHeadMeaning} \\ \hline
+        \texttt{\%}               & \texttt{\textbackslash\%}                 & \gdSpecialPercent \\ \hline
+        \texttt{\&}               & \texttt{\textbackslash\&}                 & \gdSpecialAmp \\ \hline
+        \texttt{\$}               & \texttt{\textbackslash\$}                 & \gdSpecialDollar \\ \hline
+        \texttt{\#}               & \texttt{\textbackslash\#}                 & \gdSpecialHash \\ \hline
+        \texttt{\_}               & \texttt{\textbackslash\_}                 & \gdSpecialUnderscore \\ \hline
+        \texttt{\{ \}}            & \texttt{\textbackslash\{ \textbackslash\}} & \gdSpecialBraces \\ \hline
+        \texttt{\textasciitilde}  & \texttt{\textbackslash textasciitilde\{\}} & \gdSpecialTilde \\ \hline
+        \texttt{\textasciicircum} & \texttt{\textbackslash textasciicircum\{\}} & \gdSpecialCaret \\ \hline
+        \texttt{\textbackslash}   & \texttt{\textbackslash textbackslash\{\}} & \gdSpecialBackslash \\ \hline
+    \end{tabular}
+    \caption{\gdSpecialCaption}
+    \label{tab:special_characters}
+\end{table}
+
+\subsection{\gdWritingTitle}
+\label{subsec:basic_writing}
+
+\gdWritingText
+
+\begin{lstlisting}[language=TeX, numbers=none, caption={\gdWritingCaption}, label={lst:basic_commands}]
+This is a paragraph.
+
+A blank line starts a new paragraph.
+
+\textbf{bold}, \textit{italics}, \texttt{monospace}
+\enquote{text in quotation marks}
+Text with a footnote\footnote{Text of the footnote.}
+Inline formula: $E = m c^2$
+
+\begin{itemize}       % bulleted list
+    \item First item
+    \item Second item
+\end{itemize}
+
+\begin{enumerate}     % numbered list
+    \item First step
+    \item Second step
+\end{enumerate}
+\end{lstlisting}
+
+\subsection{\gdRefsTitle}
+\label{subsec:cross_references}
+
+\gdRefsText
+
+\begin{lstlisting}[language=TeX, numbers=none, caption={\gdFigureListingCaption}, label={lst:figure_example}]
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{template/figs/diagram.png}
+    \caption{Descriptive caption of the figure.}
+    \label{fig:diagram}
+\end{figure}
+
+As shown in Figure~\ref{fig:diagram}, ...
+\end{lstlisting}
+
+\subsection{\gdChaptersTitle}
+\label{subsec:adding_chapters}
+
+\gdChaptersText
+
+\subsection{\gdBibEntriesTitle}
+\label{subsec:bib_entries}
+
+\gdBibEntriesText
+
+% ---------------------------------------------------------------------
+% Configuration and language
+% ---------------------------------------------------------------------
+\section{\guideConfig}
+\label{sec:guide_configuration}
+\gdConfigIntro
+\begin{itemize}
+    \item \gdConfigData
+    \item \gdConfigLang
+    \begin{itemize}
+        \item \texttt{documentLanguageBasque}
+        \item \texttt{documentLanguageSpanish}
+        \item \texttt{documentLanguageEnglish}
+    \end{itemize}
+\end{itemize}
+
+\begin{formulaBox}
+    \small \helpStyle
+\end{formulaBox}
+
+% ---------------------------------------------------------------------
+% How the help texts work
+% ---------------------------------------------------------------------
+\section{\guideHelpSystem}
+\label{sec:guide_help_system}
+
+\gdHelpIntro
+
+\begin{lstlisting}[language=TeX, caption={\gdHelpListingCaption}, label={lst:chapter_structure}, frame=single]
+\chapter{\introduction} % The title is loaded automatically
+\label{ch:introduction}
+% --- WRITING HELP ---
+{\small\itshape\color{gray} \introHelpText}
+
+% Write your content here...
+\end{lstlisting}
+
+\gdHelpSteps
+\begin{itemize}
+    \item \gdHelpStepOne
+    \item \gdHelpStepTwo
+    \item \gdHelpStepThree
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% Citations and bibliography
+% ---------------------------------------------------------------------
+\section{\gdCiteTitle}
+\label{sec:guide_citations}
+
+\gdCiteText
+
+% ---------------------------------------------------------------------
+% Figures and tables
+% ---------------------------------------------------------------------
+\section{\guideFigures}
+\label{sec:guide_figures}
+{\small\itshape\color{gray} \helpFigures}
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[
+        device/.style={align=center, font=\small, text=ganttblue!60!black},
+        icon/.style={font=\Huge, text=ganttblue!70!black},
+        link/.style={-{Stealth[length=2mm]}, thick, gray!70!black}
+    ]
+    % Devices (icons from the fontawesome5 package)
+    \node[icon] (internet) at (0,0)    {\faCloud};
+    \node[icon] (fw1)      at (2.6,0)  {\faShield*};
+    \node[icon] (router)   at (5.2,0)  {\faNetworkWired};
+    \node[icon] (fw2)      at (7.8,0)  {\faShield*};
+    \node[icon] (pc)       at (10.4,0) {\faDesktop};
+    \node[icon] (mail)     at (5.2,2.1)  {\faServer};
+    \node[icon] (web)      at (5.2,-2.1) {\faServer};
+
+    % Labels
+    \node[device, below=1pt of internet] {\exNetInternet};
+    \node[device, below=1pt of fw1]      {\exNetFirewall};
+    \node[device, above left=2pt and -4pt of router] {\exNetRouter};
+    \node[device, below=1pt of fw2]      {\exNetFirewall};
+    \node[device, below=1pt of pc]       {\exNetPC};
+    \node[device, right=2pt of mail]     {\exNetMail};
+    \node[device, right=2pt of web]      {\exNetWeb};
+
+    % Connections
+    \draw[link] (internet) -- (fw1);
+    \draw[link] (fw1) -- (router);
+    \draw[link] (router) -- (fw2);
+    \draw[link] (fw2) -- (pc);
+    \draw[link] (router) -- (mail);
+    \draw[link] (router) -- (web);
+    \end{tikzpicture}
+    \caption{\gdFigureCaption}
+    \label{fig:template_example}
+\end{figure}
+
+% ---------------------------------------------------------------------
+% Repository of examples
+% ---------------------------------------------------------------------
+\section{\guideExamples}
+\label{sec:guide_examples}
+{\small\itshape\color{gray} \helpRepo}
+
+\subsection{\guideSearch}
+\helpAddiInfo
+
+\vspace{1em}
+\helpAddiFilters
+
+\begin{quote}
+    \small
+    ADDI $\rightarrow$ DOCENCIA / IRAKASKUNTZA $\rightarrow$ Escuela Universitaria de Ingeniería de Vitoria-Gasteiz / Vitoria-Gasteizko Ingeniaritzako Unibertsitate Eskola $\rightarrow$ Trabajos Académicos-Escuela Universitaria de Ingeniería de Vitoria-Gasteiz / Lan Akademikoak-Vitoria-Gasteizko Ingeniaritzako Unibertsitate Eskola
+\end{quote}
+
+\subsection{\guideSelected}
+\helpSelectedText
+
+\begin{itemize}
+    \item \textbf{TFG Ruiz de Alegría:} \url{https://addi.ehu.es/bitstream/handle/10810/63266/TFG_Ruiz%20de%20Alegria.pdf?sequence=1&isAllowed=y}
+    \item \textbf{TFG Valle:} \url{https://addi.ehu.es/bitstream/handle/10810/60513/TFG_Valle.pdf?sequence=1&isAllowed=y}
+    \item \textbf{TFG Pozo:} \url{https://addi.ehu.es/bitstream/handle/10810/60512/TFG_Pozo.pdf?sequence=1&isAllowed=y}
+    \item \textbf{TFG Pérez:} \url{https://addi.ehu.es/bitstream/handle/10810/60500/TFG_Perez.pdf?sequence=1&isAllowed=y}
+    \item \textbf{TFG Ramos:} \url{https://addi.ehu.es/bitstream/handle/10810/60514/TFG_Ramos.pdf?sequence=1&isAllowed=y}
+\end{itemize}
+
+% ---------------------------------------------------------------------
+% Checklist before submission
+% ---------------------------------------------------------------------
+\section{\gdChecklistTitle}
+\label{sec:checklist}
+
+\gdChecklistIntro
+
+\begin{itemize}
+    \item[$\square$] \gdCheckGuide
+    \item[$\square$] \gdCheckData
+    \item[$\square$] \gdCheckHelp
+    \item[$\square$] \gdCheckExamples
+    \item[$\square$] \gdCheckAbstract
+    \item[$\square$] \gdCheckRefs
+    \item[$\square$] \gdCheckBib
+    \item[$\square$] \gdCheckSpelling
+    \item[$\square$] \gdCheckFinal
+\end{itemize}

@@ -1,0 +1,156 @@
+% =====================================================================
+% MAIN FILE
+% Compile with XeLaTeX + Biber (see the user guide, chapter 1).
+% =====================================================================
+\documentclass[12pt, twoside, a4paper, openright, hyperindex, bookmarks, colorlinks=true, citecolor=blue, urlcolor=blue, linkcolor=blue]{book}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Start configuration %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% TODO: replace the content between braces with your own data.
+% Until then, a placeholder is shown in the language of the document.
+% Example: \newcommand{\authorName}{Ane Etxeberria Garcia}
+
+\newcommand{\authorName}{\phAuthorName}
+\newcommand{\titleName}{\phTitleName}
+\newcommand{\director}{\phDirector}
+\newcommand{\place}{\phPlace}
+\newcommand{\dateOfPresentation}{\today}
+
+% Language: leave only ONE of the following lines uncommented
+%\newcommand{\documentLanguageBasque}{eu}
+\newcommand{\documentLanguageSpanish}{es}
+%\newcommand{\documentLanguageEnglish}{en}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% End configuration %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Language support
+\ifdefined\documentLanguageSpanish
+    \usepackage[spanish, es-tabla, es-nodecimaldot]{babel}
+\else\ifdefined\documentLanguageBasque
+    \usepackage[basque]{babel}
+\else\ifdefined\documentLanguageEnglish
+    \usepackage[english]{babel}
+\fi\fi\fi
+
+% Names used for the annexes
+\addto\captionsspanish{%
+  \renewcommand{\appendixname}{Anexo}%
+  \renewcommand{\appendixpagename}{Anexos}%
+  \renewcommand{\appendixtocname}{Anexos}%
+}
+\addto\captionsbasque{%
+  \renewcommand{\appendixname}{Eranskina}%
+  \renewcommand{\appendixpagename}{Eranskinak}%
+  \renewcommand{\appendixtocname}{Eranskinak}%
+}
+\addto\captionsenglish{%
+  \renewcommand{\appendixname}{Annex}%
+  \renewcommand{\appendixpagename}{Annexes}%
+  \renewcommand{\appendixtocname}{Annexes}%
+}
+
+% Packages, layout, translations and help texts
+\input{template/my-packages}
+
+\title{\titleName}
+\author{\authorName}
+
+
+\begin{document}
+    \setlength{\headheight}{16pt}
+    \frontmatter
+
+    % Cover
+    \input{template/cover}
+    \cleardoublepage
+
+    % Acknowledgements
+    \input{chapters/_01acknowledgements}
+    \cleardoublepage
+
+    % Abstract
+    \input{chapters/_02abstract}
+    \cleardoublepage
+
+    % Table of contents
+    \tableofcontents
+    \newpage
+
+    % List of figures
+    \listoffigures
+    \newpage
+
+    % List of tables
+    \listoftables
+    \newpage
+
+    % List of acronyms
+    \input{chapters/_03acronyms}
+
+    % Glossary
+    \input{chapters/_04glossary}
+    \cleardoublepage
+
+    \setlength{\parskip}{1.3ex plus 0.2ex minus 0.2ex}
+    \renewcommand{\baselinestretch}{1.3}
+
+    \fancyhf{}
+    \fancyhf[OLH]{\rightmark}
+    \fancyhf[ERH]{\leftmark}
+    \fancyhf[ORH,ELH]{\thepage}
+
+    %%%%%%%%%%%%%%%%%%%%%
+    %%% Content files %%%
+    %%%%%%%%%%%%%%%%%%%%%
+    \mainmatter
+
+    % TODO: user guide of the template (DELETE THIS LINE WHEN YOU START WRITING)
+    \include{chapters/0_template}
+
+    % TODO: add or modify content files as needed
+    \include{chapters/01_introduction}  % 8-14 pages
+    \include{chapters/02_management}    % 8-13 pages
+    \include{chapters/03_technology}    % 8-13 pages
+    \include{chapters/04_development}   % 14-22 pages
+    \include{chapters/05_results}       % 8-12 pages
+    \include{chapters/06_economy}       % 4-6 pages
+    \include{chapters/07_conclusions}   % 2-3 pages
+
+    % --- BIBLIOGRAPHY (IEEE numeric style, generated with Biber) ---
+    % Once the help text is no longer needed, leave only:
+    %   \cleardoublepage
+    %   \printbibliography[heading=bibintoc]
+    \cleardoublepage
+    \printbibliography[heading=bibintoc, prenote=bibhelp]
+
+    % --- ANNEXES (optional: delete this whole block if there are none) ---
+    \cleardoublepage
+    \begin{appendices}
+        \noappendicestocpagenum
+        \addappheadtotoc
+        \appendixpage
+
+        \pagestyle{fancy}
+        \fancyhead[LO]{\leftmark}
+
+        \ifdefined\documentLanguageBasque
+            \fancyhead[RE]{\emph{\thechapter \ eranskina}}
+        \else\ifdefined\documentLanguageSpanish
+            \fancyhead[RE]{\emph{Anexo \thechapter}}
+        \else
+            \fancyhead[RE]{\emph{Annex \thechapter}}
+        \fi\fi
+
+        \renewcommand{\headrulewidth}{0.5pt}
+
+        % Annex files
+        \include{chapters/A-appendix}
+        \include{chapters/B-appendix}
+        \include{chapters/C-appendix}
+    \end{appendices}
+
+\end{document}

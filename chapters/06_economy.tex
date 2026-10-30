@@ -1,0 +1,99 @@
+% =====================================================================
+% CHAPTER 6: ECONOMIC REPORT
+% Amounts are written with \eur{es/eu format}{en format} and numbers
+% with \numfmt{es/eu format}{en format}, so that each language uses its
+% own decimal and thousands separators. In your own text you can simply
+% write the numbers in the format of your language.
+% =====================================================================
+\chapter{\economy}
+\label{ch:economy}
+
+% Write the introduction to the economic report here...
+
+% --- 6.1 Resources ---
+\section{\sectResCosts}
+\label{sec:resource_costs}
+{\small\itshape\color{gray} \resCostsHelpText}
+
+% Write the resource costs here...
+
+% Example table of resource costs (replace it with your own)
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|p{4.6cm}|>{\raggedleft\arraybackslash}p{2.3cm}|>{\raggedleft\arraybackslash}p{2.6cm}|}
+        \hline
+        \textbf{\exHeadID} & \textbf{\exResHeadConcept} & \textbf{\exResHeadTotal} & \textbf{\exResHeadAmort} \\ \hline
+        RES-01 & \exResLaptop   & \eur{1.500,00}{1,500.00} & \eur{250,00}{250.00} \\ \hline
+        RES-02 & \exResCloud    & \eur{300,00}{300.00}     & \eur{300,00}{300.00} \\ \hline
+        RES-03 & \exResLicences & \eur{120,00}{120.00}     & \eur{120,00}{120.00} \\ \hline
+        \multicolumn{2}{|r|}{\textbf{\exResTotal}} & \textbf{\eur{1.920,00}{1,920.00}} & \textbf{\eur{670,00}{670.00}} \\ \hline
+    \end{tabular}
+    \caption[\exResCaptionShort]{\exResCaption}
+    \label{tab:resource_costs}
+\end{table}
+
+% --- 6.2 Personnel ---
+\section{\sectPersCosts}
+\label{sec:personnel_costs}
+{\small\itshape\color{gray} \persCostsHelpText}
+
+% Write the personnel costs here...
+
+% Example table of personnel costs (replace it with your own)
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|p{4.5cm}|c|c|r|}
+        \hline
+        \textbf{\exPersHeadProfile} & \textbf{\exPersHeadTask} & \textbf{\exPersHeadHours} & \textbf{\exPersHeadRate} & \textbf{\exPersHeadSubtotal} \\ \hline
+        \exPersAnalyst   & \exPersAnalystTask   & 60  & \eur{30,00}{30.00} & \eur{1.800,00}{1,800.00} \\ \hline
+        \exPersDeveloper & \exPersDeveloperTask & 240 & \eur{20,00}{20.00} & \eur{4.800,00}{4,800.00} \\ \hline
+        \exPersTester    & \exPersTesterTask    & 40  & \eur{18,00}{18.00} & \eur{720,00}{720.00} \\ \hline
+        \multicolumn{4}{|r|}{\textbf{\exPersTotal}} & \textbf{\eur{7.320,00}{7,320.00}} \\ \hline
+    \end{tabular}
+    \caption{\exPersCaption}
+    \label{tab:personnel_costs}
+\end{table}
+
+% --- 6.3 Viability ---
+\section{\sectROI}
+\label{sec:viability_roi}
+{\small\itshape\color{gray} \roiHelpText}
+
+% Write the viability and ROI analysis here...
+
+% Example time and efficiency study (replace it with your own)
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|>{\raggedright\arraybackslash}p{3.2cm}|>{\centering\arraybackslash}p{2.3cm}|>{\centering\arraybackslash}p{1.9cm}|>{\centering\arraybackslash}p{2.1cm}|>{\raggedleft\arraybackslash}p{2.5cm}|}
+        \hline
+        \textbf{\exROIHeadTask} & \textbf{\exROIHeadFreq} & \textbf{\exROIHeadManual} & \textbf{\exROIHeadSoftware} & \textbf{\exROIHeadSaving} \\ \hline
+        \exROIIncidents     & 150 \exTimes & 15 min  & 3 min                  & \numfmt{30,00}{30.00} h \\ \hline
+        \exROIReports       & 4 \exTimes   & 120 min & 5 min                  & \numfmt{7,67}{7.67} h \\ \hline
+        \exROINotifications & 200 \exTimes & 5 min   & \numfmt{0,5}{0.5} min  & \numfmt{15,00}{15.00} h \\ \hline
+        \multicolumn{4}{|r|}{\textbf{\exROITotal}} & \textbf{\numfmt{52,67}{52.67} h} \\ \hline
+    \end{tabular}
+    \caption{\exROICaption}
+    \label{tab:time_efficiency}
+\end{table}
+
+\exROIIntro
+
+\begin{itemize}
+    \item \textbf{\exROIHoursYear:} \numfmt{52,67}{52.67} \exHPerMonth{} $\times$ 12 \exMonths{} = \numfmt{632,04}{632.04} \exHPerYear.
+    \item \textbf{\exROIMoneyYear:} \numfmt{632,04}{632.04} h $\times$ \eur{22,00}{22.00}/h = \eur{13.904,88}{13,904.88}.
+    \item \textbf{\exROIMoneyMonth:} \numfmt{52,67}{52.67} h $\times$ \eur{22,00}{22.00}/h = \eur{1.158,74}{1,158.74}.
+    \item \textbf{\exROIInvestment} (\exROIInvestmentNote): \eur{670,00}{670.00} + \eur{7.320,00}{7,320.00} = \eur{7.990,00}{7,990.00}.
+\end{itemize}
+
+\begin{equation}
+\text{ROI} = \frac{\text{\numfmt{13.904,88}{13,904.88}} - \text{\numfmt{7.990,00}{7,990.00}}}{\text{\numfmt{7.990,00}{7,990.00}}} \times 100 \approx \text{\pct{\numfmt{74,03}{74.03}}}
+\end{equation}
+
+\begin{equation}
+\text{\exPaybackLabel} = \frac{\text{\exTotalInvestment}}{\text{\exMonthlySaving}} = \frac{\text{\numfmt{7.990,00}{7,990.00}}}{\text{\numfmt{1.158,74}{1,158.74}}} \approx \text{\numfmt{6,90}{6.90} \exMonths}
+\end{equation}
+
+\exROIConclusion

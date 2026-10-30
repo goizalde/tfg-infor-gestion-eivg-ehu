@@ -1,0 +1,307 @@
+% =====================================================================
+% CHAPTER 4: PROJECT DEVELOPMENT
+% =====================================================================
+\chapter{\dev}
+\label{ch:development}
+
+% Write the introduction to the development here...
+
+% ---------------------------------------------------------
+\section{\sectReq}
+\label{sec:requirements}
+{\small\itshape\color{gray} \reqHelpText}
+
+% Write the requirements analysis here...
+
+\subsection{\sectFunc}
+\label{subsec:functional_requirements}
+% Example table of functional requirements (replace it with your own)
+\exFRIntro
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|p{1.3cm}|p{3.6cm}|p{5.9cm}|p{2.4cm}|}
+        \hline
+        \textbf{\exHeadID} & \textbf{\exHeadName} & \textbf{\exHeadDescription} & \textbf{\exHeadPriority} \\ \hline
+        \exFRPrefix-01 & \exFRUsers  & \exFRUsersDesc  & \exHigh \\ \hline
+        \exFRPrefix-02 & \exFRIngest & \exFRIngestDesc & \exCritical \\ \hline
+        \exFRPrefix-03 & \exFRAlerts & \exFRAlertsDesc & \exMedium \\ \hline
+    \end{tabular}
+    \caption{\exFRCaption}
+    \label{tab:functional_requirements}
+\end{table}
+
+\subsection{\sectCases}
+\label{subsec:use_cases}
+% Example use case diagram drawn with TikZ (replace it with your own)
+\exUseCaseIntro
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        usecase/.style={ellipse, draw, thick, fill=blue!5, minimum width=3.0cm, minimum height=0.9cm, text width=2.3cm, align=center, font=\small, inner sep=1pt},
+        assoc/.style={thin},
+        rel/.style={-{Stealth[length=2mm]}, dashed},
+        stereo/.style={font=\scriptsize\itshape, fill=white, inner sep=1pt},
+        actor/.pic={
+            \draw[thick] (0,0.55) circle (0.18);
+            \draw[thick] (0,0.37) -- (0,-0.15);
+            \draw[thick] (-0.3,0.2) -- (0.3,0.2);
+            \draw[thick] (0,-0.15) -- (-0.22,-0.55);
+            \draw[thick] (0,-0.15) -- (0.22,-0.55);
+        }
+    ]
+    % System boundary
+    \draw[thick, fill=gray!5, rounded corners=4pt] (-4.4,-3.2) rectangle (4.4,3.6);
+    \node[font=\bfseries] at (0,3.2) {\exUCSystem};
+
+    % Use cases
+    \node[usecase] (login)   at (-2.3, 2.2)  {\exUCLogin};
+    \node[usecase] (cred)    at ( 2.3, 2.2)  {\exUCCredentials};
+    \node[usecase] (create)  at (-2.3, 0.7)  {\exUCCreate};
+    \node[usecase] (attach)  at ( 2.3, 0.7)  {\exUCAttach};
+    \node[usecase] (status)  at (-2.3,-0.8)  {\exUCStatus};
+    \node[usecase] (resolve) at ( 2.3,-0.8)  {\exUCResolve};
+    \node[usecase] (users)   at ( 0.0,-2.3)  {\exUCUsers};
+
+    % Actors
+    \pic at (-6.2, 0.7) {actor};
+    \node[font=\small] at (-6.2,-0.05) {\exUCCustomer};
+    \pic at ( 6.2,-0.3) {actor};
+    \node[font=\small] at ( 6.2,-1.05) {\exUCTechnician};
+    \pic at ( 6.2,-2.5) {actor};
+    \node[font=\small] at ( 6.2,-3.25) {\exUCAdmin};
+
+    % Associations
+    \draw[assoc] (-5.8, 0.8) -- (login);
+    \draw[assoc] (-5.8, 0.8) -- (create);
+    \draw[assoc] (-5.8, 0.8) -- (status);
+    \draw[assoc] ( 5.8,-0.2) -- (resolve);
+    \draw[assoc] ( 5.8,-2.4) -- (users);
+
+    % Include and extend relationships
+    \draw[rel] (login) -- node[stereo, above=1pt] {$\ll$include$\gg$} (cred);
+    \draw[rel] (attach) -- node[stereo, above=1pt] {$\ll$extend$\gg$} (create);
+    \end{tikzpicture}
+    \caption{\exUseCaseCaption}
+    \label{fig:use_case_diagram}
+\end{figure}
+
+\subsection{\sectNonFunc}
+\label{subsec:nonfunctional_requirements}
+% Example table of non-functional requirements (replace it with your own)
+\exNFRIntro
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|p{1.5cm}|p{3.1cm}|p{6.1cm}|p{2.4cm}|}
+        \hline
+        \textbf{\exHeadID} & \textbf{\exHeadAttribute} & \textbf{\exHeadDescription} & \textbf{\exHeadPriority} \\ \hline
+        \exNFRPrefix-01 & \exNFRSecurity     & \exNFRSecurityDesc     & \exHigh \\ \hline
+        \exNFRPrefix-02 & \exNFRPerformance  & \exNFRPerformanceDesc  & \exMedium \\ \hline
+        \exNFRPrefix-03 & \exNFRAvailability & \exNFRAvailabilityDesc & \exHigh \\ \hline
+        \exNFRPrefix-04 & \exNFRScalability  & \exNFRScalabilityDesc  & \exMedium \\ \hline
+    \end{tabular}
+    \caption{\exNFRCaption}
+    \label{tab:nonfunctional_requirements}
+\end{table}
+
+% ---------------------------------------------------------
+\section{\sectArchDesign}
+\label{sec:design}
+{\small\itshape\color{gray} \archDesignHelpText}
+
+% Write the design and architecture here...
+
+\subsection{\sectArch}
+\label{subsec:architecture}
+% Example architecture diagram drawn with TikZ (replace it with your own)
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=1.5cm,
+        block/.style={rectangle, draw, fill=blue!5, text width=6cm, text centered, rounded corners, minimum height=1.2cm, font=\bfseries},
+        arrow/.style={thick,<->,>=stealth, font=\scriptsize\itshape}
+    ]
+    % Layers
+    \node (pres) [block] {\exArchPresentation \\ \textnormal{\small (Frontend / UI)}};
+    \node (logic) [block, below=of pres] {\exArchBusiness \\ \textnormal{\small (\exArchBusinessSub)}};
+    \node (data) [block, below=of logic] {\exArchData \\ \textnormal{\small (\exArchDataSub)}};
+
+    % Communication between layers
+    \draw [arrow] (pres.south) -- node[right] {\exArchRequests} (logic.north);
+    \draw [arrow] (logic.south) -- node[right] {\exArchQueries} (data.north);
+    \end{tikzpicture}
+    \caption{\exArchCaption}
+    \label{fig:architecture}
+\end{figure}
+
+\subsection{\sectDB}
+\label{subsec:database}
+% Write the database design here...
+
+\subsubsection{\sectUML}
+% Example entity-relationship model drawn with TikZ (replace it with your own)
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=2cm,
+        entity/.style={rectangle, draw, thick, fill=gray!5, text width=3.2cm, text centered, minimum height=0.8cm, font=\bfseries\small},
+        attr/.style={ellipse, draw, fill=white, text width=1.6cm, text centered, font=\tiny, inner sep=1pt},
+        rel/.style={diamond, draw, thick, fill=white, text width=1.2cm, text centered, font=\scriptsize\itshape, inner sep=0pt}
+    ]
+    % 1. Entities
+    \node (user) [entity] {\exERUser};
+    \node (ticket) [at={(7,0)}, entity] {\exERTicket};
+
+    % 2. Relationship
+    \node (rel) [rel] at (3.5,0) {\exEROwns};
+
+    % 3. Attributes
+    \node (u_id) [attr] at (-1.5, 1.2) {\underline{id\_user}};
+    \node (u_email) [attr] at (-1.5, -1.2) {email};
+    \node (t_id) [attr] at (8.5, 1.2) {\underline{id\_ticket}};
+    \node (t_subject) [attr] at (8.5, -1.2) {\exERSubject};
+
+    % 4. Connections and cardinality
+    \draw [thick] (user) -- (rel) node[midway, above, font=\tiny] {1};
+    \draw [thick] (rel) -- (ticket) node[midway, above, font=\tiny] {N};
+
+    % Attribute lines
+    \draw [thin] (user) -- (u_id);
+    \draw [thin] (user) -- (u_email);
+    \draw [thin] (ticket) -- (t_id);
+    \draw [thin] (ticket) -- (t_subject);
+    \end{tikzpicture}
+    \caption{\exERCaption}
+    \label{fig:er_model}
+\end{figure}
+
+\subsubsection{\exDictTitle}
+% Example data dictionary (replace it with your own)
+\exDictIntro
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|l|l|p{6cm}|}
+        \hline
+        \textbf{\exHeadField} & \textbf{\exHeadType} & \textbf{\exHeadKey} & \textbf{\exHeadDescription} \\ \hline
+        id\_user & INT          & PK & \exDictId \\ \hline
+        email    & VARCHAR(100) & UK & \exDictEmail \\ \hline
+        password & VARCHAR(255) & -- & \exDictPassword \\ \hline
+        role     & ENUM         & -- & \exDictRole \\ \hline
+    \end{tabular}
+    \caption{\exDictCaption}
+    \label{tab:data_dictionary_users}
+\end{table}
+
+\subsection{\sectUI}
+\label{subsec:user_interface}
+% Example wireframe drawn with TikZ (replace it with your own screens)
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        window/.style={draw=gray!80, thick, fill=white, minimum width=11.5cm, minimum height=7.5cm, rounded corners=6pt, drop shadow={opacity=0.3}},
+        header/.style={draw=none, fill=gray!20, minimum width=11.5cm, minimum height=1cm, rounded corners=6pt},
+        addressbar/.style={draw=gray!30, fill=white, minimum width=7cm, minimum height=0.5cm, rounded corners=10pt},
+        sidebar/.style={draw=none, fill=gray!10, minimum width=2.5cm, minimum height=6.5cm},
+        btn_active/.style={draw=none, fill=orange!80, text=white, font=\tiny\bfseries, rounded corners=3pt, minimum width=2cm, minimum height=0.6cm},
+        btn_normal/.style={draw=none, text=gray!80, font=\tiny, minimum width=2cm, minimum height=0.6cm},
+        close_dot/.style={circle, minimum size=6pt, inner sep=0pt, fill=orange!80}
+    ]
+    % 1. Main window with shadow
+    \node (browser) [window] {};
+
+    % 2. Top toolbar
+    \node (head) [header] at (0, 3.25) {};
+
+    % Window control buttons
+    \node [close_dot] at (5.2, 3.4) {};
+    \draw[gray!60, thick] (4.8, 3.4) -- (5.0, 3.4); % Minimise
+    \draw[gray!60, thick] (4.4, 3.3) rectangle (4.6, 3.5); % Maximise
+
+    % Address bar
+    \node (url) [addressbar] at (0, 3.25) {};
+    \node at (0, 3.25) {\tiny \color{gray} app.ticketing-system.local};
+
+    % 3. Left sidebar
+    \node (side) [sidebar] at (-4.5, -0.5) {};
+
+    % Sidebar buttons
+    \node (b1) [btn_active] at (-4.5, 2.0) {\exUIHome};
+    \node (b2) [btn_normal] at (-4.5, 1.3) {\exUITickets};
+    \node (b3) [btn_normal] at (-4.5, 0.6) {\exUIUsers};
+    \node (b4) [btn_normal] at (-4.5, -0.1) {\exUISettings};
+
+    % 4. Main content
+    \node[anchor=west] at (-3.0, 2.3) {\large \textbf{\exUITitle}};
+    \draw[orange, thick] (-3.0, 2.0) -- (-1.0, 2.0); % Underline
+
+    % Summary cards
+    \draw[draw=gray!20, fill=orange!5, rounded corners=4pt] (-3.0, 0.5) rectangle (-0.5, 1.5);
+    \node at (-1.75, 1.2) {\tiny \textbf{\exUIPending}};
+    \node at (-1.75, 0.8) {\large \color{orange!80!black} 5};
+
+    \draw[draw=gray!20, fill=gray!5, rounded corners=4pt] (0, 0.5) rectangle (2.5, 1.5);
+    \node at (1.25, 1.2) {\tiny \textbf{\exUIResolved}};
+    \node at (1.25, 0.8) {\large 142};
+
+    % Data table
+    \draw[draw=gray!20, fill=white] (-3.0, -3.0) rectangle (5.0, 0);
+    \fill[gray!10] (-3.0, -0.4) rectangle (5.0, 0); % Table header
+    \node[anchor=west] at (-2.8, -0.2) {\tiny \textbf{\exUIReference}};
+    \node[anchor=west] at (-0.5, -0.2) {\tiny \textbf{\exUIUser}};
+    \node[anchor=west] at (3.0, -0.2) {\tiny \textbf{\exUIPriority}};
+
+    \node at (1.0, -1.7) {\tiny \color{gray} \exUISync};
+    \end{tikzpicture}
+    \caption{\exUICaption}
+    \label{fig:wireframe}
+\end{figure}
+
+% ---------------------------------------------------------
+\section{\sectImpl}
+\label{sec:implementation}
+{\small\itshape\color{gray} \implHelpText}
+
+% Write the implementation here...
+
+% ------------------- Example: algorithm -------------------
+\begin{algorithm}[H] % [H] keeps the algorithm exactly here
+\caption{\exAlgorithmCaption}\label{alg:example}
+\begin{algorithmic}
+\Require $n \geq 0$
+\Ensure $y = x^n$
+\State $y \gets 1$
+\State $X \gets x$
+\State $N \gets n$
+\While{$N \neq 0$}
+    \If{$N$ is even}
+        \State $X \gets X \times X$
+        \State $N \gets \frac{N}{2}$
+    \ElsIf{$N$ is odd}
+        \State $y \gets y \times X$
+        \State $N \gets N - 1$
+    \EndIf
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+% ------------------- Example: Java code -------------------
+\begin{lstlisting}[language=Java]
+public static void main(String args[]) {
+    for(int i = 0; i <= 12; i++) { // comment
+        System.out.print("12 * "+ i + " = " + 12 * i + "\n");
+    }
+}
+\end{lstlisting}
+
+% ------------------- Example: SQL code --------------------
+\begin{lstlisting}[language=SQL,numbers=none]
+SELECT *
+FROM data
+WHERE day BETWEEN 8 AND 10;
+\end{lstlisting}

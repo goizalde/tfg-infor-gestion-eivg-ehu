@@ -1,0 +1,1621 @@
+% =====================================================================
+% PACKAGES, PAGE LAYOUT, TRANSLATIONS AND HELP TEXTS OF THE TEMPLATE
+% =====================================================================
+
+% Diagrams and Gantt charts
+\usepackage{pgfgantt}
+\usetikzlibrary{babel}
+\definecolor{ganttblue}{HTML}{0066cc}
+\usepackage{tikz}
+\usepackage{fontawesome5}
+\usepackage{icomma}
+\usepackage{float}
+\usetikzlibrary{shapes.geometric, arrows, arrows.meta, positioning, shadows}
+% ################################################################
+% #######      PAGE AND GEOMETRY                   ##############
+% ################################################################
+\usepackage[left=3.5cm, right=2.5cm, top=4.0cm, bottom=3.0cm]{geometry}
+
+% ################################################################
+% #######      HEADERS (FANCYHDR)                  ##############
+% ################################################################
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\textit{\nouppercase{\leftmark}}}
+\fancyhead[LO]{\textit{\nouppercase{\rightmark}}}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyfoot[LE,RO]{\thepage}
+}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+    \hbox{}\vspace*{\fill}\thispagestyle{empty}\newpage
+    \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+\setcounter{secnumdepth}{2}
+
+% ################################################################
+% #######      FONTS AND GRAPHICS                  ##############
+% ################################################################
+\usepackage{fontspec}
+\setmainfont{EHUSans}[
+    Path = ./fonts/, Extension = .otf,
+    UprightFont = *-Light, BoldFont = *-Bold,
+    ItalicFont = *-Italic, BoldItalicFont = *-BoldItalic
+]
+\setsansfont{EHUSans}[
+    Path = ./fonts/, Extension = .otf,
+    UprightFont = *-Regular, BoldFont = *-Bold,
+    ItalicFont = *-Italic, BoldItalicFont = *-BoldItalic
+]
+
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.png,.gif,.jpg,.pdf}
+\usepackage[figuresright]{rotating}
+\newcommand{\fitx}[1]{\texttt{#1}}
+
+% ################################################################
+% #######      SOURCE CODE FORMAT (LISTINGS)       ##############
+% ################################################################
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Colours used for source code
+\definecolor{sourcecode-background-color}{HTML}{f2f2f2}
+\definecolor{sourcecode-background-border}{HTML}{000000}
+\definecolor{sourcecode-comment-color}{HTML}{339966}
+\definecolor{sourcecode-code-color}{HTML}{000000}
+\definecolor{sourcecode-keyword-color}{HTML}{0000ff}
+\definecolor{sourcecode-linenumber-color}{HTML}{000000}
+\definecolor{sourcecode-identifier-color}{HTML}{000000}
+\definecolor{sourcecode-string-color}{HTML}{e67300}
+
+\lstset{ 
+  frameround=tttt,
+  backgroundcolor=\color{sourcecode-background-color},
+  basicstyle=\small\ttfamily\color{sourcecode-code-color},
+  commentstyle=\color{sourcecode-comment-color},
+  frame=single,
+  keywordstyle=\color{sourcecode-keyword-color}\bfseries,
+  numbers=left, 
+  numbersep=10pt,
+  numberstyle=\tiny\color{sourcecode-linenumber-color},
+  rulecolor=\color{sourcecode-background-border},
+  showstringspaces=false,
+  title=\lstname,
+  identifierstyle=\color{sourcecode-identifier-color},
+  stringstyle=\color{sourcecode-string-color},
+  breaklines=true,
+  extendedchars=true,
+  literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~{n}}}1
+}
+
+% Additional environments
+\lstnewenvironment{commands}{\lstset{frameround=tttt, escapeinside={(!}{!)}}}{}
+\lstdefinestyle{consola}{numbers=none, backgroundcolor=\color{gray!20}, basicstyle=\scriptsize\ttfamily}
+
+% ################################################################
+% #######      ALGORITHMS AND BOXES                ##############
+% ################################################################
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tcolorbox}
+\newtcolorbox{formulaBox}{
+    colback=sourcecode-background-color, colframe=sourcecode-background-border,
+    arc=3pt, boxrule=0.6pt, left=5pt, right=5pt
+}
+
+% ################################################################
+% #######      PARAGRAPH AND HEADING STYLE         ##############
+% ################################################################
+\frenchspacing
+% Extra stretch allowed before a line overflows the margin (helps with
+% long words, e.g. in Basque, and with inline code or URLs)
+\setlength{\emergencystretch}{3em}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1.5ex plus 0.5ex minus 0.5ex}
+\setlength\headheight{15pt}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage[sf,outermarks]{titlesec}
+% Order of the chapter label depending on the language:
+% Basque "1. KAPITULUA" / Spanish "CAPÍTULO 1" / English "CHAPTER 1"
+\newcommand{\chapterNumberLabel}{%
+  \ifdefined\documentLanguageBasque
+    {\Huge\thechapter.}\ {\Large\MakeUppercase{\chaptertitlename}}%
+  \else
+    {\Large\MakeUppercase{\chaptertitlename}}\ {\Huge\thechapter}%
+  \fi}
+\titleformat{\chapter}[display]
+  {\bfseries\Large}
+  {\filleft\chapterNumberLabel}
+  {4ex}
+  {\titlerule\vspace{2ex}\filright}
+  [\vspace{2ex}\titlerule]
+
+% ################################################################
+% #######      CAPTIONS, LISTS AND MATHS               ##########
+% ################################################################
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{appendix}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{amsmath, amssymb, bm}
+\usepackage{tocbibind}
+
+% ################################################################
+% #######      TRANSLATIONS (EU / ES / EN)         ##############
+% ################################################################
+
+
+% Every text of the template is defined below in the three languages:
+% Basque, Spanish and English (same macro names in each block).
+\ifdefined\documentLanguageBasque
+    \renewcommand{\lstlistingname}{Kode-zatia}
+    \floatname{algorithm}{Algoritmoa}
+	\providecommand{\upvehu}{Euskal Herriko Unibertsitatea UPV/EHU}
+	\providecommand{\authorLabel}{Egilea}
+	\providecommand{\titleTFG}{Gradu Amaierako Lana}
+	\providecommand{\directorLabel}{Zuzendaria}
+    \providecommand{\bachelorName}{Kudeaketaren eta Informazio Sistemen Informatikaren Ingeniaritzako Gradua}
+    
+	\providecommand{\acknowledgements}{Esker onak}
+	\providecommand{\abstract}{Laburpena}
+	\providecommand{\acronyms}{Akronimoen zerrenda}
+	\providecommand{\glossaryTitle}{Glosarioa}
+    % Chapters
+	\providecommand{\introduction}{Sarrera}
+    \providecommand{\mgmt}{Proiektuaren kudeaketa}
+    \providecommand{\tech}{Oinarri teknologikoak}
+    \providecommand{\dev}{Proiektuaren garapena}
+    \providecommand{\results}{Emaitzak eta Testak}
+    \providecommand{\economy}{Memoria ekonomikoa}
+    \providecommand{\conclusions}{Ondorioak}
+    \providecommand{\annex}{Eranskinak}
+    \providecommand{\bib}{Bibliografia}
+    % Sections and subsections
+    \providecommand{\sectContext}{Testuingurua eta Justifikazioa}
+    \providecommand{\sectStateArt}{Artearen egoera}
+    \providecommand{\sectObjectives}{Helburuak}
+    \providecommand{\sectMainObj}{Helburu Nagusia}
+    \providecommand{\sectSpecObj}{Helburu Espezifikoak}
+    \providecommand{\sectOrg}{Dokumentuaren antolaketa}
+    \providecommand{\sectMethod}{Metodologia}
+    \providecommand{\sectPlanning}{Plangintza}
+    \providecommand{\sectWBS}{Ataza-banaketa}
+    \providecommand{\sectGantt}{Gantt diagrama}
+    \providecommand{\sectRisks}{Arriskuen kudeaketa}
+    \providecommand{\sectConcepts}{Kontzeptu teorikoak}
+    \providecommand{\sectTools}{Garapen-tresnak}
+    \providecommand{\sectLang}{Garapen-lengoaiak eta framework-ak}
+    \providecommand{\sectReq}{Baldintzen analisia}
+    \providecommand{\sectFunc}{Baldintza funtzionalak}
+    \providecommand{\sectNonFunc}{Baldintza ez-funtzionalak}
+    \providecommand{\sectCases}{Erabilera-kasuak}
+    \providecommand{\sectArchDesign}{Diseinua eta Arkitektura}
+    \providecommand{\sectArch}{Sistemaren arkitektura}
+    \providecommand{\sectDB}{Datu-basearen diseinua}
+    \providecommand{\sectUML}{Entitate-Erlazio eredua}
+    \providecommand{\sectUI}{Interfazearen diseinua (UI-UX)}
+    \providecommand{\sectImpl}{Inplementazioa}
+    \providecommand{\sectObtained}{Lortutako emaitzak}
+    \providecommand{\sectCompliance}{Helburuen Betetze-maila}
+    \providecommand{\sectTests}{Egiaztapen-testak}
+    \providecommand{\sectPerformance}{Errendimendua}
+    \providecommand{\sectResCosts}{Baliabideen kostua}
+    \providecommand{\sectPersCosts}{Pertsonal-kostuak}
+    \providecommand{\sectROI}{Bideragarritasuna eta ROI}
+    \providecommand{\sectDisc}{Eztabaida}
+    \providecommand{\sectFuture}{Etorkizuneko ildoak}
+    \providecommand{\sectPersVal}{Balorazio pertsonala}
+    \providecommand{\annexManual}{Erabiltzailearen Eskuliburua}
+    \providecommand{\annexInstall}{Instalazio Gida}
+    \providecommand{\annexDocs}{Dokumentazio Gehigarria}
+    % --- Help texts ---
+    \providecommand{\abstractHelpText}{Laburpenak proiektuaren muina azaldu behar du: lantzen den arazoa, proposatutako konponbidea eta lortutako emaitzak. Gomendagarria da 200 eta 300 hitz arteko luzera izatea, aipamen bibliografikorik eta formula konplexurik gabe.}
+    \providecommand{\keywordsLabel}{Gako-hitzak:}
+    \providecommand{\keywordsHelpText}{hitza, hitza, hitza.}
+    \providecommand{\abstractHelpTextEnglish}{The abstract should explain the core of the project: the problem addressed, the proposed solution, and the results obtained. It is recommended to have a length between 200 and 300 words, without bibliographic citations or complex formulas.}
+    \providecommand{\keywordsLabelEnglish}{Keywords:}
+    \providecommand{\keywordsHelpTextEnglish}{word, word, word.}    
+    \providecommand{\ackHelpText}{Atal honetan proiektua egiten lagundu dizuten pertsonei eskerrak eman diezazkiekezu: tutoreei, senideei, lagunei edo erakundeei. Gomendagarria da modu formal baina hurbilean idaztea.}
+    \providecommand{\acronymsHelpText}{Gehitu hemen erabiliko dituzun akronimoak (adib: SIEM, API, HTTP). Irakurleak termino tekniko luzeekin galdu ez dadin balio dute. Akronimo bat lehen aldiz erabiltzean, izen osoa idatzi behar da eta akronimoa parentesi artean, adibidez: Gradu Amaierako Lana (GRAL). Handik aurrera, erabili beti GRAL.}
+    \providecommand{\glossaryHelpText}{Definitu kontzeptu konplexuak edo plataforma espezifikoak (adib: Docker, Machine Learning) proiektua ulertzeko azalpen zehatza behar dutenak.}
+    \providecommand{\introHelpText}{GOMENDATUTAKO EGITURA (orrialde 1): Sarrerak proiektua aurkeztu behar du: Testuingurua (non kokatzen den), Motibazioa (zergatik den garrantzitsua), Helburuak (zer lortuko den) eta Dokumentuaren antolaketa.}        
+    \providecommand{\contextHelpText}{TESTUINGURUA ETA JUSTIFIKAZIOA (2-3 orrialde): Deskribatu proiektua sortzen den ingurunea. Zein arazo dago? Zergatik da beharrezkoa orain konpontzea? Justifikatu zure proposamenaren balioa.}    
+    \providecommand{\stateArtHelpText}{ARTEAREN EGOERA (4-7 orrialde): Aztertu gaur egun dauden irtenbideak. Alderatu antzeko teknologiak, tresnak edo metodologiak. \textbf{Atal honetan bibliografia-aipu gehienak bildu behar dira}, funtsezkoa baita zure ekarpena teknikoki oinarritzea beste batzuek aurretik egindakoan oinarrituta. Erabili aipamenak zure adierazpenei sinesgarritasuna emateko. Edozein datu tekniko edo baieztapenek bibliografia-erreferentzia bat izan behar du.}    
+    \providecommand{\objectivesHelpText}{HELBURUAK (1-2 orrialde): Definitu Helburu Nagusi bakarra ("zer") eta zenbait Helburu Espezifiko (lortzeko urrats teknikoak). Erabili aditz infinitiboak (Diseinatu, Ebaluatu, Inplementatu). Helburuak Ondorioetan azaldu behar dira. 3 helburu jartzen badituzu, ondorioek 3 horiek nola bete diren azaldu behar dute.}    
+    \providecommand{\orgHelpText}{DOKUMENTUAREN ANTOLAKETA (orrialde 1): Laburbildu hurrengo kapitulu bakoitzaren edukia irakurlea gidatzeko.}
+    \providecommand{\methodHelpText}{METODOLOGIA (1-2 orrialde): Atal honetan epaimahaia konbentzitu beharko da lan egiteko moduaz. Metodologia Agila (Scrum/Kanban) edo Tradizionala (Ur-jauzia) erabiliko den zehaztu behar da, aukeraketa justifikatuz. Derrigorrezkoa da kudeaketa-tresnak (Git, Trello, etab.) zehaztea antolakuntza profesionala erakusteko.}    
+    \providecommand{\planningHelpText}{PLANGINTZA (2-3 orrialde): Atal honetan denbora-estrategia definitu beharko da. Ez da zerrenda kronologiko batera mugatu behar; faseen arteko harremanak eta bakoitzean betetzen diren mugarri edo helburuak azaldu behar dira, ezustekoen aurrean egutegia betetzea nola bermatuko den zehaztuz.}    
+    \providecommand{\wbsHelpText}{ATAZEN DESKONPOSIZIOA / WBS (2-3 orrialde): Atal honetan lana ataza kudeagarrietan deskonposatu beharko da. Oso gomendagarria da WBSaren diagrama bisual bat gehitzea. Atazek granulartasun maila egokia dutela ziurtatu behar da: ataza bat zabalegia bada, banatu egin beharko da; garrantzirik gabekoa bada, taldetu egin beharko da.}
+    \providecommand{\ganttHelpText}{GANTT DIAGRAMA (1-2 orrialde): Atal honetan kronograma aurkeztu beharko da, Atazen Deskonposizioaren ispilu bisual zehatza izan behar duena. Atazen arteko mendekotasunak (adibidez: diseinua konfigurazioaren aurretik) esplizituki definitu behar dira lotura-gezien bidez, ingeniaritza-logika frogatzeko.}    
+    \providecommand{\risksHelpText}{ARRISKUAREN KUDEAKETA (2-3 orrialde): Atal honetan arriskuen (teknikoak, giza baliabideenak edo denborazkoak) azterketa zintzo eta errealista egin beharko da. Arrisku bakoitzaren probabilitatea eta inpaktua baloratzen dituen taula bat sartu behar da, eta derrigorrezkoa da bakoitzarentzako arintze-plana edo "B Plana" deskribatzea.}
+    \providecommand{\conceptsHelpText}{KONTZEPTU TEORIKOAK (4-6 orrialde): Atal honetan proiektuaren oinarri teknikoak deskribatu beharko dira. Hiru zutabetan egituratzea gomendatzen da: 1) Sistemaren Arkitektura (monolitikoa vs mikrozerbitzuak, geruzak edo bezero-zerbitzaria), 2) Oinarrizko Teknologiak (Datu-baseak, sare-protokoloak edo funtsezko algoritmoak) eta 3) Garapen Paradigmaku (Programazio funtzionala, erreaktiboa edo diseinu bidezko segurtasuna). Eskema propioak sartu beharko dira eta jatorrizko iturriak aipatu.}
+    \providecommand{\toolsHelpText}{TRESNAK ETA SOFTWAREA (3-5 orrialde): Atal honetan hautatutako tresnak eta software-ekosistema deskribatu beharko dira. Osagai bakoitzaren aukeraketa justifikatu behar da, erabilitako bertsio zehatzak zehaztuz eta azken irtenbidean duten rola azalduz.}    
+    \providecommand{\langHelpText}{LENGOAIA ETA INGURUNEAK (1-2 orrialde): Atal honetan erabilitako programazio-hizkuntzak eta exekuzio-inguruneak deskribatu beharko dira. Hizkuntza bakoitzaren aukeraketa justifikatu behar da, liburutegi nagusiak aipatuz eta garapen-inguruneak proiektuaren errendimendua eta egonkortasuna nola bermatzen duen zehaztuz.}
+
+    \providecommand{\reqHelpText}{ESKAKIZUNEN ANALISIA (2-4 orrialde): Atal honetan sistemaren beharrak definitu beharko dira. Derrigorrezkoa da Eskakizun Funtzionalak eta Ez-Funtzionalak zerrendatzea. Erabilpen Kasuen diagramak sartzea gomendatzen da erabiltzailearen interakzioa modelatzeko; Canva-ko (\url{https://www.canva.com/online-whiteboard/use-case-diagram/}) txantiloi profesionalak erabil ditzakezu diseinua errazteko.}
+    \providecommand{\archDesignHelpText}{DISEINUA ETA ARKITEKTURA (4-6 orrialde): Atal honetan irtenbide teknikoa zehaztu beharko da. Honako hauek sartu behar dira: 1) Arkitektura-diagrama, 2) Datuen diseinua (E-R eredua edo NoSQL eskema) eta 3) Interfazearen diseinua (Mockup-ak, etab.).}    
+    \providecommand{\implHelpText}{INPLEMENTAZIOA ETA INTEGRAZIOA (8-12 orrialde): Atal honetan benetako eraikuntza-prozesua deskribatu beharko da. Hartutako erabaki teknikoak azaldu behar dira, kode-zati esanguratsuak erakutsi eta modulu desberdinak sistema osoa osatzeko nola integratu diren zehaztu.}
+
+    \providecommand{\obtainedHelpText}{EMAITZAK (3-5 orrialde): Atal honetan proiektuaren amaierako emaitzak aurkezten dira, inplementatutako funtzionaltasunak hasierako helburuekin alderatuz eta plataformaren amaierako egoera erakutsiz.}
+    \providecommand{\testsHelpText}{EGIAZTAPEN-TESTAK (3-5 orrialde): Sistemaren sendotasuna, segurtasuna eta funtzionaltasuna bermatzeko burututako proba-metodologiak eta planak (unitarioak, integraziokoak eta erabiltzaile-probak) xehetasunez azaltzen dira.}
+    \providecommand{\performanceHelpText}{ERRENDIMENDUAREN ANALISIA (2-3 orrialde): Sistemaren eraginkortasuna aztertzen da kargapean, erantzun-denborak eta datu-baseko indize bidezko optimizazioaren eragin teknikoa ebaluatuz.}
+     
+
+    \providecommand{\resCostsHelpText}{BALIABIDEEN KOSTUA (1-2 orrialde): Hardware, software eta hodei kostuak xehatzen dira. Hardwarerako 4 urteko amortizazio lineala aplikatzen da. Laguntza: PC batek 1.200€ balio badu, urteko amortizazioa 300€ da; Gradu Amaierako Lanak 6 hilabete irauten badu, egotzitako kostua 150€ da.}
+    \providecommand{\persCostsHelpText}{PERTSONAL-KOSTUAK (orrialde 1): Pertsonal-kostua kalkulatzen da, kronogramako (Gantt) orduak garatzaile Junior baten orduko prezio estandarrekin biderkatuz.}    
+    
+    \providecommand{\roiHelpText}{BIDERAGARRITASUNA ETA ROI (2 orrialde): Proiektuaren errentagarritasun ekonomikoa eta epe luzerako bideragarritasuna aztertzen dira. Horretarako, ROIa kalkulatzen da kostu osoa eta urteko aurrezpena alderatuz: \\
+        $ROI = \frac{(\text{Urteko Aurrezpena} - \text{Inbertsio Osoa})}{\text{Inbertsio Osoa}} \times 100$. \\
+        ROIa Inbertsio Osoa (6.1 eta 6.2-ren batura) eta Urteko Aurrezpena alderatuz kalkulatzen da. \\
+        Urteko aurrezpena softwareari esker aurreztutako lan-orduak eta erabiltzen duen langileen orduko kostua biderkatuz kalkulatzen da. \\
+        Urteko aurrezpena > inbertsioa bada, proiektua errentagarria da.\\
+        Itzultze-aldia (\textit{payback}) aurrezpenak hasierako inbertsioarekin berdintzeko behar den denbora da, honela kalkulatuz: \\
+        $\text{Payback (hilabeteak)} = \frac{\text{Inbertsio Osoa}}{\text{Hileko Aurrezpena (€)}}$.}
+    
+    \providecommand{\discHelpText}{EZTABAIDA (2-3 orrialde): Lortutako emaitzak hasierako itxaropenekin alderatzen dira. Aurkitutako zailtasun teknikoak, hartutako erabakiak eta horiek azken produktuan nola eragin duten aztertzen da.}    
+    \providecommand{\conclHelpText}{ONDORIOAK (1-2 orrialde): Hasieran ezarritako helburuak lortu diren egiaztatzen duen amaierako laburpena. Garatutako sistemaren balioa nabarmentzen den itxiera teknikoa da.}       
+    \providecommand{\futureHelpText}{ETORKIZUNEKO ILDOAK (1-2 orrialde): Denbora faltagatik inplementatu ez diren edo garapenean zehar sortu diren hobekuntza-proposamenak edo funtzionalitate berriak. Proiektuaren eskalagarritasuna erakusten du.}       
+    \providecommand{\persValHelpText}{BALORAZIO PERTSONALA (orrialde 1): Egindako ikaskuntzari, lortutako gaitasunei eta egindako lanarekiko gogobetetzeari buruzko hausnarketa. Dokumentuaren atalik subjektiboena da.}    
+    
+    \providecommand{\annexHelpText}{Eranskinak sartzea ez da derrigorrezkoa. Memoriaren gorputz nagusiaren irakurketa zailduko lukeen material osagarria dagoenean soilik dago justifikatuta (adibidez, erabiltzailearen eskuliburua, instalazio-gida, kode garrantzitsuaren zatiak edo datu-hiztegia). Jarraian agertzen diren eranskinak azalpen eta adibide gisa soilik eskaintzen dira, beraz, lan bakoitzaren beharren arabera ezabatu, berrizendatu edo ordezkatu daitezke. Eranskinik sartzen ez bada, \texttt{main.tex} fitxategiko \texttt{appendices} blokea osorik ezabatu beharko da.}
+
+    \providecommand{\bibHelpText}{%
+        \textbf{ARGIBIDEA:} Atal honetan testuan aipatutako iturri guztiak agertu behar dira, \textbf{IEEE estilo numerikoan}. Erreferentziak \texttt{bibliography/bibliography.bib} fitxategian gordetzen dira, eta testuan \texttt{\textbackslash cite\{gakoa\}} bidez aipatzen dira. Zerrenda Biber bidez sortzen da automatikoki, aipatutako erreferentziak soilik jasotzen ditu eta lehen aipuaren ordenan zenbakitzen ditu. \\
+        \textbf{Adibidea:} \textit{Literatura-berrikuspenek metodologia sistematiko bat jarraitu behar dute \cite{Torraco2005}.} \\
+        \textbf{OHARRA:} Behin ulertuta, \texttt{main.tex} fitxategian laguntza-oharra kendu eta lerro hau bakarrik utzi: \\
+        \texttt{\textbackslash printbibliography[heading=bibintoc]}}
+    % --- User guide (chapter 0_template) ---
+    \providecommand{\guideTitle}{Erabilera Gida}
+    \providecommand{\guideCredits}{Kredituak}
+    \providecommand{\guideCreditsText}{Txantiloi hau proiektu hauetan oinarritutako egokitzapena da.}
+    \providecommand{\guideConfig}{Konfigurazioa eta Hizkuntza}
+    \providecommand{\guideHelpSystem}{Txantiloiaren konfigurazioa}
+    \providecommand{\guideFigures}{Irudiak eta Taulak}
+    \providecommand{\guideExamples}{Adibideen biltegia}
+    \providecommand{\guideSearch}{Nola bilatu gehiago}
+    \providecommand{\guideSelected}{Hautatutako adibideak}
+    \providecommand{\helpStyle}{Erabili forma inpertsonalak. Saihestu ``nik'' edo ``guk''. ``Egin dut'' erabili beharrean, ``garatu da'' edo ``erakusten da'' erabili.}
+    \providecommand{\helpFigures}{Irudi bakoitza testuan aipatu behar da agertu BAINO LEHEN, adibidez ``\ref{fig:template_example}. irudian ikusten denez''. Izenburu deskribatzailea jarri beti.}
+    \providecommand{\helpCredits}{Txantiloi hau proiektu hauetan oinarritutako egokitzapena da.}
+    \providecommand{\helpRepo}{Biltegi honek UPV/EHUko Gradu Amaierako Lanen (GRAL) adibide errealak eskuratzeko bidea ematen du.}
+    \providecommand{\helpSearch}{Nola bilatu gehiago}
+    \providecommand{\helpSelected}{Hautatutako adibideak}
+    \providecommand{\helpAddiSearch}{Dokumentu guztiak ADDIn (UPV/EHUko Artxibo Digitala) daude. UPV/EHUko GRALen adibide errealak aurki ditzakezu bertan.}
+    \providecommand{\helpAddiInfo}{Dokumentu guztiak ADDIn (UPV/EHUko Artxibo Digitala) daude. Hemen arakatu dezakezu \url{https://addi.ehu.es}.}
+    \providecommand{\helpAddiFilters}{Gasteizko ingeniaritzako lanak aurkitzeko, erabili iragazki hauek.}
+    \providecommand{\helpSelectedText}{Hona hemen adibide batzuetarako esteka zuzenak.}
+    
+
+    % --- User guide: Visual Studio Code and template use (0_template.tex) ---
+    \providecommand{\phAuthorName}{Izen Abizenak}
+    \providecommand{\phTitleName}{Gradu Amaierako Lanaren izenburua}
+    \providecommand{\phDirector}{Zuzendariaren izen-abizenak}
+    \providecommand{\phPlace}{Lekua}
+    \providecommand{\gdVsTitle}{Lan-ingurunea. Visual Studio Code}
+    \providecommand{\gdVsIntro}{Memoria \LaTeX{} bidez idazteko, lineako plataformak zein ingurune lokala erabil daitezke. Atal honetan \textit{Visual Studio Code} (aurrerantzean, VS Code) editorean oinarritutako ingurune lokala prestatzeko gomendatutako prozedura deskribatzen da. Kode irekiko editore doakoa eta plataforma anitzekoa da, eta hedapen egokiekin osatuta \LaTeX{} edizio-ingurune osoa bihurtzen da. Gainera, konexiorik gabe lan egiteko, dokumentuaren bertsioak Git bidez kontrolatzeko eta memoriarako zein proiektuaren iturburu-koderako tresna bera erabiltzeko aukera ematen du.}
+    \providecommand{\gdReqTitle}{Aurrebaldintzak. \LaTeX{} banaketa}
+    \providecommand{\gdReqIntro}{VS Code editore gisa soilik aritzen da. Dokumentuaren konpilazioa sisteman instalatutako \LaTeX{} banaketa batek egiten du, eta banaketa hori editorea erabili aurretik instalatuta egon behar da. Sistema eragile bakoitzerako banaketa hauek gomendatzen dira.}
+    \providecommand{\gdReqWindows}{\textbf{Windows.} TeX Live (\url{https://tug.org/texlive/}), instalazio osoan.}
+    \providecommand{\gdReqLinux}{\textbf{Linux.} TeX Live, ahal dela banaketaren pakete-kudeatzailetik. Debian eta Ubuntun banaketa osoa \texttt{texlive-full} paketearen bidez instala daiteke edo, aukera arinago gisa, txantiloiak behar dituen paketeak soilik instala daitezke, \ref{lst:linux_packages}.~zerrendan ageri den bezala.}
+    \providecommand{\gdReqLinuxCaption}{Beharrezko paketeen instalazioa Debian eta Ubuntun.}
+    \providecommand{\gdReqLinuxNote}{Kontuan izan behar da banaketa horietan euskararako \LaTeX{} euskarria \texttt{texlive-lang-french} paketean dagoela, eta beraz ezinbestekoa dela memoria euskaraz konpilatzeko. Era berean, \texttt{biber} paketea beharrezkoa da bibliografia sortzeko.}
+    \providecommand{\gdReqMac}{\textbf{macOS.} MacTeX (\url{https://tug.org/mactex/}), TeX Liven oinarritua.}
+    \providecommand{\gdReqMiktex}{\textbf{Windowserako beste aukera bat.} MiKTeX (\url{https://miktex.org/}). Kontuan izan behar da MiKTeXek ez duela \texttt{latexmk} tresnak behar duen Perl interpretatzailea barne hartzen. Banaketa hau aukeratuz gero, Strawberry Perl (\url{https://strawberryperl.com/}) ere instalatu beharko da.}
+    \providecommand{\gdReqCheck}{Instalazioa amaitutakoan, ondo dabilela egiaztatzea gomendatzen da \ref{lst:check_installation}.~zerrendako aginduak terminal batean exekutatuta. Aginduak berdinak dira hiru sistema eragileetan, eta bakoitzak tresnaren bertsio-zenbakia itzuli beharko du. Terminala Windowsen \textit{PowerShell} edo \textit{Komando-gonbita} aplikazioarekin irekitzen da, macOSen \textit{Terminal} aplikazioarekin eta Linuxen banaketaren terminalarekin. VS Coden barruko terminala ere erabil daiteke, \textit{Terminal} $\rightarrow$ \textit{New Terminal} menuaren bidez. Agindu batek errore bat itzultzen badu, banaketa ez da behar bezala instalatu edo ordenagailua berrabiarazi behar da.}
+    \providecommand{\gdReqCheckCaption}{\LaTeX{} banaketaren instalazioaren egiaztapena.}
+    \providecommand{\gdInstallTitle}{Visual Studio Code deskargatu eta instalatzea}
+    \providecommand{\gdInstallIntro}{Instalatzaile ofiziala \url{https://code.visualstudio.com/} helbidean dago, eta webguneak sistema eragileari dagokion bertsioa eskaintzen du automatikoki. Instalazio-prozedura sistema eragilearen araberakoa da.}
+    \providecommand{\gdInstallWindows}{\textbf{Windows.} Instalatzailea exekutatu eta, prozesuan zehar, \textit{Add to PATH} eta \textit{Add ``Open with Code'' action} aukerak aktibatuta utzi, proiektu-karpetak irekitzea errazten baitute.}
+    \providecommand{\gdInstallMac}{\textbf{macOS.} Deskargatutako fitxategia deskonprimatu eta aplikazioa \textit{Aplikazioak} karpetara eraman.}
+    \providecommand{\gdInstallLinux}{\textbf{Linux.} Erabilitako banaketaren arabera \texttt{.deb} edo \texttt{.rpm} paketea instalatu, edo dagokion pakete-kudeatzailea erabili.}
+    \providecommand{\gdExtTitle}{Hedapenak instalatzea}
+    \providecommand{\gdExtIntro}{Hedapenak \textit{Extensions} ikuspegitik instalatzen dira. Ikuspegi hori ezkerreko alboko barratik edo \tecla{Ctrl}+\tecla{Shift}+\tecla{X} laster-teklarekin irekitzen da, eta hedapen bakoitza bere izenaz bilatu eta \textit{Install} sakatu behar da. \ref{tab:vscode_extensions}.~taulan gomendatutako hedapenak jasotzen dira.}
+    \providecommand{\gdExtHeadExt}{Hedapena}
+    \providecommand{\gdExtHeadType}{Izaera}
+    \providecommand{\gdExtHeadFunc}{Funtzioa}
+    \providecommand{\gdExtRequired}{Ezinbestekoa}
+    \providecommand{\gdExtRecommended}{Gomendatua}
+    \providecommand{\gdExtWorkshopDesc}{Konpilazioa, PDF ikustailea, kodearen eta PDFaren arteko sinkronizazioa (SyncTeX), osatze automatikoa eta erroreen detekzioa.}
+    \providecommand{\gdExtLtexDesc}{Testuaren ortografia- eta gramatika-zuzenketa LanguageTool bidez, \LaTeX{} sintaxiarekin bateragarria.}
+    \providecommand{\gdExtCaption}{Memoria idazteko gomendatutako VS Code hedapenak.}
+    \providecommand{\gdOpenTitle}{Proiektua irekitzea}
+    \providecommand{\gdOpenText}{Txantiloia deskonprimatu ondoren, proiektuaren \textbf{karpeta osoa} ireki behar da \textit{File} $\rightarrow$ \textit{Open Folder} menuaren bidez, eta ez \texttt{.tex} fitxategiak banaka. Horrela, editoreak txantiloiaren konfigurazioa kargatzen du, eta kapituluen, irudien, letra-tipoen eta bibliografiaren bideak behar bezala ebazten dira.}
+    \providecommand{\gdOpenMain}{Dokumentua \textbf{beti \texttt{main.tex} fitxategitik konpilatu behar da}. Fitxategi horrek kapitulu guztiak biltzen ditu, eta, beraz, nahikoa da \texttt{main.tex} editorean irekita izatea konpilatu aurretik, nahiz eta aldaketak beste fitxategi batean egin.}
+    \providecommand{\gdCompilerTitle}{Konpiladorea. XeLaTeX}
+    \providecommand{\gdCompilerText}{Txantiloi honek \texttt{fontspec} paketea eta \texttt{fonts/} karpetan dauden UPV/EHUren letra-tipo korporatiboak erabiltzen ditu, eta, horregatik, \textbf{XeLaTeX bidez konpilatu behar da}. \texttt{pdflatex} bidez konpilatzeak erroreak eragiten ditu. Txantiloiak \texttt{.vscode} karpeta dakar, eta karpeta horretako \texttt{settings.json} fitxategiak LaTeX Workshop konfiguratzen du XeLaTeX eta Biber automatikoki erabil ditzan. Ez da ezer aldatu behar, baina karpeta ez da ezabatu behar. Karpeta ezkutuan egon daiteke macOSen eta Linuxen, izena puntu batekin hasten baita.}
+    \providecommand{\gdCompilerCheck}{XeLaTeX erabiltzen dela egiaztatzeko, konpilatu ondoren \textit{Output} panela ireki (\textit{View} $\rightarrow$ \textit{Output}) eta \textit{LaTeX Compiler} kanala hautatu. Bertan \texttt{latexmk -xelatex} agertu behar da. Overleaf erabiliz gero, konpiladorea \textit{Menu} $\rightarrow$ \textit{Compiler} $\rightarrow$ \textit{XeLaTeX} aukeran hautatzen da.}
+    \providecommand{\gdBuildTitle}{Dokumentua konpilatzea eta bistaratzea}
+    \providecommand{\gdBuildText}{LaTeX Workshopek dokumentua automatikoki konpilatzen du aldatutako fitxategi bat gordetzen den bakoitzean (\tecla{Ctrl}+\tecla{S}). Gainera, ekintza nagusiek \ref{tab:vscode_shortcuts}.~taulako laster-teklak dituzte. macOSen, \tecla{Ctrl} teklaren ordez \tecla{Cmd} erabiltzen da, eta \tecla{Alt} teklaren ordez \tecla{Option}.}
+    \providecommand{\gdKeysHeadShortcut}{Laster-tekla}
+    \providecommand{\gdKeysHeadAction}{Ekintza}
+    \providecommand{\gdKeyBuild}{Dokumentua konpilatu (\textit{Build}).}
+    \providecommand{\gdKeyView}{Sortutako PDFa editorearen fitxa batean ireki (\textit{View}).}
+    \providecommand{\gdKeySync}{Kurtsoreak kodean duen posizioari dagokion puntua PDFan aurkitu.}
+    \providecommand{\gdClickPdf}{klik PDFan}
+    \providecommand{\gdKeySyncBack}{PDFko zati hautatua sortzen duen kode-lerroan kokatu kurtsorea.}
+    \providecommand{\gdKeyPalette}{Komando-paleta ireki. LaTeX Workshopen agindu guztiak ``LaTeX Workshop'' idatzita aurkitzen dira.}
+    \providecommand{\gdKeysCaption}{LaTeX Workshopen laster-tekla nagusiak.}
+    \providecommand{\gdBuildSideBySide}{Kodea eta PDFa elkarren ondoan jartzea gomendatzen da, PDFaren fitxa leihoaren eskuineko aldera arrastatuta. Horrela, aldaketa bakoitzaren emaitza berehala egiazta daiteke.}
+    \providecommand{\gdBuildWarning}{\textbf{Ohiko errorea.} Ez da \tecla{Ctrl}+\tecla{Alt}+\tecla{B} eta \tecla{Ctrl}+\tecla{Shift}+\tecla{B} nahastu behar. Azken konbinazio hori VS Codearena da eta programazio-proiektuen \textit{konpilazio-atazak} exekutatzen ditu, eta ez du \LaTeX{} dokumentua konpilatzen. Akatsez sakatzen bada, goialdean \textit{Select the build task to run} testua duen menu bat agertzen da, eta \textit{CMake: build} bezalako aukerak eskain ditzake. Kasu horretan, nahikoa da \tecla{Esc} sakatzea ixteko. Era berean, LaTeX Workshopen laster-teklek kurtsorea \texttt{.tex} fitxategi baten testuaren barruan dagoenean soilik funtzionatzen dute, eta beraz komeni da editorean klik egitea erabili aurretik.}
+    \providecommand{\gdErrorsTitle}{Erroreen eta fitxategi laguntzaileen kudeaketa}
+    \providecommand{\gdErrorsText}{Konpilazio-erroreak eta -abisuak \textit{Problems} panelean erakusten dira (\tecla{Ctrl}+\tecla{Shift}+\tecla{M}), eta sarrera bakoitzak jatorriko kode-lerrora darama. Konpilazioaren erregistro osoa \textit{Output} panelean kontsulta daiteke, \textit{LaTeX Compiler} kanala hautatuta. Erroreak agertzen diren ordenan zuzentzea gomendatzen da, errore bakar batek ondorengo beste batzuk eragin ditzakeelako.}
+    \providecommand{\gdErrorsAux}{Konpilazioan zehar hainbat fitxategi laguntzaile sortzen dira, hala nola \texttt{.aux}, \texttt{.log}, \texttt{.toc} edo \texttt{.bbl}. Aldaketa baten ondoren dokumentuak erreferentzia edo aurkibide koherentziarik gabekoak baditu, fitxategi horiek ezabatzea gomendatzen da komando-paletako \textit{LaTeX Workshop: Clean up auxiliary files} aginduarekin, eta dokumentua berriro konpilatzea.}
+    \providecommand{\gdTroubleTitle}{Ohiko arazoak}
+    \providecommand{\gdTroubleIntro}{\ref{tab:vscode_troubleshooting}.~taulan txantiloia erabiltzen hastean maizen agertzen diren arazoak jasotzen dira, haien kausarekin eta gomendatutako konponbidearekin batera.}
+    \providecommand{\gdTrHeadSymptom}{Sintoma}
+    \providecommand{\gdTrHeadCause}{Kausa}
+    \providecommand{\gdTrHeadSolution}{Konponbidea}
+    \providecommand{\gdTrTaskS}{\textit{Select the build task to run} menua agertzen da.}
+    \providecommand{\gdTrTaskC}{\tecla{Ctrl}+\tecla{Shift}+\tecla{B} sakatu da, VS Codearen laster-tekla orokorra.}
+    \providecommand{\gdTrTaskF}{\tecla{Esc} sakatu eta \tecla{Ctrl}+\tecla{Alt}+\tecla{B} bidez konpilatu.}
+    \providecommand{\gdTrNoBuildS}{\tecla{Ctrl}+\tecla{Alt}+\tecla{B} sakatuta ez da konpilatzen.}
+    \providecommand{\gdTrNoBuildC}{Kurtsorea ez dago editorean, edo LaTeX Workshop ez dago instalatuta.}
+    \providecommand{\gdTrNoBuildF}{\texttt{main.tex} fitxategian klik egin eta hedapena instalatuta dagoela egiaztatu.}
+    \providecommand{\gdTrFontS}{\texttt{fontspec} erroreak, edo dokumentuak XeLaTeX behar duela dioten mezuak.}
+    \providecommand{\gdTrFontC}{Dokumentua \texttt{pdflatex} bidez konpilatzen ari da.}
+    \providecommand{\gdTrFontF}{\texttt{.vscode} karpeta proiektuaren erroan dagoela egiaztatu.}
+    \providecommand{\gdTrStyS}{\textit{File `xxx.sty' not found}.}
+    \providecommand{\gdTrStyC}{Instalatutako banaketan \LaTeX{} pakete bat falta da.}
+    \providecommand{\gdTrStyF}{Banaketa osoa edo adierazitako paketea instalatu.}
+    \providecommand{\gdTrBasqueS}{\textit{Unknown option `basque'} euskaraz konpilatzean (Linux).}
+    \providecommand{\gdTrBasqueC}{Euskararen euskarria falta da.}
+    \providecommand{\gdTrBasqueF}{\texttt{texlive-lang-french} paketea instalatu.}
+    \providecommand{\gdTrBiberS}{Bibliografia hutsik agertzen da edo aipuak lodiz eta gakoarekin agertzen dira.}
+    \providecommand{\gdTrBiberC}{Ez da \texttt{biber} exekutatu, edo ez dago instalatuta.}
+    \providecommand{\gdTrBiberF}{\texttt{biber} instalatu (Linuxen, \texttt{biber} paketea) eta berriro konpilatu.}
+    \providecommand{\gdTrPerlS}{\texttt{latexmk} tresnak huts egiten du Windowsen MiKTeXekin.}
+    \providecommand{\gdTrPerlC}{MiKTeXek ez du Perl barne hartzen.}
+    \providecommand{\gdTrPerlF}{Strawberry Perl instalatu eta VS Code berrabiarazi.}
+    \providecommand{\gdTrCaption}{Txantiloia konpilatzean ohikoak diren arazoak eta haien konponbidea.}
+    \providecommand{\gdBasicsTitle}{\LaTeX{}en lehen urratsak}
+    \providecommand{\gdBasicsIntro}{\LaTeX{} ez da testu-prozesadore bat. Testua aginduekin batera idazten da \texttt{.tex} fitxategietan, eta ondoren \textbf{konpilatu} egiten da PDFa lortzeko. PDFa ez da inoiz zuzenean editatzen, aldaketa guztiak kodean egiten dira eta berriro konpilatzen da. Maiz konpilatzea gomendatzen da, aldaketa gutxirekin, errore bat agertzen bada azken aldaketan egongo baita ia ziur.}
+    \providecommand{\gdSpecialTitle}{Karaktere bereziak}
+    \providecommand{\gdSpecialText}{Karaktere batzuek esanahi berezia dute \LaTeX{}en eta ezin dira zuzenean idatzi. Hau da hasiberrien errore ohikoena. Adibidez, ``\%50'' barrarik gabe idaztean lerroaren gainerakoa desagertu egiten da, eta \texttt{\_} duen fitxategi-izen batek errore ulertezinak eragiten ditu. \ref{tab:special_characters}.~taulan nola idatzi behar diren adierazten da.}
+    \providecommand{\gdSpecialHeadChar}{Karakterea}
+    \providecommand{\gdSpecialHeadWrite}{Nola idatzi}
+    \providecommand{\gdSpecialHeadMeaning}{Esanahia \LaTeX{}en}
+    \providecommand{\gdSpecialPercent}{Iruzkina. Lerroaren gainerakoa ezkutatzen du.}
+    \providecommand{\gdSpecialAmp}{Taulen zutabe-bereizlea.}
+    \providecommand{\gdSpecialDollar}{Formula matematikoen hasiera eta amaiera.}
+    \providecommand{\gdSpecialHash}{Makroen parametroak.}
+    \providecommand{\gdSpecialUnderscore}{Azpiindizea formuletan. Testuan errorea eragiten du.}
+    \providecommand{\gdSpecialBraces}{Aginduen argumentuak eta taldeak.}
+    \providecommand{\gdSpecialTilde}{Lerro-jauzirik gabeko tartea.}
+    \providecommand{\gdSpecialCaret}{Goi-indizea formuletan.}
+    \providecommand{\gdSpecialBackslash}{Agindu guztien hasiera.}
+    \providecommand{\gdSpecialCaption}{\LaTeX{}en karaktere bereziak.}
+    \providecommand{\gdWritingTitle}{Oinarrizko idazketa}
+    \providecommand{\gdWritingText}{Paragrafo berri bat hasteko \textbf{lerro huts bat} utzi behar da, lerro-jauzi soil bat zuriune gisa hartzen baita. Ez da \texttt{\textbackslash\textbackslash} erabili behar paragrafoak bereizteko, ezta lerro hutsak gehitu ere tarte handiagoak lortzeko, diseinua txantiloiak kudeatzen baitu. \ref{lst:basic_commands}.~zerrendan agindu erabilienak jasotzen dira. Komatxoetarako \texttt{\textbackslash enquote\{\dots\}} erabiltzea gomendatzen da, dokumentuaren hizkuntzari dagozkion komatxoak automatikoki jartzen baititu.}
+    \providecommand{\gdWritingCaption}{Gehien erabiltzen diren aginduak.}
+    \providecommand{\gdRefsTitle}{Erreferentzia gurutzatuak, irudiak eta taulak}
+    \providecommand{\gdRefsText}{Irudi, taula edo atal bat aipatzeko, \texttt{\textbackslash label\{\dots\}} bidez etiketatzen da eta testuan \texttt{\textbackslash ref\{\dots\}} bidez aipatzen da. Zenbakia automatikoki eguneratzen da. PDFan ``??'' agertzen bada, dokumentua berriro konpilatu behar da edo etiketa gaizki idatzita dago. Irudiak \texttt{template/figs/} karpetan edo norberak sortutako karpeta batean gorde behar dira, ahal dela PDF formatuan diagrametarako edo PNG edo JPG formatuan pantaila-argazkietarako, eta zabalera testuaren zabalerarekiko adierazi behar da (\texttt{width=0.8\textbackslash linewidth}). \ref{lst:figure_example}.~zerrendan irudi baten adibidea dago. Taulak sortzeko, \textit{Tables Generator} (\url{https://www.tablesgenerator.com/latex_tables}) bezalako tresnek kodea automatikoki sortzen dute.}
+    \providecommand{\gdFigureListingCaption}{Irudi bat txertatu eta testuan aipatzea.}
+    \providecommand{\gdChaptersTitle}{Kapitulu eta atal berriak gehitzea}
+    \providecommand{\gdChaptersText}{Dokumentua kapitulu bakoitzeko fitxategi batean banatuta dago, \texttt{chapters/} karpetan. Kapitulu berri bat gehitzeko, \texttt{\textbackslash chapter\{Izenburua\}} aginduarekin hasten den fitxategi bat sortzen da (adibidez, \texttt{chapters/08\_extra.tex}), eta \texttt{main.tex} fitxategian \texttt{\textbackslash include\{chapters/08\_extra\}} lerroa gehitzen da, nahi den lekuan. Kapitulu barruan, atalak \texttt{\textbackslash section\{\dots\}} eta \texttt{\textbackslash subsection\{\dots\}} bidez sortzen dira. Zenbakiak eta aurkibidea automatikoki eguneratzen dira.}
+    \providecommand{\gdBibEntriesTitle}{Erreferentziak \texttt{.bib} formatuan lortzea}
+    \providecommand{\gdBibEntriesText}{\texttt{bibliography/bibliography.bib} fitxategiko sarrerak ez dira eskuz idatzi behar. \textit{Google Scholar}en, lanaren azpiko \textit{Aipatu} estekan \textit{BibTeX} aukeratu daiteke. DOI bat izanez gero, \url{https://www.doi2bib.org} bezalako zerbitzuak erabil daitezke. Zotero edo Mendeley bezalako kudeatzaileek ere zuzenean esporta ditzakete. Sarrera bakoitzak gako bakarra du (adibidez, \texttt{Torraco2005}), eta gako hori da \texttt{\textbackslash cite\{\dots\}} aginduan erabiltzen dena. Komeni da sarrerak berrikustea, egileak, urtea eta argitalpena osatuta egon behar baitute, eta DOIa gehitzea eskuragarri dagoenean.}
+    \providecommand{\gdConfigIntro}{Fitxategi nagusia \texttt{main.tex} da. Hasteko, bertan agertzen diren aldagaiak konfiguratu behar dira.}
+    \providecommand{\gdConfigData}{\textbf{Datuak.} \texttt{\textbackslash authorName}, \texttt{\textbackslash titleName}, \texttt{\textbackslash director} eta \texttt{\textbackslash place}. Giltzen arteko testua norberaren datuekin ordeztu behar da.}
+    \providecommand{\gdConfigLang}{\textbf{Hizkuntza.} Hiru aukera hauetako bat bakarrik utzi behar da iruzkinik gabe. Kapituluen izenburuak, laguntza-testuak eta adibideak automatikoki itzuliko dira.}
+    \providecommand{\gdHelpIntro}{Kapitulu-fitxategi bat irekitzean (adibidez, \texttt{01\_introduction.tex}), \ref{lst:chapter_structure}.~zerrendakoa bezalako egitura bat aurkituko da.}
+    \providecommand{\gdHelpListingCaption}{Kapitulu baten egitura.}
+    \providecommand{\gdHelpSteps}{\texttt{chapters/} karpetako fitxategi bakoitzak laguntza-etiketa bat du (adibidez, \texttt{\textbackslash introHelpText}), atal bakoitza idazten laguntzeko. Memoria osatzeko urrats hauek jarraitu behar dira.}
+    \providecommand{\gdHelpStepOne}{\textbf{1. urratsa.} PDFko testu grisa irakurri. Atalaren helburua, gomendatutako luzera eta falta ez diren funtsezko puntuak adierazten ditu.}
+    \providecommand{\gdHelpStepTwo}{\textbf{2. urratsa.} Edukia etiketaren azpian idatzi.}
+    \providecommand{\gdHelpStepThree}{\textbf{3. urratsa.} Atala amaitutakoan, \textbf{etiketaren lerroa ezabatu} \texttt{.tex} kodean, laguntza-testua desager dadin. Era berean, adibide-edukia (taulak, irudiak, kodea) norberaren edukiarekin ordeztu edo ezabatu behar da.}
+    \providecommand{\gdCiteTitle}{Aipuak eta bibliografia}
+    \providecommand{\gdCiteText}{Bibliografia \texttt{biblatex} eta Biber bidez sortzen da, \textbf{IEEE estilo numerikoan}. Erreferentziak \texttt{bibliography/bibliography.bib} fitxategian gordetzen dira eta testuan \texttt{\textbackslash cite\{gakoa\}} aginduarekin aipatzen dira. Aipua kortxete arteko zenbaki gisa agertzen da, adibidez literatura-berrikuspen integratzaileek metodologia sistematiko bat jarraitu behar dute \cite{Torraco2005}. Hainbat erreferentzia batera aipa daitezke gakoak komaz bereizita, \cite{loures2024influence, Efron1994} adibidean bezala. Erreferentziak testuan lehen aldiz aipatzen diren ordenan zenbakitzen dira, eta bibliografian aipatutakoak soilik agertzen dira, formatu homogeneoarekin.}
+    \providecommand{\gdFigureCaption}{Irudi deskribatzaile baten adibidea.}
+    \providecommand{\gdChecklistTitle}{Entregatu aurreko egiaztapen-zerrenda}
+    \providecommand{\gdChecklistIntro}{Memoria entregatu aurretik, alderdi hauek egiaztatzea gomendatzen da.}
+    \providecommand{\gdCheckGuide}{Gida hau ezabatu da, \texttt{main.tex} fitxategitik \texttt{0\_template} fitxategia sartzen duen lerroa kenduta.}
+    \providecommand{\gdCheckData}{Azaleko datuak (egilea, izenburua, zuzendaria, lekua eta data) beteta daude \texttt{main.tex} fitxategian.}
+    \providecommand{\gdCheckHelp}{Ez da laguntza-testu grisik geratzen. Horretarako, \texttt{HelpText} bila daiteke \texttt{chapters/} karpetan.}
+    \providecommand{\gdCheckExamples}{Adibide-edukia (taulak, irudiak, glosarioa, akronimoak, eranskinak) ordeztu edo ezabatu da.}
+    \providecommand{\gdCheckAbstract}{Laburpena dokumentuaren hizkuntzan eta ingelesez dago, gako-hitzekin.}
+    \providecommand{\gdCheckRefs}{PDFan ez dago ``??'' edo [?] markarik, eta irudi eta taula guztiak testuan aipatzen dira.}
+    \providecommand{\gdCheckBib}{Bibliografiako sarrerak osatuta daude (egileak, urtea, argitalpena, DOIa).}
+    \providecommand{\gdCheckSpelling}{Ortografia eta gramatika berrikusi dira, eta estilo inpertsonala mantendu da.}
+    \providecommand{\gdCheckFinal}{Fitxategi laguntzaileak ezabatu, dokumentua hutsetik konpilatu eta azken PDFa osorik berrikusi da (aurkibideak, orrialde-zenbakiak, irudiak).}
+
+    % --- Example content of the chapters (tables, figures, glossary...) ---
+    \providecommand{\exHigh}{Altua}
+    \providecommand{\exMedium}{Ertaina}
+    \providecommand{\exLow}{Baxua}
+    \providecommand{\exCritical}{Kritikoa}
+    \providecommand{\exHighM}{Altua}
+    \providecommand{\exMediumM}{Ertaina}
+    \providecommand{\exLowM}{Baxua}
+    \providecommand{\exHeadID}{ID}
+    \providecommand{\exHeadName}{Izena}
+    \providecommand{\exHeadDescription}{Deskribapena}
+    \providecommand{\exHeadPriority}{Lehentasuna}
+    \providecommand{\exHeadStatus}{Egoera}
+    \providecommand{\exSpecObjPrefix}{HE}
+    \providecommand{\exSpecObjDefine}{Definitu}
+    \providecommand{\exGanttWeeks}{Proiektuaren asteak}
+    \providecommand{\exGanttPhaseOne}{1. fasea: Plangintza eta ikerketa}
+    \providecommand{\exGanttStateArt}{1.1 Artearen egoeraren berrikuspena}
+    \providecommand{\exGanttReq}{1.2 Baldintzen analisia}
+    \providecommand{\exGanttPhaseTwo}{2. fasea: Azpiegituraren diseinua}
+    \providecommand{\exGanttArch}{2.1 Arkitekturaren diseinua}
+    \providecommand{\exGanttComp}{2.2 Osagaien definizioa}
+    \providecommand{\exGanttPhaseThree}{3. fasea: Inplementazioa eta konfigurazioa}
+    \providecommand{\exGanttEnv}{3.1 Inguruneen konfigurazioa}
+    \providecommand{\exGanttDeploy}{3.2 Osagaien hedapena}
+    \providecommand{\exGanttIntegr}{3.3 Sistemen integrazioa}
+    \providecommand{\exGanttPhaseFour}{4. fasea: Probak eta balidazioa}
+    \providecommand{\exGanttTests}{4.1 Proben exekuzioa}
+    \providecommand{\exGanttTuning}{4.2 Doikuntzak eta optimizazioa}
+    \providecommand{\exGanttPhaseFive}{5. fasea: Memoriaren idazketa}
+    \providecommand{\exGanttWriting}{5.1 Idazketa progresiboa}
+    \providecommand{\exGanttReview}{5.2 Azken berrikuspena eta itxiera}
+    \providecommand{\exGanttMilestone}{Mugarria}
+    \providecommand{\exGanttDone}{betea}
+    \providecommand{\exGanttDelivery}{Azken entrega}
+    \providecommand{\exGanttCaption}{Proiektuaren Gantt diagrama, faseka eta helburuei lotutako mugarriekin antolatua.}
+    \providecommand{\exRiskHeadRisk}{Arriskua}
+    \providecommand{\exRiskHeadProb}{Probabilitatea}
+    \providecommand{\exRiskHeadImpact}{Inpaktua}
+    \providecommand{\exRiskHeadPlan}{Arintze-plana (B plana)}
+    \providecommand{\exRiskHardware}{Hardware-hutsegitea}
+    \providecommand{\exRiskHardwarePlan}{Aldizkako segurtasun-kopiak eta ingurune birtualizatuak erabiltzea.}
+    \providecommand{\exRiskLearning}{Tresnen ikaskuntza-kurba}
+    \providecommand{\exRiskLearningPlan}{Lehen bi asteak prestakuntza teknikora soilik bideratzea.}
+    \providecommand{\exRiskData}{Datuen entregan atzerapena}
+    \providecommand{\exRiskDataPlan}{Hasierako probetarako datu-multzo sintetikoak erabiltzea.}
+    \providecommand{\exRiskSchedule}{Plangintzarekiko desbideratzea}
+    \providecommand{\exRiskSchedulePlan}{Kronogramaren asteroko berrikuspena eta funtsezko baldintzen lehenespena.}
+    \providecommand{\exRiskCaption}{Arriskuen kudeaketa-matrizea, probabilitatearekin, inpaktuarekin eta arintze-planarekin.}
+    \providecommand{\exFRPrefix}{BF}
+    \providecommand{\exNFRPrefix}{BEF}
+    \providecommand{\exFRIntro}{\ref{tab:functional_requirements}.~taulan sistemak bete behar dituen funtzionaltasun nagusiak zehazten dira.}
+    \providecommand{\exFRUsers}{Erabiltzaileen kudeaketa}
+    \providecommand{\exFRUsersDesc}{Sistemak erregistroa, saio-hasiera eta rolen kudeaketa ahalbidetuko ditu.}
+    \providecommand{\exFRIngest}{Datuen jasotzea}
+    \providecommand{\exFRIngestDesc}{Sistemak JSON formatuko erregistroak HTTPS bidez jasotzeko gai izan behar du.}
+    \providecommand{\exFRAlerts}{Alerten sorrera}
+    \providecommand{\exFRAlertsDesc}{Jakinarazpen bat bidali behar da saio-hasierako 5 saiakera huts baino gehiago detektatzen badira.}
+    \providecommand{\exFRCaption}{Baldintza funtzionalen taula, lehentasun-mailekin.}
+    \providecommand{\exUseCaseIntro}{\ref{fig:use_case_diagram}.~irudiko diagramak erakusten du\dots}
+    \providecommand{\exUseCaseCaption}{Erabilera-kasuen diagrama.}
+    \providecommand{\exNFRIntro}{\ref{tab:nonfunctional_requirements}.~taulan sistemak ekoizpen-ingurune batean behar bezala funtziona dezan bete behar dituen kalitate-atributuak eta murriztapen teknikoak zehazten dira.}
+    \providecommand{\exHeadAttribute}{Atributua}
+    \providecommand{\exNFRSecurity}{Segurtasuna}
+    \providecommand{\exNFRSecurityDesc}{Sistemak pasahitzak datu-basean zifratu behar ditu, hashing algoritmo bat erabiliz.}
+    \providecommand{\exNFRPerformance}{Errendimendua}
+    \providecommand{\exNFRPerformanceDesc}{Aginte-panelaren erantzun-denborak ez du 3 segundo gainditu behar erregistroen kontsulta batean.}
+    \providecommand{\exNFRAvailability}{Erabilgarritasuna}
+    \providecommand{\exNFRAvailabilityDesc}{Sistemak lan-orduetan denboraren \%99,9an egon behar du martxan.}
+    \providecommand{\exNFRScalability}{Eskalagarritasuna}
+    \providecommand{\exNFRScalabilityDesc}{Arkitekturak jasotze-nodo berriak edukiontzien bidez hedatzea ahalbidetu behar du, zerbitzua eten gabe.}
+    \providecommand{\exNFRCaption}{Baldintza ez-funtzionalen taula.}
+    \providecommand{\exArchPresentation}{Aurkezpen-geruza}
+    \providecommand{\exArchBusiness}{Negozio-geruza}
+    \providecommand{\exArchBusinessSub}{API / Logika}
+    \providecommand{\exArchData}{Datu-geruza}
+    \providecommand{\exArchDataSub}{Datu-basea / Iraunkortasuna}
+    \providecommand{\exArchRequests}{HTTPS eskaerak (JSON/REST)}
+    \providecommand{\exArchQueries}{SQL kontsultak / Driverrak}
+    \providecommand{\exArchCaption}{Sistemaren arkitektura eta geruzen arteko komunikazioa.}
+    \providecommand{\exERUser}{ERABILTZAILEA}
+    \providecommand{\exERTicket}{TXARTELA}
+    \providecommand{\exEROwns}{Du}
+    \providecommand{\exERSubject}{gaia}
+    \providecommand{\exERCaption}{Entitate-Erlazio eredua.}
+    \providecommand{\exDictTitle}{Datu-hiztegia: Erabiltzaileak taula}
+    \providecommand{\exDictIntro}{\ref{tab:data_dictionary_users}.~taulan sistemarako sarbidea kudeatzeko biltegiratze-egitura deskribatzen da.}
+    \providecommand{\exHeadField}{Eremua}
+    \providecommand{\exHeadType}{Mota}
+    \providecommand{\exHeadKey}{Gakoa}
+    \providecommand{\exDictId}{Identifikatzaile bakarra, automatikoki gehitzen dena.}
+    \providecommand{\exDictEmail}{Helbide elektronikoa eta erabiltzaile-izena.}
+    \providecommand{\exDictPassword}{Pasahitzaren hasha.}
+    \providecommand{\exDictRole}{Erabiltzailearen rola (ADMIN, TEKNIKARIA, BEZEROA).}
+    \providecommand{\exDictCaption}{Erabiltzaileak taularen datu-hiztegia.}
+    \providecommand{\exUIHome}{Hasiera}
+    \providecommand{\exUITickets}{Txartelak}
+    \providecommand{\exUIUsers}{Erabiltzaileak}
+    \providecommand{\exUISettings}{Ezarpenak}
+    \providecommand{\exUITitle}{Laguntza-kudeaketa}
+    \providecommand{\exUIPending}{ZAIN}
+    \providecommand{\exUIResolved}{EBATZIAK}
+    \providecommand{\exUIReference}{ERREFERENTZIA}
+    \providecommand{\exUIUser}{ERABILTZAILEA}
+    \providecommand{\exUIPriority}{LEHENTASUNA}
+    \providecommand{\exUISync}{Datu-basearekin sinkronizatzen\dots}
+    \providecommand{\exUICaption}{Aplikazioaren pantaila nagusiaren wireframea.}
+    \providecommand{\exAlgorithmCaption}{Algoritmo baten adibidea}
+    \providecommand{\exComplianceHeadObj}{Helburu espezifikoa (HE)}
+    \providecommand{\exComplianceHeadDegree}{Betetze-maila}
+    \providecommand{\exCompleted}{Amaitua}
+    \providecommand{\exFunctional}{Funtzionala}
+    \providecommand{\exComplianceCaption}{Helburu espezifikoen eta azken emaitzen arteko erlazioa.}
+    \providecommand{\exTestPrefix}{PR}
+    \providecommand{\exTestHeadExpected}{Espero den emaitza}
+    \providecommand{\exTestNull}{Kredentzial hutsekin sartzea.}
+    \providecommand{\exTestNullExp}{Balidazio-errorearen mezua.}
+    \providecommand{\exTestSQL}{SQL injekzioa formularioan.}
+    \providecommand{\exTestSQLExp}{Sistemak karaktereak ihes-sekuentziatzen ditu eta sarbidea ukatzen du.}
+    \providecommand{\exTestAPI}{Txartel baten erregistroa REST API bidez.}
+    \providecommand{\exTestAPIExp}{201 kodea eta JSON datuen iraunkortasuna.}
+    \providecommand{\exTestCaption}{Egiaztapen funtzionaleko proben balidazioa.}
+    \providecommand{\exPerfHeadQuery}{Kontsulta-eragiketa}
+    \providecommand{\exPerfHeadGain}{Lortutako hobekuntza}
+    \providecommand{\exPerfPK}{Bilaketa gako nagusiaren bidez (ID).}
+    \providecommand{\exPerfPKGain}{Latentzia <10\,ms-ra murriztua.}
+    \providecommand{\exPerfDates}{Data-tarteen araberako iragazketa.}
+    \providecommand{\exPerfDatesGain}{Errendimendua \%90 hobetu da.}
+    \providecommand{\exPerfAgg}{Taldekatutako zenbaketa (agregazioa).}
+    \providecommand{\exPerfAggGain}{1,2\,s-tik 0,3\,s-ra murriztua.}
+    \providecommand{\exPerfCaption}{Errendimendu- eta optimizazio-proben emaitzak.}
+    \providecommand{\exSQLCaption}{Asteko txartel-txostenerako kontsulta optimizatua.}
+    \providecommand{\exResHeadConcept}{Kontzeptua / Baliabidea}
+    \providecommand{\exResHeadTotal}{Kostu osoa}
+    \providecommand{\exResHeadAmort}{Amortizatua*}
+    \providecommand{\exResLaptop}{Garapen-ekipoa (Laptop i7, 32\,GB RAM)}
+    \providecommand{\exResCloud}{Hodeiko azpiegitura (AWS/Azure, 6 hilabete)}
+    \providecommand{\exResLicences}{Software-lizentziak (IDE, domeinuak)}
+    \providecommand{\exResTotal}{Baliabideak guztira}
+    \providecommand{\exResCaptionShort}{Baliabide materialen kostuen banakapena.}
+    \providecommand{\exResCaption}{Baliabide materialen kostuen banakapena. *Amortizazioa GRALaren iraupenerako kalkulatua.}
+    \providecommand{\exPersHeadProfile}{Profila}
+    \providecommand{\exPersHeadTask}{Fasea / Ataza}
+    \providecommand{\exPersHeadHours}{Orduak}
+    \providecommand{\exPersHeadRate}{€/ordu}
+    \providecommand{\exPersHeadSubtotal}{Azpitotala}
+    \providecommand{\exPersAnalyst}{Analista}
+    \providecommand{\exPersAnalystTask}{Baldintzen ingeniaritza eta diseinua}
+    \providecommand{\exPersDeveloper}{Garatzailea}
+    \providecommand{\exPersDeveloperTask}{Inplementazioa eta kodeketa}
+    \providecommand{\exPersTester}{Probatzailea (QA)}
+    \providecommand{\exPersTesterTask}{Probak eta kalitate-kontrola}
+    \providecommand{\exPersTotal}{Pertsonal-kostua guztira}
+    \providecommand{\exPersCaption}{Pertsonal-kostuen estimazioa.}
+    \providecommand{\exROIHeadTask}{Ataza automatizatua}
+    \providecommand{\exROIHeadFreq}{Maiztasuna hilean}
+    \providecommand{\exROIHeadManual}{Eskuzko denbora}
+    \providecommand{\exROIHeadSoftware}{Denbora softwarearekin}
+    \providecommand{\exROIHeadSaving}{Hileko aurrezpena}
+    \providecommand{\exROIIncidents}{Gorabeheren kudeaketa}
+    \providecommand{\exROIReports}{Txostenen sorrera}
+    \providecommand{\exROINotifications}{Jakinarazpenen bidalketa}
+    \providecommand{\exTimes}{aldiz}
+    \providecommand{\exROITotal}{Hileko aurrezpena guztira}
+    \providecommand{\exROICaption}{Sistemak automatizatzen edo arintzen dituen atazen denbora- eta eraginkortasun-azterketa.}
+    \providecommand{\exROIIntro}{\ref{tab:time_efficiency}.~taulako datuetatik abiatuta, eta sistema erabiltzen duten langileen kostua 22,00~€/ordu dela kontuan hartuta, balio hauek lortzen dira:}
+    \providecommand{\exROIHoursYear}{Urteko ordu-aurrezpena}
+    \providecommand{\exROIMoneyYear}{Urteko aurrezpen ekonomikoa}
+    \providecommand{\exROIMoneyMonth}{Hileko aurrezpen ekonomikoa}
+    \providecommand{\exROIInvestment}{Inbertsio osoa}
+    \providecommand{\exROIInvestmentNote}{6.1 eta 6.2 atalen batura}
+    \providecommand{\exHPerMonth}{h/hilabete}
+    \providecommand{\exMonths}{hilabete}
+    \providecommand{\exHPerYear}{h/urte}
+    \providecommand{\exPaybackLabel}{Itzultze-aldia (hilabeteak)}
+    \providecommand{\exTotalInvestment}{Inbertsio osoa}
+    \providecommand{\exMonthlySaving}{Hileko aurrezpena (€)}
+    \providecommand{\exROIConclusion}{Lortutako ROIa \%74,03koa denez eta itzultze-aldia 7 hilabete ingurukoa denez, proiektua errentagarritzat jotzen da.}
+    \providecommand{\exGlossaryDocker}{Edukiontzien teknologia; softwarea bere mendekotasun guztiekin paketatzeko aukera ematen du, edozein ingurunetan funtzionatuko duela bermatzeko.}
+    \providecommand{\exGlossaryML}{Adimen Artifizialaren azpieremua; sistema informatikoek datuetatik ereduak ikas ditzaten algoritmoak eta eredu estatistikoak garatzean oinarritzen da. Zibersegurtasunaren testuinguruan, anomaliak detektatzeko eta mehatxu ezezagunak identifikatzeko erabiltzen da, sarearen portaera aztertuz.}
+    \providecommand{\exUCSystem}{Txartelak kudeatzeko sistema}
+    \providecommand{\exUCCustomer}{Bezeroa}
+    \providecommand{\exUCTechnician}{Teknikaria}
+    \providecommand{\exUCAdmin}{Administratzailea}
+    \providecommand{\exUCLogin}{Saioa hasi}
+    \providecommand{\exUCCredentials}{Kredentzialak egiaztatu}
+    \providecommand{\exUCCreate}{Txartela sortu}
+    \providecommand{\exUCAttach}{Fitxategiak erantsi}
+    \providecommand{\exUCStatus}{Egoera kontsultatu}
+    \providecommand{\exUCResolve}{Txartela ebatzi}
+    \providecommand{\exUCUsers}{Erabiltzaileak kudeatu}
+    \providecommand{\exNetInternet}{Internet}
+    \providecommand{\exNetFirewall}{Suebakia}
+    \providecommand{\exNetRouter}{Bideratzailea}
+    \providecommand{\exNetMail}{Posta-zerbitzaria}
+    \providecommand{\exNetWeb}{Web zerbitzaria}
+    \providecommand{\exNetPC}{Ordenagailua}
+    \providecommand{\pct}[1]{\%#1}
+\fi
+\ifdefined\documentLanguageSpanish
+    \renewcommand{\lstlistingname}{Listado}
+    \floatname{algorithm}{Algoritmo}
+	\providecommand{\upvehu}{Universidad del País Vasco UPV/EHU}
+	\providecommand{\authorLabel}{Autor}
+	\providecommand{\titleTFG}{Trabajo Fin de Grado}
+	\providecommand{\directorLabel}{Directora}
+    \providecommand{\bachelorName}{Grado en Ingeniería Informática de Gestión y Sistemas de Información}
+    
+	\providecommand{\acknowledgements}{Agradecimientos}
+	\providecommand{\abstract}{Resumen}
+	\providecommand{\acronyms}{Lista de acrónimos}
+	\providecommand{\glossaryTitle}{Glosario}
+    % Chapters
+	\providecommand{\introduction}{Introducción}
+    \providecommand{\mgmt}{Gestión del proyecto}
+    \providecommand{\tech}{Fundamentos tecnológicos}
+    \providecommand{\dev}{Desarrollo del proyecto}
+    \providecommand{\results}{Resultados y Pruebas}
+    \providecommand{\economy}{Memoria económica}
+    \providecommand{\conclusions}{Conclusiones}
+    \providecommand{\annex}{Anexos}
+    \providecommand{\bib}{Bibliografía}
+
+    % Sections and subsections
+    \providecommand{\sectContext}{Contexto y Justificación}
+    \providecommand{\sectStateArt}{Estado del arte}
+    \providecommand{\sectObjectives}{Objetivos}
+    \providecommand{\sectMainObj}{Objetivo Principal}
+    \providecommand{\sectSpecObj}{Objetivos Específicos}
+    \providecommand{\sectOrg}{Organización del documento}
+    \providecommand{\sectMethod}{Metodología}
+    \providecommand{\sectPlanning}{Planificación}
+    \providecommand{\sectWBS}{Desglose de tareas}
+    \providecommand{\sectGantt}{Diagrama de Gantt}
+    \providecommand{\sectRisks}{Gestión de riesgos}
+    \providecommand{\sectConcepts}{Conceptos teóricos}
+    \providecommand{\sectTools}{Herramientas de desarrollo}
+    \providecommand{\sectLang}{Lenguajes y frameworks}
+    \providecommand{\sectReq}{Análisis de requisitos}
+    \providecommand{\sectFunc}{Requisitos funcionales}
+    \providecommand{\sectCases}{Casos de uso}
+    \providecommand{\sectNonFunc}{Requisitos no funcionales}
+    \providecommand{\sectArchDesign}{Diseño y Arquitectura}
+    \providecommand{\sectArch}{Arquitectura del sistema}
+    \providecommand{\sectDB}{Diseño de base de datos}
+    \providecommand{\sectUML}{Modelo Entidad-Relación}
+    \providecommand{\sectUI}{Diseño de interfaz (UI-UX)}
+    \providecommand{\sectImpl}{Implementación}
+    \providecommand{\sectObtained}{Resultados obtenidos}
+    \providecommand{\sectCompliance}{Cumplimiento de Objetivos}
+    \providecommand{\sectTests}{Pruebas de verificación}
+    \providecommand{\sectPerformance}{Rendimiento}
+    \providecommand{\sectResCosts}{Coste de recursos}
+    \providecommand{\sectPersCosts}{Costes de personal}
+    \providecommand{\sectROI}{Viabilidad y ROI}
+    \providecommand{\sectDisc}{Discusión}
+    \providecommand{\sectFuture}{Líneas futuras}
+    \providecommand{\sectPersVal}{Valoración personal}
+    
+    \providecommand{\annexManual}{Manual de Usuario}
+    \providecommand{\annexInstall}{Guía de Instalación}
+    \providecommand{\annexDocs}{Documentación Adicional}    
+
+    % --- Help texts ---
+    \providecommand{\abstractHelpText}{El resumen debe exponer de forma concisa el problema abordado, la solución propuesta y los resultados obtenidos. Se recomienda una extensión de entre 200 y 300 palabras, evitando citas bibliográficas y fórmulas complejas.}
+    \providecommand{\keywordsLabel}{Palabras clave:}
+    \providecommand{\keywordsHelpText}{palabra, palabra, palabra.}
+    \providecommand{\abstractHelpTextEnglish}{The abstract should explain the core of the project: the problem addressed, the proposed solution, and the results obtained. It is recommended to have a length between 200 and 300 words, without bibliographic citations or complex formulas.}
+    \providecommand{\keywordsLabelEnglish}{Keywords:}
+    \providecommand{\keywordsHelpTextEnglish}{word, word, word.}
+    \providecommand{\ackHelpText}{En esta sección puedes dar las gracias a quienes han apoyado la realización de este proyecto: tutores, familiares, amigos o instituciones.}
+    \providecommand{\acronymsHelpText}{Añade aquí las siglas que usarás repetidamente (ej: SIEM, API, HTTP). Sirven para que el lector no se pierda con términos técnicos largos. La primera vez que se usa una abreviatura, escribe el nombre completo seguido del acrónimo entre paréntesis, ej. Trabajo Fin de Grado (TFG). A partir de ahí, usa siempre TFG.}
+    \providecommand{\glossaryHelpText}{Define conceptos complejos o plataformas específicas (ej: Docker, Machine Learning) que requieran una explicación detallada para entender el proyecto.}
+    % Chapter 1: Introduction
+    \providecommand{\introHelpText}{ESTRUCTURA RECOMENDADA (1 pág.): La introducción debe presentar el TFG: Contexto (dónde se ubica), Motivación (por qué es importante), Objetivos (qué se va a lograr) y Estructura del documento.}    
+    \providecommand{\contextHelpText}{CONTEXTO Y JUSTIFICACIÓN (2-3 págs.): Describe el entorno donde nace el proyecto. ¿Qué problema existe? ¿Por qué es necesario resolverlo ahora? Justifica el valor de tu propuesta.}
+    \providecommand{\stateArtHelpText}{ESTADO DEL ARTE (4-7 págs.): Analiza qué soluciones existen actualmente. Compara tecnologías, herramientas o metodologías similares. \textbf{En esta sección deben concentrarse la mayoría de las citas bibliográficas}, ya que es fundamental fundamentar técnicamente tu aporte basándote en lo que otros han hecho previamente. Utiliza citas para dar credibilidad a tus afirmaciones. Cualquier dato técnico debe estar respaldado por una referencia bibliográfica.}        
+    \providecommand{\objectivesHelpText}{OBJETIVOS (1-2 págs.): Define un único Objetivo Principal (el "qué") y varios Objetivos Específicos (los pasos técnicos para lograrlo). Usa verbos en infinitivo (Diseñar, Evaluar, Implementar). Los Objetivos deben resolverse en las Conclusiones. Si planteas 3 objetivos, las conclusiones deben explicar cómo se han cumplido.}    
+    \providecommand{\orgHelpText}{ORGANIZACIÓN DEL DOCUMENTO (1 pág.): Resume brevemente qué contiene cada uno de los siguientes capítulos del TFG para guiar al lector.}
+    % Chapter 2: Project management
+    \providecommand{\methodHelpText}{METODOLOGÍA (1-2 págs.): En esta sección se deberá convencer al tribunal sobre la forma de trabajar. Se debe especificar si se utilizará una metodología Ágil (Scrum/Kanban) o Tradicional (Cascada), justificando la elección. Es obligatorio detallar las herramientas de gestión (Git, Trello, etc.) para demostrar una organización profesional.}    
+    \providecommand{\planningHelpText}{PLANIFICACIÓN (2-3 págs.): En esta sección se deberá definir la estrategia temporal. No se debe limitar a una lista cronológica; se deben explicar las relaciones entre fases, los hitos u objetivos que se cumplen en cada una y detallar cómo se garantizará el cumplimiento del cronograma ante posibles imprevistos.}    
+    \providecommand{\wbsHelpText}{DESGLOSE DE TAREAS (2-3 págs.): En esta sección se deberá descomponer el trabajo en tareas manejables. Es muy recomendable incluir un diagrama visual del WBS. Se debe asegurar que las tareas tengan un nivel de granularidad adecuado: si una tarea es muy extensa, deberá dividirse; si es insignificante, deberá agruparse.}    
+    \providecommand{\ganttHelpText}{DIAGRAMA DE GANTT (1-2 págs.): En esta sección se deberá presentar el cronograma, que debe ser el reflejo visual exacto del Desglose de Tareas. Se deben definir explícitamente las dependencias entre tareas (ej: diseño antes de configuración) mediante flechas de enlace para demostrar una lógica de ingeniería.}    
+    \providecommand{\risksHelpText}{GESTIÓN DE RIESGOS (2-3 págs.): En esta sección se deberá realizar un análisis honesto y realista de los riesgos (técnicos, humanos o temporales). Se debe incluir una tabla que puntúe la probabilidad e impacto de cada riesgo y describir obligatoriamente el plan de mitigación o "Plan B" para cada uno.}   
+    % Chapter 3: Technological foundations
+    \providecommand{\conceptsHelpText}{CONCEPTOS TEÓRICOS (4-6 págs.): En esta sección se deberán describir los fundamentos técnicos del proyecto. Se recomienda estructurarlo en tres pilares: 1) Arquitectura del Sistema (monolítica vs microservicios, capas o cliente-servidor), 2) Tecnologías Base (Bases de datos, protocolos de red o algoritmos clave) y 3) Paradigmas de Desarrollo (Programación funcional, Reactiva, o Seguridad por diseño). Se deberań incluir esquemas propios y citar fuentes originales.}
+    \providecommand{\toolsHelpText}{HERRAMIENTAS Y SOFTWARE (3-5 págs.): En esta sección se deberán describir las herramientas y el ecosistema de software seleccionados. Se debe justificar la elección de cada uno, detallar las versiones específicas utilizadas y explicar su rol dentro de la solución final.}    
+    \providecommand{\langHelpText}{LENGUAJES Y ENTORNOS (1-2 págs.): En esta sección se deberán describir los lenguajes de programación y los entornos de ejecución empleados. Se debe justificar la elección de cada lenguaje, mencionar las librerías principales y detallar cómo el entorno de desarrollo garantiza el rendimiento y la estabilidad del proyecto.}
+    % Chapter 4: Project development
+    
+    \providecommand{\reqHelpText}{ANÁLISIS DE REQUISITOS (2-4 págs.): En esta sección se deberán definir las necesidades del sistema. Es obligatorio listar los Requisitos Funcionales y No Funcionales. Se recomienda incluir diagramas de Casos de Uso para modelar la interacción del usuario; puedes utilizar plantillas profesionales como la de Canva (\url{https://www.canva.com/online-whiteboard/use-case-diagram/}) para agilizar el diseño.}
+    \providecommand{\archDesignHelpText}{DISEÑO Y ARQUITECTURA (4-6 págs.): En esta sección se deberá detallar la solución técnica. Se deben incluir: 1) Diagrama de arquitectura 2) Diseño de datos (modelo E-R o esquema NoSQL) y 3) Diseño de interfaz (Mockups,...).}    
+    \providecommand{\implHelpText}{IMPLEMENTACIÓN E INTEGRACIÓN (8-12 págs.): En esta sección se deberá describir el proceso de construcción real. Se deben explicar las decisiones técnicas tomadas, mostrar fragmentos de código significativos y detallar cómo se han integrado los distintos módulos para formar el sistema completo.}
+    
+    % Chapter 5: Results and testing
+    \providecommand{\obtainedHelpText}{RESULTADOS (3-5 págs.): En esta sección se presentan los resultados finales del proyecto, contrastando las funcionalidades implementadas con los objetivos iniciales y mostrando el estado final de la plataforma.}
+    \providecommand{\testsHelpText}{PRUEBAS DE VERIFICACIÓN (3-5 págs.): Se detallan las metodologías y planes de prueba ejecutados (unitarias, integración y usuario) para garantizar que el sistema es robusto, seguro y funcional.}    
+    \providecommand{\performanceHelpText}{ANÁLISIS DE RENDIMIENTO (2-3 págs.): Se analiza la eficiencia del sistema, evaluando tiempos de respuesta y el impacto técnico de la optimización.}
+
+    % Chapter 6: Economic report
+    \providecommand{\resCostsHelpText}{COSTES DE RECURSOS (1-2 págs.): Se desglosan los costes de hardware, software y nube. Para el hardware se aplica una amortización lineal a 4 años. Ayuda: Si un PC cuesta 1.200€, su amortización anual son 300€; si el TFG dura 6 meses, el coste imputado es de 150€.}
+    \providecommand{\persCostsHelpText}{COSTES DE PERSONAL (1 pág.): Se estima el coste de personal basado en las horas del cronograma (Gantt) multiplicadas por el precio/hora estándar de un desarrollador Junior.}    
+    \providecommand{\roiHelpText}{VIABILIDAD Y ROI (2 págs.):
+    Se analiza la rentabilidad económica del proyecto y su viabilidad a largo plazo. Para ello se calcula el ROI comparando el coste total con el ahorro anual: \\
+        $ROI = \frac{(\text{Ahorro Anual} - \text{Inversión Total})}{\text{Inversión Total}} \times 100$. \\
+        El ROI se calcula comparando la Inversión Total (Suma de 6.1 y 6.2) frente al Ahorro Anual. \\
+        El ahorro anual se estima multiplicando las horas de trabajo ahorradas gracias al software por el coste/hora del personal que lo utiliza. \\
+        Si el ahorro anual > inversión, el proyecto es rentable.\\
+        El periodo de retorno (\textit{payback}) es el tiempo necesario para que los ahorros igualen la inversión inicial, calculándose como: \\
+        $\text{Payback (meses)} = \frac{\text{Inversión Total}}{\text{Ahorro Mensual (€)}}$.
+        }
+        
+    % Chapter 7: Conclusions
+    \providecommand{\discHelpText}{DISCUSIÓN (2-3 págs.): Se contrastan los resultados obtenidos con las expectativas iniciales. Se analizan las dificultades técnicas encontradas, las decisiones tomadas y cómo estas han afectado al producto final.}    
+    \providecommand{\conclHelpText}{CONCLUSIONES (1-2 págs.): Resumen final que confirma si se han alcanzado los objetivos planteados al inicio del TFG. Es el cierre técnico donde se destaca el valor del sistema desarrollado.}       
+    \providecommand{\futureHelpText}{LÍNEAS FUTURAS (1-2 págs.): Propuestas de mejora o nuevas funcionalidades que no se han implementado por falta de tiempo o que han surgido durante el desarrollo. Muestra la escalabilidad del proyecto.}       
+    \providecommand{\persValHelpText}{VALORACIÓN PERSONAL (1 pág.): Reflexión sobre el aprendizaje realizado, las competencias adquiridas y la satisfacción con el trabajo hecho. Es la sección más subjetiva del documento.}    
+     
+    % Annexes
+    \providecommand{\annexHelpText}{La inclusión de anexos no es obligatoria. Su incorporación solo está justificada cuando existe material complementario que, por su extensión o nivel de detalle, dificultaría la lectura del cuerpo principal de la memoria (por ejemplo, un manual de usuario, una guía de instalación, fragmentos de código relevantes o un diccionario de datos). Los anexos que se muestran a continuación tienen un carácter meramente explicativo y de ejemplo, por lo que pueden eliminarse, renombrarse o sustituirse en función de las necesidades de cada trabajo. En caso de no incluir ningún anexo, deberá eliminarse por completo el bloque \texttt{appendices} del archivo \texttt{main.tex}.}
+    % Bibliography
+    \providecommand{\bibHelpText}{%
+        \textbf{INSTRUCCIÓN:} En esta sección deben aparecer todas las fuentes citadas en el texto, en \textbf{estilo numérico IEEE}. Las referencias se almacenan en el archivo \texttt{bibliography/bibliography.bib} y se citan en el texto mediante \texttt{\textbackslash cite\{clave\}}. La lista se genera automáticamente con Biber, incluye únicamente las referencias citadas y las numera en el orden de su primera cita. \\
+        \textbf{Ejemplo:} \textit{Las revisiones de la literatura deben seguir una metodología sistemática \cite{Torraco2005}.} \\
+        \textbf{NOTA:} Una vez comprendido, elimina la nota de ayuda en \texttt{main.tex} y deja únicamente la línea: \\
+        \texttt{\textbackslash printbibliography[heading=bibintoc]}}
+    % --- User guide (chapter 0_template) ---
+    \providecommand{\guideTitle}{Guía de Uso}
+    \providecommand{\guideCredits}{Créditos}
+    \providecommand{\guideCreditsText}{Esta plantilla es una adaptación basada en los siguientes proyectos.}
+    \providecommand{\guideConfig}{Configuración e Idioma}
+    \providecommand{\guideHelpSystem}{Configuración de la plantilla}
+    \providecommand{\guideFigures}{Figuras y Tablas}
+    \providecommand{\guideExamples}{Repositorio de ejemplos}
+    \providecommand{\guideSearch}{Cómo buscar más}
+    \providecommand{\guideSelected}{Ejemplos seleccionados}
+    \providecommand{\helpStyle}{Usa formas impersonales. Evita el ``yo'' o el ``nosotros''. En lugar de ``he hecho'', usa ``se ha desarrollado'' o ``el estudio muestra''.}
+    \providecommand{\helpFigures}{Toda figura debe mencionarse en el texto ANTES de que aparezca, por ejemplo ``como se observa en la Figura~\ref{fig:template_example}''. Incluye siempre un título descriptivo.}
+    \providecommand{\helpCredits}{Esta plantilla es una adaptación basada en los siguientes proyectos.}
+    \providecommand{\helpRepo}{Este repositorio facilita el acceso a ejemplos reales de Trabajos de Fin de Grado (TFG) de la UPV/EHU.}
+    \providecommand{\helpSearch}{Cómo buscar más}
+    \providecommand{\helpSelected}{Ejemplos seleccionados}
+    \providecommand{\helpAddiSearch}{Todos los documentos están alojados en ADDI (Archivo Digital de la UPV/EHU). Puedes encontrar ejemplos reales de TFGs de la UPV/EHU allí.}
+    \providecommand{\helpAddiInfo}{Puedes encontrar ejemplos de TFGs reales de la UPV/EHU en el repositorio \textbf{ADDI} (Archivo Digital de la UPV/EHU) (\url{https://addi.ehu.es}).}
+    \providecommand{\helpAddiFilters}{Para encontrar trabajos de ingeniería en Vitoria-Gasteiz, utiliza estos filtros.}
+    \providecommand{\helpSelectedText}{Aquí tienes algunos enlaces directos a ejemplos.}
+
+    % --- User guide: Visual Studio Code and template use (0_template.tex) ---
+    \providecommand{\phAuthorName}{Nombre Apellidos}
+    \providecommand{\phTitleName}{Título del Trabajo Fin de Grado}
+    \providecommand{\phDirector}{Nombre y apellidos de la dirección}
+    \providecommand{\phPlace}{Lugar}
+    \providecommand{\gdVsTitle}{Entorno de trabajo. Visual Studio Code}
+    \providecommand{\gdVsIntro}{La redacción de la memoria en \LaTeX{} puede abordarse tanto desde plataformas en línea como desde un entorno local. En esta sección se describe el procedimiento recomendado para preparar un entorno local basado en \textit{Visual Studio Code} (en adelante, VS Code), un editor de código abierto, multiplataforma y gratuito que, complementado con las extensiones adecuadas, constituye un entorno de edición de \LaTeX{} completo. Su empleo permite, además, trabajar sin conexión, mantener el control de versiones del documento mediante Git y utilizar una misma herramienta para la memoria y para el código fuente del proyecto.}
+    \providecommand{\gdReqTitle}{Requisitos previos. Distribución de \LaTeX}
+    \providecommand{\gdReqIntro}{VS Code actúa únicamente como editor. La compilación del documento la realiza una distribución de \LaTeX{} instalada en el sistema, que debe estar disponible antes de utilizar el editor. Para cada sistema operativo se recomiendan las siguientes distribuciones.}
+    \providecommand{\gdReqWindows}{\textbf{Windows.} TeX Live (\url{https://tug.org/texlive/}), en su instalación completa.}
+    \providecommand{\gdReqLinux}{\textbf{Linux.} TeX Live, preferentemente desde el gestor de paquetes de la distribución. En Debian y Ubuntu puede instalarse la distribución completa mediante el paquete \texttt{texlive-full} o, como alternativa más ligera, únicamente los paquetes que requiere la plantilla, tal como muestra el Listado~\ref{lst:linux_packages}.}
+    \providecommand{\gdReqLinuxCaption}{Instalación de los paquetes necesarios en Debian y Ubuntu.}
+    \providecommand{\gdReqLinuxNote}{Debe tenerse en cuenta que, en estas distribuciones, el soporte de \LaTeX{} para el euskera se incluye en el paquete \texttt{texlive-lang-french}, por lo que este resulta imprescindible para compilar la memoria en euskera. Asimismo, el paquete \texttt{biber} es necesario para generar la bibliografía.}
+    \providecommand{\gdReqMac}{\textbf{macOS.} MacTeX (\url{https://tug.org/mactex/}), basada en TeX Live.}
+    \providecommand{\gdReqMiktex}{\textbf{Alternativa en Windows.} MiKTeX (\url{https://miktex.org/}). Debe tenerse en cuenta que MiKTeX no incluye el intérprete de Perl que necesita la herramienta \texttt{latexmk}. En caso de optar por esta distribución, deberá instalarse además Strawberry Perl (\url{https://strawberryperl.com/}).}
+    \providecommand{\gdReqCheck}{Una vez finalizada la instalación, se recomienda comprobar su correcto funcionamiento ejecutando en una terminal las órdenes del Listado~\ref{lst:check_installation}. Las órdenes son las mismas en los tres sistemas operativos y cada una debe devolver el número de versión de la herramienta correspondiente. La terminal se abre en Windows con la aplicación \textit{PowerShell} o \textit{Símbolo del sistema}, en macOS con la aplicación \textit{Terminal} y en Linux con la terminal de la distribución. También puede utilizarse la terminal integrada de VS Code, desde el menú \textit{Terminal} $\rightarrow$ \textit{Nuevo terminal}. Si alguna orden devuelve un error, la distribución no se ha instalado correctamente o es necesario reiniciar el equipo.}
+    \providecommand{\gdReqCheckCaption}{Comprobación de la instalación de la distribución de \LaTeX.}
+    \providecommand{\gdInstallTitle}{Descarga e instalación de Visual Studio Code}
+    \providecommand{\gdInstallIntro}{El instalador oficial se obtiene en \url{https://code.visualstudio.com/}, desde donde el sitio ofrece automáticamente la versión correspondiente al sistema operativo. El procedimiento de instalación depende del sistema operativo.}
+    \providecommand{\gdInstallWindows}{\textbf{Windows.} Ejecutar el instalador y, durante el proceso, mantener activadas las opciones \textit{Agregar a PATH} y \textit{Agregar la acción ``Abrir con Code''} al menú contextual, que facilitan la apertura de carpetas de proyecto.}
+    \providecommand{\gdInstallMac}{\textbf{macOS.} Descomprimir el archivo descargado y trasladar la aplicación a la carpeta \textit{Aplicaciones}.}
+    \providecommand{\gdInstallLinux}{\textbf{Linux.} Instalar el paquete \texttt{.deb} o \texttt{.rpm} según la distribución empleada, o bien utilizar el gestor de paquetes correspondiente.}
+    \providecommand{\gdExtTitle}{Instalación de extensiones}
+    \providecommand{\gdExtIntro}{Las extensiones se instalan desde la vista \textit{Extensiones}, que se abre desde la barra lateral izquierda o mediante \tecla{Ctrl}+\tecla{Shift}+\tecla{X}. Cada extensión se busca por su nombre y se instala pulsando \textit{Instalar}. La Tabla~\ref{tab:vscode_extensions} recoge las extensiones recomendadas.}
+    \providecommand{\gdExtHeadExt}{Extensión}
+    \providecommand{\gdExtHeadType}{Carácter}
+    \providecommand{\gdExtHeadFunc}{Función}
+    \providecommand{\gdExtRequired}{Imprescindible}
+    \providecommand{\gdExtRecommended}{Recomendada}
+    \providecommand{\gdExtWorkshopDesc}{Compilación, visor de PDF integrado, sincronización entre código y PDF (SyncTeX), autocompletado y detección de errores.}
+    \providecommand{\gdExtLtexDesc}{Revisión ortográfica y gramatical del texto mediante LanguageTool, compatible con la sintaxis de \LaTeX.}
+    \providecommand{\gdExtCaption}{Extensiones de VS Code recomendadas para la redacción de la memoria.}
+    \providecommand{\gdOpenTitle}{Apertura del proyecto}
+    \providecommand{\gdOpenText}{Tras descomprimir la plantilla, debe abrirse la \textbf{carpeta completa} del proyecto mediante el menú \textit{Archivo} $\rightarrow$ \textit{Abrir carpeta}, y no los archivos \texttt{.tex} de forma aislada. De este modo, el editor carga la configuración de la plantilla y se resuelven correctamente las rutas de capítulos, figuras, tipografías y bibliografía.}
+    \providecommand{\gdOpenMain}{El documento debe \textbf{compilarse siempre desde el archivo \texttt{main.tex}}, que es el que reúne todos los capítulos. Por tanto, antes de compilar basta con tener \texttt{main.tex} abierto en el editor, aunque los cambios se hayan realizado en otro archivo.}
+    \providecommand{\gdCompilerTitle}{Compilador. XeLaTeX}
+    \providecommand{\gdCompilerText}{Esta plantilla emplea el paquete \texttt{fontspec} y las tipografías corporativas de la UPV/EHU incluidas en la carpeta \texttt{fonts/}, por lo que \textbf{debe compilarse con XeLaTeX}. La compilación con \texttt{pdflatex} produce errores. La plantilla incluye la carpeta \texttt{.vscode}, cuyo archivo \texttt{settings.json} configura LaTeX Workshop para utilizar XeLaTeX y Biber de forma automática. No es necesario modificar nada, pero la carpeta no debe eliminarse. En macOS y Linux puede aparecer oculta, ya que su nombre comienza por un punto.}
+    \providecommand{\gdCompilerCheck}{Para comprobar que se utiliza XeLaTeX, tras compilar se abre el panel \textit{Salida} (\textit{Ver} $\rightarrow$ \textit{Salida}) y se selecciona el canal \textit{LaTeX Compiler}, donde debe aparecer \texttt{latexmk -xelatex}. Si se trabaja con Overleaf, el compilador se selecciona en \textit{Menú} $\rightarrow$ \textit{Compilador} $\rightarrow$ \textit{XeLaTeX}.}
+    \providecommand{\gdBuildTitle}{Compilación y visualización del documento}
+    \providecommand{\gdBuildText}{LaTeX Workshop compila automáticamente el documento cada vez que se guarda un archivo modificado (\tecla{Ctrl}+\tecla{S}). Además, las acciones principales disponen de los atajos de teclado recogidos en la Tabla~\ref{tab:vscode_shortcuts}. En macOS, la tecla \tecla{Ctrl} se sustituye por \tecla{Cmd} y la tecla \tecla{Alt} por \tecla{Option}.}
+    \providecommand{\gdKeysHeadShortcut}{Atajo}
+    \providecommand{\gdKeysHeadAction}{Acción}
+    \providecommand{\gdKeyBuild}{Compilar el documento (\textit{Build}).}
+    \providecommand{\gdKeyView}{Abrir el PDF generado en una pestaña del propio editor (\textit{View}).}
+    \providecommand{\gdKeySync}{Localizar en el PDF el punto correspondiente a la posición del cursor en el código.}
+    \providecommand{\gdClickPdf}{clic en el PDF}
+    \providecommand{\gdKeySyncBack}{Situar el cursor en la línea del código que genera el fragmento seleccionado del PDF.}
+    \providecommand{\gdKeyPalette}{Abrir la paleta de comandos. Todas las órdenes de LaTeX Workshop aparecen al escribir ``LaTeX Workshop''.}
+    \providecommand{\gdKeysCaption}{Atajos de teclado principales de LaTeX Workshop.}
+    \providecommand{\gdBuildSideBySide}{Se recomienda disponer el código y el PDF en paralelo, arrastrando la pestaña del PDF hacia el lateral derecho de la ventana. De este modo, el resultado de cada modificación puede verificarse de forma inmediata.}
+    \providecommand{\gdBuildWarning}{\textbf{Error frecuente.} No debe confundirse \tecla{Ctrl}+\tecla{Alt}+\tecla{B} con \tecla{Ctrl}+\tecla{Shift}+\tecla{B}. Esta última combinación pertenece al propio VS Code, ejecuta las \textit{tareas de compilación} de los proyectos de programación y no compila el documento \LaTeX. Si se pulsa por error, aparece en la parte superior un menú con el texto \textit{Select the build task to run} (o \textit{Seleccione la tarea de compilación que se va a ejecutar}), que puede ofrecer opciones como \textit{CMake: build}. En ese caso basta con pulsar \tecla{Esc} para cerrarlo. Asimismo, los atajos de LaTeX Workshop solo funcionan cuando el cursor se encuentra dentro del texto de un archivo \texttt{.tex}, por lo que conviene hacer clic en el editor antes de utilizarlos.}
+    \providecommand{\gdErrorsTitle}{Gestión de errores y archivos auxiliares}
+    \providecommand{\gdErrorsText}{Los errores y advertencias de compilación se muestran en el panel \textit{Problemas} (\tecla{Ctrl}+\tecla{Shift}+\tecla{M}), donde cada entrada enlaza con la línea del código que lo origina. El registro completo de la compilación puede consultarse en el panel \textit{Salida}, seleccionando el canal \textit{LaTeX Compiler}. Se recomienda corregir los errores en el orden en que aparecen, dado que un único error puede desencadenar otros posteriores.}
+    \providecommand{\gdErrorsAux}{Durante la compilación se generan diversos archivos auxiliares, como \texttt{.aux}, \texttt{.log}, \texttt{.toc} o \texttt{.bbl}. Si tras una modificación el documento presenta referencias o índices incoherentes, se recomienda eliminarlos con la orden \textit{LaTeX Workshop: Clean up auxiliary files} de la paleta de comandos y compilar de nuevo el documento.}
+    \providecommand{\gdTroubleTitle}{Problemas frecuentes}
+    \providecommand{\gdTroubleIntro}{La Tabla~\ref{tab:vscode_troubleshooting} recoge los problemas que se presentan con mayor frecuencia al comenzar a utilizar la plantilla, junto con su causa y la solución recomendada.}
+    \providecommand{\gdTrHeadSymptom}{Síntoma}
+    \providecommand{\gdTrHeadCause}{Causa}
+    \providecommand{\gdTrHeadSolution}{Solución}
+    \providecommand{\gdTrTaskS}{Aparece el menú \textit{Select the build task to run}.}
+    \providecommand{\gdTrTaskC}{Se ha pulsado \tecla{Ctrl}+\tecla{Shift}+\tecla{B}, atajo genérico de VS Code.}
+    \providecommand{\gdTrTaskF}{Pulsar \tecla{Esc} y compilar con \tecla{Ctrl}+\tecla{Alt}+\tecla{B}.}
+    \providecommand{\gdTrNoBuildS}{\tecla{Ctrl}+\tecla{Alt}+\tecla{B} no compila.}
+    \providecommand{\gdTrNoBuildC}{El cursor no está en el editor o LaTeX Workshop no está instalado.}
+    \providecommand{\gdTrNoBuildF}{Hacer clic dentro de \texttt{main.tex} y comprobar que la extensión está instalada.}
+    \providecommand{\gdTrFontS}{Errores de \texttt{fontspec} o mensajes que indican que el documento requiere XeLaTeX.}
+    \providecommand{\gdTrFontC}{El documento se está compilando con \texttt{pdflatex}.}
+    \providecommand{\gdTrFontF}{Comprobar que la carpeta \texttt{.vscode} está en la raíz del proyecto.}
+    \providecommand{\gdTrStyS}{\textit{File `xxx.sty' not found}.}
+    \providecommand{\gdTrStyC}{Falta un paquete de \LaTeX{} en la distribución instalada.}
+    \providecommand{\gdTrStyF}{Instalar la distribución completa o el paquete indicado.}
+    \providecommand{\gdTrBasqueS}{\textit{Unknown option `basque'} al compilar en euskera (Linux).}
+    \providecommand{\gdTrBasqueC}{Falta el soporte de euskera.}
+    \providecommand{\gdTrBasqueF}{Instalar el paquete \texttt{texlive-lang-french}.}
+    \providecommand{\gdTrBiberS}{La bibliografía aparece vacía o las citas se muestran en negrita con su clave.}
+    \providecommand{\gdTrBiberC}{No se ha ejecutado \texttt{biber} o no está instalado.}
+    \providecommand{\gdTrBiberF}{Instalar \texttt{biber} (en Linux, el paquete \texttt{biber}) y volver a compilar.}
+    \providecommand{\gdTrPerlS}{\texttt{latexmk} falla en Windows con MiKTeX.}
+    \providecommand{\gdTrPerlC}{MiKTeX no incluye Perl.}
+    \providecommand{\gdTrPerlF}{Instalar Strawberry Perl y reiniciar VS Code.}
+    \providecommand{\gdTrCaption}{Problemas frecuentes al compilar la plantilla y su solución.}
+    \providecommand{\gdBasicsTitle}{Primeros pasos con \LaTeX}
+    \providecommand{\gdBasicsIntro}{\LaTeX{} no es un procesador de textos. El texto se escribe, junto con sus órdenes, en archivos \texttt{.tex}, que después se \textbf{compilan} para obtener el PDF. El PDF nunca se edita directamente, sino que todos los cambios se hacen en el código y se vuelve a compilar. Se recomienda compilar con frecuencia y con pocos cambios cada vez, ya que, si aparece un error, casi con seguridad estará en la última modificación.}
+    \providecommand{\gdSpecialTitle}{Caracteres especiales}
+    \providecommand{\gdSpecialText}{Algunos caracteres tienen un significado especial en \LaTeX{} y no pueden escribirse directamente. Es el error más frecuente al empezar. Por ejemplo, al escribir ``50\%'' sin la barra desaparece el resto de la línea, y un nombre de archivo con \texttt{\_} produce errores incomprensibles. La Tabla~\ref{tab:special_characters} indica cómo deben escribirse.}
+    \providecommand{\gdSpecialHeadChar}{Carácter}
+    \providecommand{\gdSpecialHeadWrite}{Cómo escribirlo}
+    \providecommand{\gdSpecialHeadMeaning}{Significado en \LaTeX}
+    \providecommand{\gdSpecialPercent}{Comentario. Oculta el resto de la línea.}
+    \providecommand{\gdSpecialAmp}{Separador de columnas en las tablas.}
+    \providecommand{\gdSpecialDollar}{Inicio y fin de fórmulas matemáticas.}
+    \providecommand{\gdSpecialHash}{Parámetros de las macros.}
+    \providecommand{\gdSpecialUnderscore}{Subíndice en fórmulas. En el texto produce un error.}
+    \providecommand{\gdSpecialBraces}{Argumentos de órdenes y agrupación.}
+    \providecommand{\gdSpecialTilde}{Espacio sin salto de línea.}
+    \providecommand{\gdSpecialCaret}{Superíndice en fórmulas.}
+    \providecommand{\gdSpecialBackslash}{Inicio de todas las órdenes.}
+    \providecommand{\gdSpecialCaption}{Caracteres especiales de \LaTeX.}
+    \providecommand{\gdWritingTitle}{Escritura básica}
+    \providecommand{\gdWritingText}{Para empezar un párrafo nuevo basta con dejar \textbf{una línea en blanco}, ya que un salto de línea simple se interpreta como un espacio. No debe utilizarse \texttt{\textbackslash\textbackslash} para separar párrafos, ni añadir líneas en blanco para conseguir más espacio, pues del diseño se encarga la plantilla. El Listado~\ref{lst:basic_commands} recoge las órdenes más utilizadas. Para las comillas se recomienda \texttt{\textbackslash enquote\{\dots\}}, que coloca automáticamente las comillas propias del idioma del documento.}
+    \providecommand{\gdWritingCaption}{Órdenes más utilizadas.}
+    \providecommand{\gdRefsTitle}{Referencias cruzadas, figuras y tablas}
+    \providecommand{\gdRefsText}{Para referirse a una figura, una tabla o una sección, se etiqueta con \texttt{\textbackslash label\{\dots\}} y se cita en el texto con \texttt{\textbackslash ref\{\dots\}}. El número se actualiza automáticamente. Si en el PDF aparece ``??'', hay que volver a compilar o la etiqueta está mal escrita. Las imágenes deben guardarse en la carpeta \texttt{template/figs/} o en una carpeta propia, preferentemente en PDF para los diagramas o en PNG o JPG para las capturas de pantalla, indicando su anchura en relación con la del texto (\texttt{width=0.8\textbackslash linewidth}). El Listado~\ref{lst:figure_example} muestra un ejemplo de figura. Para crear tablas, herramientas como \textit{Tables Generator} (\url{https://www.tablesgenerator.com/latex_tables}) generan el código automáticamente.}
+    \providecommand{\gdFigureListingCaption}{Inserción de una figura y referencia en el texto.}
+    \providecommand{\gdChaptersTitle}{Añadir capítulos y secciones}
+    \providecommand{\gdChaptersText}{El documento está dividido en un archivo por capítulo, dentro de la carpeta \texttt{chapters/}. Para añadir un capítulo nuevo se crea un archivo que comience con \texttt{\textbackslash chapter\{Título\}} (por ejemplo, \texttt{chapters/08\_extra.tex}) y se añade la línea \texttt{\textbackslash include\{chapters/08\_extra\}} en \texttt{main.tex}, en la posición deseada. Dentro de cada capítulo, las secciones se crean con \texttt{\textbackslash section\{\dots\}} y \texttt{\textbackslash subsection\{\dots\}}. La numeración y el índice se actualizan automáticamente.}
+    \providecommand{\gdBibEntriesTitle}{Cómo obtener las referencias en formato \texttt{.bib}}
+    \providecommand{\gdBibEntriesText}{Las entradas del archivo \texttt{bibliography/bibliography.bib} no tienen por qué escribirse a mano. En \textit{Google Scholar} puede elegirse \textit{BibTeX} en el enlace \textit{Citar} que aparece bajo cada trabajo. Si se dispone del DOI, pueden utilizarse servicios como \url{https://www.doi2bib.org}. Los gestores como Zotero o Mendeley también permiten exportarlas directamente. Cada entrada tiene una clave única (por ejemplo, \texttt{Torraco2005}), que es la que se utiliza en \texttt{\textbackslash cite\{\dots\}}. Conviene revisar las entradas, ya que deben figurar los autores, el año y la publicación, y añadir el DOI cuando exista.}
+    \providecommand{\gdConfigIntro}{El fichero principal es \texttt{main.tex}. Para empezar, deben configurarse las variables que aparecen en él.}
+    \providecommand{\gdConfigData}{\textbf{Datos.} \texttt{\textbackslash authorName}, \texttt{\textbackslash titleName}, \texttt{\textbackslash director} y \texttt{\textbackslash place}. El texto entre llaves debe sustituirse por los datos propios.}
+    \providecommand{\gdConfigLang}{\textbf{Idioma.} Debe dejarse sin comentar solo una de las tres opciones siguientes. Los títulos de los capítulos, los textos de ayuda y los ejemplos se traducirán automáticamente.}
+    \providecommand{\gdHelpIntro}{Al abrir un archivo de capítulo (por ejemplo, \texttt{01\_introduction.tex}), se encontrará una estructura como la del Listado~\ref{lst:chapter_structure}.}
+    \providecommand{\gdHelpListingCaption}{Estructura de un capítulo.}
+    \providecommand{\gdHelpSteps}{Cada archivo de la carpeta \texttt{chapters/} incluye una etiqueta de ayuda (por ejemplo, \texttt{\textbackslash introHelpText}) que orienta la redacción de cada apartado. Para completar la memoria deben seguirse los pasos siguientes.}
+    \providecommand{\gdHelpStepOne}{\textbf{Paso 1.} Leer el texto gris del PDF, que indica el objetivo de la sección, la extensión recomendada y los puntos clave que no deben faltar.}
+    \providecommand{\gdHelpStepTwo}{\textbf{Paso 2.} Escribir el contenido debajo de la etiqueta.}
+    \providecommand{\gdHelpStepThree}{\textbf{Paso 3.} Una vez finalizada la sección, \textbf{borrar la línea de la etiqueta} en el código \texttt{.tex} para que el texto de ayuda desaparezca. Del mismo modo, el contenido de ejemplo (tablas, figuras, código) debe sustituirse por el propio o eliminarse.}
+    \providecommand{\gdCiteTitle}{Citas y bibliografía}
+    \providecommand{\gdCiteText}{La bibliografía se genera mediante \texttt{biblatex} y Biber en \textbf{estilo numérico IEEE}. Las referencias se almacenan en el archivo \texttt{bibliography/bibliography.bib} y se citan en el texto mediante \texttt{\textbackslash cite\{clave\}}. La cita aparece como un número entre corchetes, por ejemplo, las revisiones integradoras de la literatura deben seguir una metodología sistemática \cite{Torraco2005}. Pueden citarse varias referencias a la vez separando las claves por comas, como en \cite{loures2024influence, Efron1994}. Las referencias se numeran en el orden en que se citan por primera vez, y en la bibliografía solo aparecen las citadas, con un formato homogéneo.}
+    \providecommand{\gdFigureCaption}{Ejemplo de figura descriptiva.}
+    \providecommand{\gdChecklistTitle}{Lista de comprobación antes de entregar}
+    \providecommand{\gdChecklistIntro}{Antes de entregar la memoria se recomienda comprobar los siguientes aspectos.}
+    \providecommand{\gdCheckGuide}{Se ha eliminado esta guía, borrando de \texttt{main.tex} la línea que incluye el archivo \texttt{0\_template}.}
+    \providecommand{\gdCheckData}{Los datos de la portada (autor, título, dirección, lugar y fecha) están completos en \texttt{main.tex}.}
+    \providecommand{\gdCheckHelp}{No queda ningún texto gris de ayuda. Para comprobarlo, puede buscarse \texttt{HelpText} en la carpeta \texttt{chapters/}.}
+    \providecommand{\gdCheckExamples}{El contenido de ejemplo (tablas, figuras, glosario, acrónimos, anexos) se ha sustituido o eliminado.}
+    \providecommand{\gdCheckAbstract}{El resumen está en el idioma del documento y en inglés, con sus palabras clave.}
+    \providecommand{\gdCheckRefs}{No aparece ``??'' ni [?] en el PDF, y todas las figuras y tablas se citan en el texto.}
+    \providecommand{\gdCheckBib}{Las entradas de la bibliografía están completas (autores, año, publicación, DOI).}
+    \providecommand{\gdCheckSpelling}{Se han revisado la ortografía y la gramática, y se ha mantenido el estilo impersonal.}
+    \providecommand{\gdCheckFinal}{Se han eliminado los archivos auxiliares, se ha compilado el documento desde cero y se ha revisado el PDF final completo (índices, numeración de páginas, figuras).}
+
+    % --- Example content of the chapters (tables, figures, glossary...) ---
+    \providecommand{\exHigh}{Alta}
+    \providecommand{\exMedium}{Media}
+    \providecommand{\exLow}{Baja}
+    \providecommand{\exCritical}{Crítica}
+    \providecommand{\exHighM}{Alto}
+    \providecommand{\exMediumM}{Medio}
+    \providecommand{\exLowM}{Bajo}
+    \providecommand{\exHeadID}{ID}
+    \providecommand{\exHeadName}{Nombre}
+    \providecommand{\exHeadDescription}{Descripción}
+    \providecommand{\exHeadPriority}{Prioridad}
+    \providecommand{\exHeadStatus}{Estado}
+    \providecommand{\exSpecObjPrefix}{OE}
+    \providecommand{\exSpecObjDefine}{Definir}
+    \providecommand{\exGanttWeeks}{Semanas del proyecto}
+    \providecommand{\exGanttPhaseOne}{Fase 1: Planificación e Inv.}
+    \providecommand{\exGanttStateArt}{1.1 Revisión del estado del arte}
+    \providecommand{\exGanttReq}{1.2 Análisis de requisitos}
+    \providecommand{\exGanttPhaseTwo}{Fase 2: Diseño de infra.}
+    \providecommand{\exGanttArch}{2.1 Diseño de la arquitectura}
+    \providecommand{\exGanttComp}{2.2 Definición de componentes}
+    \providecommand{\exGanttPhaseThree}{Fase 3: Imp. y Configuración}
+    \providecommand{\exGanttEnv}{3.1 Configuración de entornos}
+    \providecommand{\exGanttDeploy}{3.2 Despliegue de componentes}
+    \providecommand{\exGanttIntegr}{3.3 Integración de sistemas}
+    \providecommand{\exGanttPhaseFour}{Fase 4: Pruebas y Validación}
+    \providecommand{\exGanttTests}{4.1 Ejecución de pruebas}
+    \providecommand{\exGanttTuning}{4.2 Ajustes y optimización}
+    \providecommand{\exGanttPhaseFive}{Fase 5: Redacción memoria}
+    \providecommand{\exGanttWriting}{5.1 Redacción progresiva}
+    \providecommand{\exGanttReview}{5.2 Revisión final y cierre}
+    \providecommand{\exGanttMilestone}{Hito}
+    \providecommand{\exGanttDone}{Completado}
+    \providecommand{\exGanttDelivery}{Entrega Final}
+    \providecommand{\exGanttCaption}{Diagrama de Gantt del proyecto organizado por fases y hitos vinculados a objetivos.}
+    \providecommand{\exRiskHeadRisk}{Riesgo}
+    \providecommand{\exRiskHeadProb}{Probabilidad}
+    \providecommand{\exRiskHeadImpact}{Impacto}
+    \providecommand{\exRiskHeadPlan}{Plan de mitigación (Plan B)}
+    \providecommand{\exRiskHardware}{Fallo de hardware}
+    \providecommand{\exRiskHardwarePlan}{Uso de copias de seguridad periódicas y entornos virtualizados.}
+    \providecommand{\exRiskLearning}{Curva de aprendizaje de herramientas}
+    \providecommand{\exRiskLearningPlan}{Dedicación de las dos primeras semanas exclusivamente a formación técnica.}
+    \providecommand{\exRiskData}{Retraso en la entrega de datos}
+    \providecommand{\exRiskDataPlan}{Uso de conjuntos de datos sintéticos para las pruebas iniciales.}
+    \providecommand{\exRiskSchedule}{Desviación respecto a la planificación}
+    \providecommand{\exRiskSchedulePlan}{Revisión semanal del cronograma y priorización de los requisitos esenciales.}
+    \providecommand{\exRiskCaption}{Matriz de gestión de riesgos con su probabilidad, impacto y plan de mitigación.}
+    \providecommand{\exFRPrefix}{RF}
+    \providecommand{\exNFRPrefix}{RNF}
+    \providecommand{\exFRIntro}{En la Tabla~\ref{tab:functional_requirements} se detallan las funcionalidades principales que el sistema debe ejecutar.}
+    \providecommand{\exFRUsers}{Gestión de usuarios}
+    \providecommand{\exFRUsersDesc}{El sistema permitirá el registro, login y gestión de roles.}
+    \providecommand{\exFRIngest}{Ingesta de datos}
+    \providecommand{\exFRIngestDesc}{El sistema debe ser capaz de recibir logs en formato JSON vía HTTPS.}
+    \providecommand{\exFRAlerts}{Generación de alertas}
+    \providecommand{\exFRAlertsDesc}{Se debe disparar una notificación si se detectan más de 5 intentos fallidos de login.}
+    \providecommand{\exFRCaption}{Tabla de Requisitos Funcionales con niveles de prioridad.}
+    \providecommand{\exUseCaseIntro}{El diagrama de la Figura~\ref{fig:use_case_diagram} muestra\dots}
+    \providecommand{\exUseCaseCaption}{Diagrama de Casos de Uso.}
+    \providecommand{\exNFRIntro}{En la Tabla~\ref{tab:nonfunctional_requirements} se detallan los atributos de calidad y restricciones técnicas que debe cumplir el sistema para garantizar su correcto funcionamiento en un entorno de producción.}
+    \providecommand{\exHeadAttribute}{Atributo}
+    \providecommand{\exNFRSecurity}{Seguridad}
+    \providecommand{\exNFRSecurityDesc}{El sistema debe cifrar las contraseñas en la base de datos usando un algoritmo de hashing.}
+    \providecommand{\exNFRPerformance}{Rendimiento}
+    \providecommand{\exNFRPerformanceDesc}{El tiempo de respuesta del dashboard ante una consulta de logs no debe superar los 3 segundos.}
+    \providecommand{\exNFRAvailability}{Disponibilidad}
+    \providecommand{\exNFRAvailabilityDesc}{El sistema debe estar operativo el 99,9\% del tiempo durante el horario laboral.}
+    \providecommand{\exNFRScalability}{Escalabilidad}
+    \providecommand{\exNFRScalabilityDesc}{La arquitectura debe permitir el despliegue de nuevos nodos de ingesta mediante contenedores sin interrupción del servicio.}
+    \providecommand{\exNFRCaption}{Tabla de Requisitos No Funcionales.}
+    \providecommand{\exArchPresentation}{Capa de Presentación}
+    \providecommand{\exArchBusiness}{Capa de Negocio}
+    \providecommand{\exArchBusinessSub}{API / Lógica}
+    \providecommand{\exArchData}{Capa de Datos}
+    \providecommand{\exArchDataSub}{Base de Datos / Persistencia}
+    \providecommand{\exArchRequests}{Peticiones HTTPS (JSON/REST)}
+    \providecommand{\exArchQueries}{Consultas SQL / Drivers}
+    \providecommand{\exArchCaption}{Arquitectura del sistema de comunicación entre capas.}
+    \providecommand{\exERUser}{USUARIO}
+    \providecommand{\exERTicket}{TICKET}
+    \providecommand{\exEROwns}{Posee}
+    \providecommand{\exERSubject}{asunto}
+    \providecommand{\exERCaption}{Modelo Entidad-Relación.}
+    \providecommand{\exDictTitle}{Diccionario de Datos: Tabla Usuarios}
+    \providecommand{\exDictIntro}{La Tabla~\ref{tab:data_dictionary_users} describe la estructura de almacenamiento para la gestión de acceso al sistema.}
+    \providecommand{\exHeadField}{Campo}
+    \providecommand{\exHeadType}{Tipo}
+    \providecommand{\exHeadKey}{Clave}
+    \providecommand{\exDictId}{Identificador único autoincremental.}
+    \providecommand{\exDictEmail}{Correo electrónico y nombre de usuario.}
+    \providecommand{\exDictPassword}{Hash de la contraseña.}
+    \providecommand{\exDictRole}{Rol del usuario (ADMIN, TECNICO, CLIENTE).}
+    \providecommand{\exDictCaption}{Diccionario de datos de la tabla Usuarios.}
+    \providecommand{\exUIHome}{Inicio}
+    \providecommand{\exUITickets}{Tickets}
+    \providecommand{\exUIUsers}{Usuarios}
+    \providecommand{\exUISettings}{Ajustes}
+    \providecommand{\exUITitle}{Gestión de Soporte}
+    \providecommand{\exUIPending}{PENDIENTES}
+    \providecommand{\exUIResolved}{RESUELTOS}
+    \providecommand{\exUIReference}{REFERENCIA}
+    \providecommand{\exUIUser}{USUARIO}
+    \providecommand{\exUIPriority}{PRIORIDAD}
+    \providecommand{\exUISync}{Sincronizando con la base de datos\dots}
+    \providecommand{\exUICaption}{Wireframe de la pantalla principal de la aplicación.}
+    \providecommand{\exAlgorithmCaption}{Ejemplo de algoritmo}
+    \providecommand{\exComplianceHeadObj}{Objetivo Específico (OE)}
+    \providecommand{\exComplianceHeadDegree}{Grado de Consecución}
+    \providecommand{\exCompleted}{Finalizado}
+    \providecommand{\exFunctional}{Funcional}
+    \providecommand{\exComplianceCaption}{Relación entre los Objetivos Específicos y los resultados finales.}
+    \providecommand{\exTestPrefix}{TP}
+    \providecommand{\exTestHeadExpected}{Resultado Esperado}
+    \providecommand{\exTestNull}{Acceso con credenciales nulas.}
+    \providecommand{\exTestNullExp}{Mensaje de error de validación.}
+    \providecommand{\exTestSQL}{Inyección SQL en formulario.}
+    \providecommand{\exTestSQLExp}{El sistema escapa caracteres y deniega acceso.}
+    \providecommand{\exTestAPI}{Registro de ticket vía REST API.}
+    \providecommand{\exTestAPIExp}{Código 201 y persistencia de datos JSON.}
+    \providecommand{\exTestCaption}{Validación de las pruebas de verificación funcional.}
+    \providecommand{\exPerfHeadQuery}{Operación de Consulta}
+    \providecommand{\exPerfHeadGain}{Mejora Obtenida}
+    \providecommand{\exPerfPK}{Búsqueda por Clave Primaria (ID).}
+    \providecommand{\exPerfPKGain}{Latencia reducida a <10\,ms.}
+    \providecommand{\exPerfDates}{Filtrado por Rango de Fechas.}
+    \providecommand{\exPerfDatesGain}{Mejora del rendimiento en un 90\%.}
+    \providecommand{\exPerfAgg}{Conteo Agrupado (Aggregation).}
+    \providecommand{\exPerfAggGain}{Reducción de 1,2\,s a 0,3\,s.}
+    \providecommand{\exPerfCaption}{Resultados de las pruebas de rendimiento y optimización.}
+    \providecommand{\exSQLCaption}{Consulta optimizada para el reporte de tickets semanal.}
+    \providecommand{\exResHeadConcept}{Concepto / Recurso}
+    \providecommand{\exResHeadTotal}{Coste Total}
+    \providecommand{\exResHeadAmort}{Amortizado*}
+    \providecommand{\exResLaptop}{Equipo de desarrollo (Laptop i7, 32\,GB RAM)}
+    \providecommand{\exResCloud}{Infraestructura Cloud (AWS/Azure, 6 meses)}
+    \providecommand{\exResLicences}{Licencias de Software (IDE, Dominios)}
+    \providecommand{\exResTotal}{Total Recursos}
+    \providecommand{\exResCaptionShort}{Desglose de costes de recursos materiales.}
+    \providecommand{\exResCaption}{Desglose de costes de recursos materiales. *Amortización calculada para la duración del TFG.}
+    \providecommand{\exPersHeadProfile}{Perfil Asumido}
+    \providecommand{\exPersHeadTask}{Fase / Tarea}
+    \providecommand{\exPersHeadHours}{Horas}
+    \providecommand{\exPersHeadRate}{€/Hora}
+    \providecommand{\exPersHeadSubtotal}{Subtotal}
+    \providecommand{\exPersAnalyst}{Analista}
+    \providecommand{\exPersAnalystTask}{Ingeniería de Requisitos y Diseño}
+    \providecommand{\exPersDeveloper}{Desarrollador}
+    \providecommand{\exPersDeveloperTask}{Implementación y Codificación}
+    \providecommand{\exPersTester}{Tester (QA)}
+    \providecommand{\exPersTesterTask}{Pruebas y Control de Calidad}
+    \providecommand{\exPersTotal}{Total Coste de Personal}
+    \providecommand{\exPersCaption}{Estimación de costes de personal.}
+    \providecommand{\exROIHeadTask}{Tarea Automatizada}
+    \providecommand{\exROIHeadFreq}{Frecuencia mensual}
+    \providecommand{\exROIHeadManual}{Tiempo manual}
+    \providecommand{\exROIHeadSoftware}{Tiempo con software}
+    \providecommand{\exROIHeadSaving}{Ahorro Mensual}
+    \providecommand{\exROIIncidents}{Gestión de incidencias}
+    \providecommand{\exROIReports}{Generación de informes}
+    \providecommand{\exROINotifications}{Envío de notificaciones}
+    \providecommand{\exTimes}{veces}
+    \providecommand{\exROITotal}{Total Ahorro Mensual}
+    \providecommand{\exROICaption}{Estudio de tiempos y eficiencia de las tareas que el sistema automatiza o agiliza.}
+    \providecommand{\exROIIntro}{A partir de los datos de la Tabla~\ref{tab:time_efficiency}, y considerando un coste de 22,00~€/h para el personal que utiliza el sistema, se obtienen los siguientes valores:}
+    \providecommand{\exROIHoursYear}{Ahorro de horas anual}
+    \providecommand{\exROIMoneyYear}{Ahorro económico anual}
+    \providecommand{\exROIMoneyMonth}{Ahorro económico mensual}
+    \providecommand{\exROIInvestment}{Inversión total}
+    \providecommand{\exROIInvestmentNote}{suma de las secciones 6.1 y 6.2}
+    \providecommand{\exHPerMonth}{h/mes}
+    \providecommand{\exMonths}{meses}
+    \providecommand{\exHPerYear}{h/año}
+    \providecommand{\exPaybackLabel}{Payback (meses)}
+    \providecommand{\exTotalInvestment}{Inversión Total}
+    \providecommand{\exMonthlySaving}{Ahorro Mensual (€)}
+    \providecommand{\exROIConclusion}{Dado que el ROI resultante es del 74,03\% y el periodo de retorno es de aproximadamente 7 meses, el proyecto se considera rentable.}
+    \providecommand{\exGlossaryDocker}{Tecnología de contenedores que permite empaquetar software con todas sus dependencias para asegurar su funcionamiento en cualquier entorno.}
+    \providecommand{\exGlossaryML}{Subcampo de la Inteligencia Artificial que se basa en el desarrollo de algoritmos y modelos estadísticos que permiten a los sistemas informáticos aprender patrones a partir de datos. En el contexto de la ciberseguridad, se utiliza para la detección de anomalías y la identificación de amenazas desconocidas mediante el análisis del comportamiento de la red.}
+    \providecommand{\exUCSystem}{Sistema de gestión de tickets}
+    \providecommand{\exUCCustomer}{Cliente}
+    \providecommand{\exUCTechnician}{Técnico}
+    \providecommand{\exUCAdmin}{Administrador}
+    \providecommand{\exUCLogin}{Iniciar sesión}
+    \providecommand{\exUCCredentials}{Verificar credenciales}
+    \providecommand{\exUCCreate}{Crear ticket}
+    \providecommand{\exUCAttach}{Adjuntar archivos}
+    \providecommand{\exUCStatus}{Consultar estado}
+    \providecommand{\exUCResolve}{Resolver ticket}
+    \providecommand{\exUCUsers}{Gestionar usuarios}
+    \providecommand{\exNetInternet}{Internet}
+    \providecommand{\exNetFirewall}{Cortafuegos}
+    \providecommand{\exNetRouter}{Router}
+    \providecommand{\exNetMail}{Servidor de correo}
+    \providecommand{\exNetWeb}{Servidor web}
+    \providecommand{\exNetPC}{Equipo}
+    \providecommand{\pct}[1]{#1\%}
+\fi
+
+\ifdefined\documentLanguageEnglish
+    \renewcommand{\lstlistingname}{Listing}
+    \floatname{algorithm}{Algorithm}
+	\providecommand{\upvehu}{University of the Basque Country UPV/EHU}
+	\providecommand{\authorLabel}{Author}
+	\providecommand{\titleTFG}{Bachelor's Degree Final Project}
+	\providecommand{\directorLabel}{Director}
+    \providecommand{\bachelorName}{Bachelor's Degree in Management Informatics and Information Systems Engineering}
+    
+	\providecommand{\acknowledgements}{Acknowledgements}
+	\providecommand{\abstract}{Abstract}
+	\providecommand{\acronyms}{List of Acronyms}
+	\providecommand{\glossaryTitle}{Glossary}
+    % Chapters
+	\providecommand{\introduction}{Introduction}
+    \providecommand{\mgmt}{Project Management}
+    \providecommand{\tech}{Technological Foundations}
+    \providecommand{\dev}{Project Development}
+    \providecommand{\results}{Results and Testing}
+    \providecommand{\economy}{Economic Report}
+    \providecommand{\conclusions}{Conclusions}
+    \providecommand{\annex}{Annexes}
+    \providecommand{\bib}{Bibliography}
+
+    % Sections and subsections
+    \providecommand{\sectContext}{Context and Justification}
+    \providecommand{\sectStateArt}{State of the Art}
+    \providecommand{\sectObjectives}{Objectives}
+    \providecommand{\sectMainObj}{Main Objective}
+    \providecommand{\sectSpecObj}{Specific Objectives}
+    \providecommand{\sectOrg}{Document Structure}
+    \providecommand{\sectMethod}{Methodology}
+    \providecommand{\sectPlanning}{Planning}
+    \providecommand{\sectWBS}{Work Breakdown Structure}
+    \providecommand{\sectGantt}{Gantt Chart}
+    \providecommand{\sectRisks}{Risk Management}
+    \providecommand{\sectConcepts}{Theoretical Concepts}
+    \providecommand{\sectTools}{Development Tools}
+    \providecommand{\sectLang}{Languages and Frameworks}
+    \providecommand{\sectReq}{Requirements Analysis}
+    \providecommand{\sectFunc}{Functional Requirements}
+    \providecommand{\sectNonFunc}{Non-functional Requirements}
+    \providecommand{\sectCases}{Use cases}
+    \providecommand{\sectArchDesign}{Design and Architecture}
+    \providecommand{\sectArch}{System Architecture}
+    \providecommand{\sectDB}{Database Design}
+    \providecommand{\sectUML}{Entity-Relationship model (ER model)}
+    \providecommand{\sectUI}{UI-UX Design}
+    \providecommand{\sectImpl}{Implementation}
+    \providecommand{\sectObtained}{Results Obtained}
+    \providecommand{\sectCompliance}{Achievement of Objectives}
+    \providecommand{\sectTests}{Verification Tests}
+    \providecommand{\sectPerformance}{Performance}
+    \providecommand{\sectResCosts}{Resource Costs}
+    \providecommand{\sectPersCosts}{Personnel Costs}
+    \providecommand{\sectROI}{Viability and ROI}
+    \providecommand{\sectDisc}{Discussion}
+    \providecommand{\sectFuture}{Future Work}
+    \providecommand{\sectPersVal}{Personal Assessment}    
+    \providecommand{\annexManual}{User Manual}
+    \providecommand{\annexInstall}{Installation Guide}
+    \providecommand{\annexDocs}{Additional Documentation}
+    
+    % --- Help texts ---
+    \providecommand{\abstractHelpText}{The abstract should explain the core of the project: the problem addressed, the proposed solution, and the results obtained. It is recommended to have a length between 200 and 300 words, without bibliographic citations or complex formulas.}
+    \providecommand{\keywordsLabel}{Keywords:}
+    \providecommand{\keywordsHelpText}{word, word, word.}
+    \providecommand{\ackHelpText}{In this section, you can thank those who have supported the completion of this project: supervisors, family, friends, or institutions.}
+    \providecommand{\acronymsHelpText}{Add the acronyms you will use repeatedly (e.g., SIEM, API, HTTP). They help the reader follow long technical terms. When using an acronym for the first time, write the full term followed by the acronym in parentheses, e.g., Bachelor's Thesis (BT). From then on, use only the acronym BT.}
+    \providecommand{\glossaryHelpText}{Define complex concepts or specific platforms (e.g., Docker, Machine Learning) that require a detailed explanation to understand the project.}
+    \providecommand{\introHelpText}{RECOMMENDED STRUCTURE (1 page): The introduction should present the thesis: Context (where it is located), Motivation (why it is important), Objectives (what will be achieved), and Document structure.}    
+    \providecommand{\contextHelpText}{CONTEXT AND JUSTIFICATION (2-3 pages): Describe the environment where the project originates. What problem exists? Why is it necessary to solve it now? Justify the value of your proposal.}
+    \providecommand{\stateArtHelpText}{STATE OF THE ART (4-7 pages): Analyze current solutions. Compare similar technologies, tools, or methodologies. \textbf{The majority of bibliographic citations should be concentrated in this section}, as it is essential to technically ground your contribution based on what others have previously done. Use citations (e.g., [1] or Author, 202X) to give credibility to your statements. Every technical claim must be backed by a source.}     
+    \providecommand{\objectivesHelpText}{OBJECTIVES (1-2 pages): Define a single Main Objective and several Specific Objectives (the technical steps to achieve it). Use infinitive verbs (Design, Evaluate, Implement,...). Objectives must be solved in the Conclusions. If you set 3 goals, the conclusions must explain how those 3 were achieved.}    
+    \providecommand{\orgHelpText}{DOCUMENT ORGANIZATION (1 page): Briefly summarize what each of the following chapters of the Thesis contains to guide the reader.}
+
+    \providecommand{\methodHelpText}{METHODOLOGY (1-2 pages): In this section, the tribunal must be convinced of the chosen workflow. It must be specified whether an Agile (Scrum/Kanban) or Traditional (Waterfall) methodology will be used, justifying the choice. It is mandatory to detail the management tools (Git, Trello, etc.) to demonstrate professional organization.}    
+    \providecommand{\planningHelpText}{PLANNING (2-3 pages): In this section, the time strategy must be defined. It should not be limited to a chronological list; the relationships between phases and the milestones or objectives met in each must be explained, detailing how schedule compliance will be guaranteed in case of unforeseen events.}    
+    \providecommand{\wbsHelpText}{WORK BREAKDOWN STRUCTURE / WBS (2-3 pages): In this section, the work must be decomposed into manageable tasks. It is highly recommended to include a visual WBS diagram. Tasks must have an appropriate level of granularity: if a task is too large, it must be split; if it is too small, it must be grouped.}    
+    \providecommand{\ganttHelpText}{GANTT CHART (1-2 pages): In this section, the schedule must be presented, which must be the exact visual reflection of the WBS. Task dependencies (e.g., design before configuration) must be explicitly defined using link arrows to demonstrate engineering logic.}    
+    \providecommand{\risksHelpText}{RISK MANAGEMENT (2-3 pages): In this section, an honest and realistic analysis of risks (technical, human, or temporal) must be performed. A table rating the probability and impact of each risk must be included, and a mitigation plan or "Plan B" for each one must be described.}
+    
+    \providecommand{\conceptsHelpText}{THEORETICAL CONCEPTS (4-6 pages): In this section, the project's technical foundations must be described. It is recommended to structure it into three pillars: 1) System Architecture (monolithic vs. microservices, layered, or client-server), 2) Core Technologies (Databases, network protocols, or key algorithms), and 3) Development Paradigms (Functional, Reactive, or Security-by-design programming). Original diagrams must be included and original sources must be cited.} 
+    \providecommand{\toolsHelpText}{TOOLS AND SOFTWARE (3-5 pages): In this section, the selected tools and software ecosystem must be described. The choice of each component must be justified, detailing the specific versions used and explaining their role within the final solution.}    
+    \providecommand{\langHelpText}{LANGUAGES AND ENVIRONMENTS (1-2 pages): In this section, the programming languages and execution environments used must be described. The choice of each language must be justified, mentioning the main libraries and detailing how the development environment ensures project performance and stability.}
+
+    \providecommand{\reqHelpText}{REQUIREMENTS ANALYSIS (2-4 pages): In this section, the system's needs must be defined. It is mandatory to list both Functional and Non-Functional Requirements. Including Use Case diagrams is recommended to model user interaction; you can use professional templates like Canva's (\url{https://www.canva.com/online-whiteboard/use-case-diagram/}) to streamline the design.}   
+    \providecommand{\archDesignHelpText}{DESIGN AND ARCHITECTURE (4-6 pages): In this section, the technical solution must be detailed. The following must be included: 1) Architecture diagram, 2) Data design (E-R model or NoSQL schema), and 3) Interface design (Mockups, etc.).}    
+    \providecommand{\implHelpText}{IMPLEMENTATION AND INTEGRATION (8-12 pages): In this section, the actual construction process must be described. Technical decisions made must be explained, significant code snippets shown, and the integration of different modules to form the complete system detailed.}
+    
+    \providecommand{\obtainedHelpText}{RESULTS (3-5 pages): This section presents the final results of the project, contrasting the implemented functionalities with the initial objectives and showing the final state of the platform.}
+    \providecommand{\testsHelpText}{VERIFICATION TESTS (3-5 pages): This section details the testing methodologies and plans executed (unit, integration, and user tests) to ensure the system is robust, secure, and functional.}
+
+    
+    \providecommand{\performanceHelpText}{PERFORMANCE ANALYSIS (2-3 pages): The efficiency of the system under load is analyzed, evaluating response times and the technical impact of optimization through database indexing.}
+
+    \providecommand{\resCostsHelpText}{RESOURCE COSTS (1-2 pages): Resource, software, and cloud costs are detailed. For hardware, a 4-year linear depreciation is applied. Help: If a PC costs €1,200, its annual depreciation is €300; if the Thesis lasts 6 months, the allocated cost is €150.}
+    \providecommand{\persCostsHelpText}{PERSONNEL COSTS (1 page): Personnel cost is estimated based on the hours from the schedule (Gantt) multiplied by the standard hourly rate of a Junior developer.}    
+    \providecommand{\roiHelpText}{VIABILITY AND ROI (2 pages): The economic profitability and long-term viability of the project are analyzed. For this purpose, ROI is calculated by comparing the total cost with the annual savings: \\
+        $ROI = \frac{(\text{Annual Savings} - \text{Total Investment})}{\text{Total Investment}} \times 100$. \\
+        ROI is calculated by comparing the Total Investment (Sum of 6.1 and 6.2) against the Annual Savings. \\
+        Annual savings are estimated by multiplying the labor hours saved by the software by the hourly cost of the staff using it. \\
+        If annual savings > investment, the project is profitable.\\
+        The payback period is the time required for savings to equal the initial investment, calculated as: \\
+        $\text{Payback (months)} = \frac{\text{Total Investment}}{\text{Monthly Savings (€)}}$.}
+
+    
+    \providecommand{\discHelpText}{DISCUSSION (2-3 pages): The results obtained are contrasted with the initial expectations. Technical difficulties encountered, decisions made, and how they affected the final product are analyzed.}    
+    \providecommand{\conclHelpText}{CONCLUSIONS (1-2 pages): Final summary confirming whether the objectives set at the beginning of the thesis have been achieved. It is the technical closing where the value of the developed system is highlighted.}       
+    \providecommand{\futureHelpText}{FUTURE WORK (1-2 pages): Proposals for improvement or new functionalities that have not been implemented due to lack of time or that have arisen during development. It shows the scalability of the project.}       
+    \providecommand{\persValHelpText}{PERSONAL ASSESSMENT (1 page): Reflection on the learning achieved, the skills acquired, and satisfaction with the work done. It is the most subjective section of the document.}   
+    
+    \providecommand{\annexHelpText}{The inclusion of annexes is not mandatory. They are only justified when there is supplementary material that, owing to its length or level of detail, would hinder the reading of the main body of the thesis (e.g., a user manual, an installation guide, relevant code excerpts or a data dictionary). The annexes shown below are provided solely as an explanation and an example; they may therefore be removed, renamed or replaced according to the needs of each project. If no annex is included, the entire \texttt{appendices} block must be removed from the \texttt{main.tex} file.}
+    
+    \providecommand{\bibHelpText}{%
+        \textbf{INSTRUCTION:} This section must list every source cited in the text, in \textbf{IEEE numeric style}. References are stored in the \texttt{bibliography/bibliography.bib} file and are cited in the text with \texttt{\textbackslash cite\{key\}}. The list is generated automatically by Biber, only includes the cited references and numbers them in order of first citation. \\
+        \textbf{Example:} \textit{Literature reviews should follow a systematic methodology \cite{Torraco2005}.} \\
+        \textbf{NOTE:} Once understood, remove the help note in \texttt{main.tex} and leave only the line: \\
+        \texttt{\textbackslash printbibliography[heading=bibintoc]}}
+        
+    % --- User guide (chapter 0_template) ---
+    \providecommand{\guideTitle}{User Guide}
+    \providecommand{\guideCredits}{Credits}
+    \providecommand{\guideCreditsText}{This template is an adaptation based on the following projects.}
+    \providecommand{\guideConfig}{Configuration and Language}
+    \providecommand{\guideHelpSystem}{Template configuration}
+    \providecommand{\guideFigures}{Figures and Tables}
+    \providecommand{\guideExamples}{Examples Repository}
+    \providecommand{\guideSearch}{How to find more}
+    \providecommand{\guideSelected}{Selected Examples}
+    \providecommand{\helpStyle}{Use impersonal forms. Avoid ``I'' or ``we''. Instead of ``I did'', use ``It was developed'' or ``The study shows''.}
+    \providecommand{\helpFigures}{Every figure must be mentioned in the text BEFORE it appears, for example ``as shown in Figure~\ref{fig:template_example}''. Always include a descriptive caption.}
+    \providecommand{\helpCredits}{This template is an adaptation based on the following projects.}
+    \providecommand{\helpRepo}{This repository provides access to real examples of Bachelor's degree theses (BT) from the University of the Basque Country (UPV/EHU).}
+    \providecommand{\helpSearch}{How to find more}
+    \providecommand{\helpSelected}{Selected Examples}
+    \providecommand{\helpAddiSearch}{All documents are hosted on ADDI (Digital Archive of the UPV/EHU). You can find real examples of Bachelor's degree theses (BT) there.}
+    \providecommand{\helpAddiInfo}{All documents are hosted on ADDI (Digital Archive of the UPV/EHU). You can browse the repository at \url{https://addi.ehu.es}.}
+    \providecommand{\helpAddiFilters}{To find specific engineering theses in Vitoria-Gasteiz, use these filters.}
+    \providecommand{\helpSelectedText}{Here are some direct links to examples.}
+
+    % --- User guide: Visual Studio Code and template use (0_template.tex) ---
+    \providecommand{\phAuthorName}{Name Surname}
+    \providecommand{\phTitleName}{Title of the Bachelor's Thesis}
+    \providecommand{\phDirector}{Name of the director}
+    \providecommand{\phPlace}{Place}
+    \providecommand{\gdVsTitle}{Working environment. Visual Studio Code}
+    \providecommand{\gdVsIntro}{The thesis can be written in \LaTeX{} either on online platforms or in a local environment. This section describes the recommended procedure for setting up a local environment based on \textit{Visual Studio Code} (hereinafter, VS Code), a free, open source, cross platform editor which, together with the appropriate extensions, provides a complete \LaTeX{} editing environment. It also makes it possible to work offline, to keep the document under version control with Git and to use the same tool for both the thesis and the source code of the project.}
+    \providecommand{\gdReqTitle}{Prerequisites. \LaTeX{} distribution}
+    \providecommand{\gdReqIntro}{VS Code acts only as an editor. The document is compiled by a \LaTeX{} distribution installed on the system, which must be available before the editor is used. The following distributions are recommended for each operating system.}
+    \providecommand{\gdReqWindows}{\textbf{Windows.} TeX Live (\url{https://tug.org/texlive/}), full installation.}
+    \providecommand{\gdReqLinux}{\textbf{Linux.} TeX Live, preferably from the distribution's package manager. On Debian and Ubuntu, the full distribution can be installed through the \texttt{texlive-full} package or, as a lighter alternative, only the packages required by the template can be installed, as shown in Listing~\ref{lst:linux_packages}.}
+    \providecommand{\gdReqLinuxCaption}{Installation of the required packages on Debian and Ubuntu.}
+    \providecommand{\gdReqLinuxNote}{It should be noted that, in these distributions, \LaTeX{} support for Basque is included in the \texttt{texlive-lang-french} package, which is therefore essential to compile the thesis in Basque. Likewise, the \texttt{biber} package is required to generate the bibliography.}
+    \providecommand{\gdReqMac}{\textbf{macOS.} MacTeX (\url{https://tug.org/mactex/}), based on TeX Live.}
+    \providecommand{\gdReqMiktex}{\textbf{Alternative on Windows.} MiKTeX (\url{https://miktex.org/}). Note that MiKTeX does not include the Perl interpreter required by the \texttt{latexmk} tool. If this distribution is chosen, Strawberry Perl (\url{https://strawberryperl.com/}) must also be installed.}
+    \providecommand{\gdReqCheck}{Once the installation is complete, it is advisable to check that it works correctly by running the commands of Listing~\ref{lst:check_installation} in a terminal. The commands are the same on the three operating systems and each one should return the version number of the corresponding tool. The terminal is opened on Windows with the \textit{PowerShell} or \textit{Command Prompt} application, on macOS with the \textit{Terminal} application and on Linux with the distribution's terminal. The terminal built into VS Code can also be used, through the \textit{Terminal} $\rightarrow$ \textit{New Terminal} menu. If any command returns an error, the distribution has not been installed correctly or the computer needs to be restarted.}
+    \providecommand{\gdReqCheckCaption}{Checking the installation of the \LaTeX{} distribution.}
+    \providecommand{\gdInstallTitle}{Downloading and installing Visual Studio Code}
+    \providecommand{\gdInstallIntro}{The official installer is available at \url{https://code.visualstudio.com/}, where the website automatically offers the version that matches the operating system. The installation procedure depends on the operating system.}
+    \providecommand{\gdInstallWindows}{\textbf{Windows.} Run the installer and, during the process, keep the \textit{Add to PATH} and \textit{Add ``Open with Code'' action} options enabled, as they make it easier to open project folders.}
+    \providecommand{\gdInstallMac}{\textbf{macOS.} Unzip the downloaded file and move the application to the \textit{Applications} folder.}
+    \providecommand{\gdInstallLinux}{\textbf{Linux.} Install the \texttt{.deb} or \texttt{.rpm} package depending on the distribution, or use the corresponding package manager.}
+    \providecommand{\gdExtTitle}{Installing extensions}
+    \providecommand{\gdExtIntro}{Extensions are installed from the \textit{Extensions} view, which is opened from the left sidebar or with \tecla{Ctrl}+\tecla{Shift}+\tecla{X}. Each extension is searched for by name and installed by clicking \textit{Install}. Table~\ref{tab:vscode_extensions} lists the recommended extensions.}
+    \providecommand{\gdExtHeadExt}{Extension}
+    \providecommand{\gdExtHeadType}{Status}
+    \providecommand{\gdExtHeadFunc}{Purpose}
+    \providecommand{\gdExtRequired}{Essential}
+    \providecommand{\gdExtRecommended}{Recommended}
+    \providecommand{\gdExtWorkshopDesc}{Compilation, built in PDF viewer, synchronisation between code and PDF (SyncTeX), autocompletion and error detection.}
+    \providecommand{\gdExtLtexDesc}{Spelling and grammar checking of the text with LanguageTool, compatible with \LaTeX{} syntax.}
+    \providecommand{\gdExtCaption}{Recommended VS Code extensions for writing the thesis.}
+    \providecommand{\gdOpenTitle}{Opening the project}
+    \providecommand{\gdOpenText}{After unzipping the template, the \textbf{whole project folder} must be opened through the \textit{File} $\rightarrow$ \textit{Open Folder} menu, rather than opening individual \texttt{.tex} files. In this way, the editor loads the configuration of the template and the paths of chapters, figures, fonts and bibliography are resolved correctly.}
+    \providecommand{\gdOpenMain}{The document must \textbf{always be compiled from the \texttt{main.tex} file}, which brings all the chapters together. Therefore, before compiling it is enough to have \texttt{main.tex} open in the editor, even if the changes were made in another file.}
+    \providecommand{\gdCompilerTitle}{Compiler. XeLaTeX}
+    \providecommand{\gdCompilerText}{This template uses the \texttt{fontspec} package and the UPV/EHU corporate typefaces included in the \texttt{fonts/} folder, so it \textbf{must be compiled with XeLaTeX}. Compiling with \texttt{pdflatex} produces errors. The template includes the \texttt{.vscode} folder, whose \texttt{settings.json} file configures LaTeX Workshop to use XeLaTeX and Biber automatically. Nothing needs to be changed, but the folder must not be deleted. On macOS and Linux it may be hidden, since its name begins with a dot.}
+    \providecommand{\gdCompilerCheck}{To check that XeLaTeX is used, after compiling open the \textit{Output} panel (\textit{View} $\rightarrow$ \textit{Output}) and select the \textit{LaTeX Compiler} channel, where \texttt{latexmk -xelatex} should appear. When working with Overleaf, the compiler is selected under \textit{Menu} $\rightarrow$ \textit{Compiler} $\rightarrow$ \textit{XeLaTeX}.}
+    \providecommand{\gdBuildTitle}{Compiling and viewing the document}
+    \providecommand{\gdBuildText}{LaTeX Workshop automatically compiles the document every time a modified file is saved (\tecla{Ctrl}+\tecla{S}). In addition, the main actions have the keyboard shortcuts listed in Table~\ref{tab:vscode_shortcuts}. On macOS, \tecla{Ctrl} is replaced by \tecla{Cmd} and \tecla{Alt} by \tecla{Option}.}
+    \providecommand{\gdKeysHeadShortcut}{Shortcut}
+    \providecommand{\gdKeysHeadAction}{Action}
+    \providecommand{\gdKeyBuild}{Compile the document (\textit{Build}).}
+    \providecommand{\gdKeyView}{Open the generated PDF in an editor tab (\textit{View}).}
+    \providecommand{\gdKeySync}{Locate in the PDF the point that corresponds to the cursor position in the code.}
+    \providecommand{\gdClickPdf}{click on the PDF}
+    \providecommand{\gdKeySyncBack}{Place the cursor on the line of code that produces the selected part of the PDF.}
+    \providecommand{\gdKeyPalette}{Open the command palette. All LaTeX Workshop commands appear when typing ``LaTeX Workshop''.}
+    \providecommand{\gdKeysCaption}{Main LaTeX Workshop keyboard shortcuts.}
+    \providecommand{\gdBuildSideBySide}{It is advisable to place the code and the PDF side by side by dragging the PDF tab to the right hand side of the window. In this way, the result of each change can be checked immediately.}
+    \providecommand{\gdBuildWarning}{\textbf{Common mistake.} \tecla{Ctrl}+\tecla{Alt}+\tecla{B} must not be confused with \tecla{Ctrl}+\tecla{Shift}+\tecla{B}. The latter belongs to VS Code itself, runs the \textit{build tasks} of programming projects and does not compile the \LaTeX{} document. If it is pressed by mistake, a menu with the text \textit{Select the build task to run} appears at the top, which may offer options such as \textit{CMake: build}. In that case, simply press \tecla{Esc} to close it. Likewise, LaTeX Workshop shortcuts only work when the cursor is inside the text of a \texttt{.tex} file, so it is advisable to click in the editor before using them.}
+    \providecommand{\gdErrorsTitle}{Handling errors and auxiliary files}
+    \providecommand{\gdErrorsText}{Compilation errors and warnings are shown in the \textit{Problems} panel (\tecla{Ctrl}+\tecla{Shift}+\tecla{M}), where each entry links to the line of code that causes it. The full compilation log can be viewed in the \textit{Output} panel by selecting the \textit{LaTeX Compiler} channel. Errors should be fixed in the order in which they appear, since a single error can trigger several subsequent ones.}
+    \providecommand{\gdErrorsAux}{Several auxiliary files are generated during compilation, such as \texttt{.aux}, \texttt{.log}, \texttt{.toc} or \texttt{.bbl}. If, after a change, the document shows inconsistent references or tables of contents, these files should be deleted with the \textit{LaTeX Workshop: Clean up auxiliary files} command of the command palette, and the document should then be compiled again.}
+    \providecommand{\gdTroubleTitle}{Common problems}
+    \providecommand{\gdTroubleIntro}{Table~\ref{tab:vscode_troubleshooting} lists the problems that most frequently arise when starting to use the template, together with their cause and the recommended solution.}
+    \providecommand{\gdTrHeadSymptom}{Symptom}
+    \providecommand{\gdTrHeadCause}{Cause}
+    \providecommand{\gdTrHeadSolution}{Solution}
+    \providecommand{\gdTrTaskS}{The \textit{Select the build task to run} menu appears.}
+    \providecommand{\gdTrTaskC}{\tecla{Ctrl}+\tecla{Shift}+\tecla{B}, a generic VS Code shortcut, has been pressed.}
+    \providecommand{\gdTrTaskF}{Press \tecla{Esc} and compile with \tecla{Ctrl}+\tecla{Alt}+\tecla{B}.}
+    \providecommand{\gdTrNoBuildS}{\tecla{Ctrl}+\tecla{Alt}+\tecla{B} does not compile.}
+    \providecommand{\gdTrNoBuildC}{The cursor is not in the editor, or LaTeX Workshop is not installed.}
+    \providecommand{\gdTrNoBuildF}{Click inside \texttt{main.tex} and check that the extension is installed.}
+    \providecommand{\gdTrFontS}{\texttt{fontspec} errors, or messages stating that the document requires XeLaTeX.}
+    \providecommand{\gdTrFontC}{The document is being compiled with \texttt{pdflatex}.}
+    \providecommand{\gdTrFontF}{Check that the \texttt{.vscode} folder is in the root of the project.}
+    \providecommand{\gdTrStyS}{\textit{File `xxx.sty' not found}.}
+    \providecommand{\gdTrStyC}{A \LaTeX{} package is missing from the installed distribution.}
+    \providecommand{\gdTrStyF}{Install the full distribution or the indicated package.}
+    \providecommand{\gdTrBasqueS}{\textit{Unknown option `basque'} when compiling in Basque (Linux).}
+    \providecommand{\gdTrBasqueC}{Basque support is missing.}
+    \providecommand{\gdTrBasqueF}{Install the \texttt{texlive-lang-french} package.}
+    \providecommand{\gdTrBiberS}{The bibliography is empty or citations are shown in bold with their key.}
+    \providecommand{\gdTrBiberC}{\texttt{biber} has not been run or is not installed.}
+    \providecommand{\gdTrBiberF}{Install \texttt{biber} (on Linux, the \texttt{biber} package) and compile again.}
+    \providecommand{\gdTrPerlS}{\texttt{latexmk} fails on Windows with MiKTeX.}
+    \providecommand{\gdTrPerlC}{MiKTeX does not include Perl.}
+    \providecommand{\gdTrPerlF}{Install Strawberry Perl and restart VS Code.}
+    \providecommand{\gdTrCaption}{Common problems when compiling the template and their solutions.}
+    \providecommand{\gdBasicsTitle}{Getting started with \LaTeX}
+    \providecommand{\gdBasicsIntro}{\LaTeX{} is not a word processor. The text is written, together with its commands, in \texttt{.tex} files, which are then \textbf{compiled} to obtain the PDF. The PDF is never edited directly. Every change is made in the code, which is then compiled again. It is advisable to compile often and with few changes each time since, if an error appears, it will almost certainly be in the last modification.}
+    \providecommand{\gdSpecialTitle}{Special characters}
+    \providecommand{\gdSpecialText}{Some characters have a special meaning in \LaTeX{} and cannot be typed directly. This is the most common mistake for beginners. For example, typing ``50\%'' without the backslash makes the rest of the line disappear, and a file name containing \texttt{\_} produces cryptic errors. Table~\ref{tab:special_characters} shows how they must be written.}
+    \providecommand{\gdSpecialHeadChar}{Character}
+    \providecommand{\gdSpecialHeadWrite}{How to write it}
+    \providecommand{\gdSpecialHeadMeaning}{Meaning in \LaTeX}
+    \providecommand{\gdSpecialPercent}{Comment. Hides the rest of the line.}
+    \providecommand{\gdSpecialAmp}{Column separator in tables.}
+    \providecommand{\gdSpecialDollar}{Start and end of mathematical formulas.}
+    \providecommand{\gdSpecialHash}{Macro parameters.}
+    \providecommand{\gdSpecialUnderscore}{Subscript in formulas. In text it causes an error.}
+    \providecommand{\gdSpecialBraces}{Command arguments and grouping.}
+    \providecommand{\gdSpecialTilde}{Non breaking space.}
+    \providecommand{\gdSpecialCaret}{Superscript in formulas.}
+    \providecommand{\gdSpecialBackslash}{Start of every command.}
+    \providecommand{\gdSpecialCaption}{\LaTeX{} special characters.}
+    \providecommand{\gdWritingTitle}{Basic writing}
+    \providecommand{\gdWritingText}{To start a new paragraph, simply leave \textbf{a blank line}, since a single line break is treated as a space. \texttt{\textbackslash\textbackslash} must not be used to separate paragraphs, nor should blank lines be added to obtain more space, as the layout is handled by the template. Listing~\ref{lst:basic_commands} shows the most frequently used commands. For quotation marks, \texttt{\textbackslash enquote\{\dots\}} is recommended, as it automatically uses the quotation marks of the document language.}
+    \providecommand{\gdWritingCaption}{Most frequently used commands.}
+    \providecommand{\gdRefsTitle}{Cross references, figures and tables}
+    \providecommand{\gdRefsText}{To refer to a figure, a table or a section, it is labelled with \texttt{\textbackslash label\{\dots\}} and cited in the text with \texttt{\textbackslash ref\{\dots\}}. The number is updated automatically. If ``??'' appears in the PDF, the document must be compiled again or the label is misspelt. Images should be stored in the \texttt{template/figs/} folder or in a folder of one's own, preferably as PDF for diagrams or as PNG or JPG for screenshots, specifying their width relative to the text width (\texttt{width=0.8\textbackslash linewidth}). Listing~\ref{lst:figure_example} shows an example of a figure. To create tables, tools such as \textit{Tables Generator} (\url{https://www.tablesgenerator.com/latex_tables}) generate the code automatically.}
+    \providecommand{\gdFigureListingCaption}{Inserting a figure and referring to it in the text.}
+    \providecommand{\gdChaptersTitle}{Adding chapters and sections}
+    \providecommand{\gdChaptersText}{The document is split into one file per chapter, inside the \texttt{chapters/} folder. To add a new chapter, a file starting with \texttt{\textbackslash chapter\{Title\}} is created (e.g., \texttt{chapters/08\_extra.tex}) and the line \texttt{\textbackslash include\{chapters/08\_extra\}} is added to \texttt{main.tex} at the desired position. Within each chapter, sections are created with \texttt{\textbackslash section\{\dots\}} and \texttt{\textbackslash subsection\{\dots\}}. Numbering and the table of contents are updated automatically.}
+    \providecommand{\gdBibEntriesTitle}{Obtaining references in \texttt{.bib} format}
+    \providecommand{\gdBibEntriesText}{The entries of the \texttt{bibliography/bibliography.bib} file do not need to be typed by hand. In \textit{Google Scholar}, \textit{BibTeX} can be chosen in the \textit{Cite} link shown below each work. If the DOI is known, services such as \url{https://www.doi2bib.org} can be used. Reference managers such as Zotero or Mendeley can also export them directly. Each entry has a unique key (e.g., \texttt{Torraco2005}), which is the one used in \texttt{\textbackslash cite\{\dots\}}. Entries should be reviewed, since authors, year and publication must be present, and the DOI should be added whenever available.}
+    \providecommand{\gdConfigIntro}{The main file is \texttt{main.tex}. To begin with, the variables that appear in it must be configured.}
+    \providecommand{\gdConfigData}{\textbf{Data.} \texttt{\textbackslash authorName}, \texttt{\textbackslash titleName}, \texttt{\textbackslash director} and \texttt{\textbackslash place}. The text between braces must be replaced with one's own data.}
+    \providecommand{\gdConfigLang}{\textbf{Language.} Only one of the following three options must be left uncommented. Chapter titles, help texts and examples will be translated automatically.}
+    \providecommand{\gdHelpIntro}{When a chapter file is opened (e.g., \texttt{01\_introduction.tex}), a structure such as the one in Listing~\ref{lst:chapter_structure} will be found.}
+    \providecommand{\gdHelpListingCaption}{Structure of a chapter.}
+    \providecommand{\gdHelpSteps}{Each file in the \texttt{chapters/} folder includes a help tag (e.g., \texttt{\textbackslash introHelpText}) that guides the writing of each section. To complete the thesis, the following steps must be followed.}
+    \providecommand{\gdHelpStepOne}{\textbf{Step 1.} Read the grey text in the PDF, which states the purpose of the section, the recommended length and the key points that must not be missing.}
+    \providecommand{\gdHelpStepTwo}{\textbf{Step 2.} Write the content below the tag.}
+    \providecommand{\gdHelpStepThree}{\textbf{Step 3.} Once the section is finished, \textbf{delete the line containing the tag} in the \texttt{.tex} code so that the help text disappears. Likewise, the example content (tables, figures, code) must be replaced with one's own or removed.}
+    \providecommand{\gdCiteTitle}{Citations and bibliography}
+    \providecommand{\gdCiteText}{The bibliography is generated with \texttt{biblatex} and Biber in \textbf{IEEE numeric style}. References are stored in the \texttt{bibliography/bibliography.bib} file and are cited in the text with \texttt{\textbackslash cite\{key\}}. The citation appears as a number in square brackets, for example, integrative literature reviews should follow a systematic methodology \cite{Torraco2005}. Several references can be cited at once by separating the keys with commas, as in \cite{loures2024influence, Efron1994}. References are numbered in the order in which they are first cited, and only the cited ones appear in the bibliography, with a consistent format.}
+    \providecommand{\gdFigureCaption}{Example of a descriptive figure.}
+    \providecommand{\gdChecklistTitle}{Checklist before submission}
+    \providecommand{\gdChecklistIntro}{Before submitting the thesis, it is advisable to check the following points.}
+    \providecommand{\gdCheckGuide}{This guide has been removed by deleting from \texttt{main.tex} the line that includes the \texttt{0\_template} file.}
+    \providecommand{\gdCheckData}{The cover data (author, title, director, place and date) are complete in \texttt{main.tex}.}
+    \providecommand{\gdCheckHelp}{No grey help text remains. To check it, \texttt{HelpText} can be searched for in the \texttt{chapters/} folder.}
+    \providecommand{\gdCheckExamples}{The example content (tables, figures, glossary, acronyms, annexes) has been replaced or removed.}
+    \providecommand{\gdCheckAbstract}{The abstract is in the language of the document and in English, with keywords.}
+    \providecommand{\gdCheckRefs}{No ``??'' or [?] appears in the PDF, and every figure and table is referred to in the text.}
+    \providecommand{\gdCheckBib}{The bibliography entries are complete (authors, year, publication, DOI).}
+    \providecommand{\gdCheckSpelling}{Spelling and grammar have been reviewed, and an impersonal style has been kept.}
+    \providecommand{\gdCheckFinal}{The auxiliary files have been deleted, the document has been compiled from scratch and the complete final PDF has been reviewed (tables of contents, page numbers, figures).}
+
+    % --- Example content of the chapters (tables, figures, glossary...) ---
+    \providecommand{\exHigh}{High}
+    \providecommand{\exMedium}{Medium}
+    \providecommand{\exLow}{Low}
+    \providecommand{\exCritical}{Critical}
+    \providecommand{\exHighM}{High}
+    \providecommand{\exMediumM}{Medium}
+    \providecommand{\exLowM}{Low}
+    \providecommand{\exHeadID}{ID}
+    \providecommand{\exHeadName}{Name}
+    \providecommand{\exHeadDescription}{Description}
+    \providecommand{\exHeadPriority}{Priority}
+    \providecommand{\exHeadStatus}{Status}
+    \providecommand{\exSpecObjPrefix}{SO}
+    \providecommand{\exSpecObjDefine}{Define}
+    \providecommand{\exGanttWeeks}{Project weeks}
+    \providecommand{\exGanttPhaseOne}{Phase 1: Planning and research}
+    \providecommand{\exGanttStateArt}{1.1 State-of-the-art review}
+    \providecommand{\exGanttReq}{1.2 Requirements analysis}
+    \providecommand{\exGanttPhaseTwo}{Phase 2: Infrastructure design}
+    \providecommand{\exGanttArch}{2.1 Architecture design}
+    \providecommand{\exGanttComp}{2.2 Component definition}
+    \providecommand{\exGanttPhaseThree}{Phase 3: Implementation and setup}
+    \providecommand{\exGanttEnv}{3.1 Environment setup}
+    \providecommand{\exGanttDeploy}{3.2 Component deployment}
+    \providecommand{\exGanttIntegr}{3.3 Systems integration}
+    \providecommand{\exGanttPhaseFour}{Phase 4: Testing and validation}
+    \providecommand{\exGanttTests}{4.1 Test execution}
+    \providecommand{\exGanttTuning}{4.2 Tuning and optimisation}
+    \providecommand{\exGanttPhaseFive}{Phase 5: Thesis writing}
+    \providecommand{\exGanttWriting}{5.1 Progressive writing}
+    \providecommand{\exGanttReview}{5.2 Final review and closure}
+    \providecommand{\exGanttMilestone}{Milestone}
+    \providecommand{\exGanttDone}{completed}
+    \providecommand{\exGanttDelivery}{Final delivery}
+    \providecommand{\exGanttCaption}{Gantt chart of the project organised by phases and milestones linked to objectives.}
+    \providecommand{\exRiskHeadRisk}{Risk}
+    \providecommand{\exRiskHeadProb}{Probability}
+    \providecommand{\exRiskHeadImpact}{Impact}
+    \providecommand{\exRiskHeadPlan}{Mitigation plan (Plan B)}
+    \providecommand{\exRiskHardware}{Hardware failure}
+    \providecommand{\exRiskHardwarePlan}{Use of periodic backups and virtualised environments.}
+    \providecommand{\exRiskLearning}{Tool learning curve}
+    \providecommand{\exRiskLearningPlan}{Devoting the first two weeks exclusively to technical training.}
+    \providecommand{\exRiskData}{Delay in data delivery}
+    \providecommand{\exRiskDataPlan}{Use of synthetic datasets for initial testing.}
+    \providecommand{\exRiskSchedule}{Deviation from the schedule}
+    \providecommand{\exRiskSchedulePlan}{Weekly review of the schedule and prioritisation of essential requirements.}
+    \providecommand{\exRiskCaption}{Risk management matrix with probability, impact and mitigation plan.}
+    \providecommand{\exFRPrefix}{FR}
+    \providecommand{\exNFRPrefix}{NFR}
+    \providecommand{\exFRIntro}{Table~\ref{tab:functional_requirements} details the main functionalities that the system must provide.}
+    \providecommand{\exFRUsers}{User management}
+    \providecommand{\exFRUsersDesc}{The system shall allow registration, login and role management.}
+    \providecommand{\exFRIngest}{Data ingestion}
+    \providecommand{\exFRIngestDesc}{The system must be able to receive JSON-formatted logs over HTTPS.}
+    \providecommand{\exFRAlerts}{Alert generation}
+    \providecommand{\exFRAlertsDesc}{A notification must be triggered if more than 5 failed login attempts are detected.}
+    \providecommand{\exFRCaption}{Functional requirements table with priority levels.}
+    \providecommand{\exUseCaseIntro}{The diagram in Figure~\ref{fig:use_case_diagram} shows\dots}
+    \providecommand{\exUseCaseCaption}{Use case diagram.}
+    \providecommand{\exNFRIntro}{Table~\ref{tab:nonfunctional_requirements} details the quality attributes and technical constraints that the system must meet to ensure its correct operation in a production environment.}
+    \providecommand{\exHeadAttribute}{Attribute}
+    \providecommand{\exNFRSecurity}{Security}
+    \providecommand{\exNFRSecurityDesc}{The system must encrypt passwords in the database using a hashing algorithm.}
+    \providecommand{\exNFRPerformance}{Performance}
+    \providecommand{\exNFRPerformanceDesc}{The dashboard response time for a log query must not exceed 3 seconds.}
+    \providecommand{\exNFRAvailability}{Availability}
+    \providecommand{\exNFRAvailabilityDesc}{The system must be operational 99.9\% of the time during working hours.}
+    \providecommand{\exNFRScalability}{Scalability}
+    \providecommand{\exNFRScalabilityDesc}{The architecture must allow new ingestion nodes to be deployed in containers without service interruption.}
+    \providecommand{\exNFRCaption}{Non-functional requirements table.}
+    \providecommand{\exArchPresentation}{Presentation layer}
+    \providecommand{\exArchBusiness}{Business layer}
+    \providecommand{\exArchBusinessSub}{API / Logic}
+    \providecommand{\exArchData}{Data layer}
+    \providecommand{\exArchDataSub}{Database / Persistence}
+    \providecommand{\exArchRequests}{HTTPS requests (JSON/REST)}
+    \providecommand{\exArchQueries}{SQL queries / Drivers}
+    \providecommand{\exArchCaption}{System architecture and communication between layers.}
+    \providecommand{\exERUser}{USER}
+    \providecommand{\exERTicket}{TICKET}
+    \providecommand{\exEROwns}{Owns}
+    \providecommand{\exERSubject}{subject}
+    \providecommand{\exERCaption}{Entity-Relationship model.}
+    \providecommand{\exDictTitle}{Data dictionary: Users table}
+    \providecommand{\exDictIntro}{Table~\ref{tab:data_dictionary_users} describes the storage structure used to manage access to the system.}
+    \providecommand{\exHeadField}{Field}
+    \providecommand{\exHeadType}{Type}
+    \providecommand{\exHeadKey}{Key}
+    \providecommand{\exDictId}{Unique auto-increment identifier.}
+    \providecommand{\exDictEmail}{E-mail address and user name.}
+    \providecommand{\exDictPassword}{Password hash.}
+    \providecommand{\exDictRole}{User role (ADMIN, TECHNICIAN, CUSTOMER).}
+    \providecommand{\exDictCaption}{Data dictionary of the Users table.}
+    \providecommand{\exUIHome}{Home}
+    \providecommand{\exUITickets}{Tickets}
+    \providecommand{\exUIUsers}{Users}
+    \providecommand{\exUISettings}{Settings}
+    \providecommand{\exUITitle}{Support management}
+    \providecommand{\exUIPending}{PENDING}
+    \providecommand{\exUIResolved}{RESOLVED}
+    \providecommand{\exUIReference}{REFERENCE}
+    \providecommand{\exUIUser}{USER}
+    \providecommand{\exUIPriority}{PRIORITY}
+    \providecommand{\exUISync}{Synchronising with the database\dots}
+    \providecommand{\exUICaption}{Wireframe of the application's main screen.}
+    \providecommand{\exAlgorithmCaption}{Example of an algorithm}
+    \providecommand{\exComplianceHeadObj}{Specific objective (SO)}
+    \providecommand{\exComplianceHeadDegree}{Degree of achievement}
+    \providecommand{\exCompleted}{Completed}
+    \providecommand{\exFunctional}{Functional}
+    \providecommand{\exComplianceCaption}{Relationship between the specific objectives and the final results.}
+    \providecommand{\exTestPrefix}{TC}
+    \providecommand{\exTestHeadExpected}{Expected result}
+    \providecommand{\exTestNull}{Access with empty credentials.}
+    \providecommand{\exTestNullExp}{Validation error message.}
+    \providecommand{\exTestSQL}{SQL injection in a form.}
+    \providecommand{\exTestSQLExp}{The system escapes characters and denies access.}
+    \providecommand{\exTestAPI}{Ticket registration through the REST API.}
+    \providecommand{\exTestAPIExp}{Code 201 and persistence of JSON data.}
+    \providecommand{\exTestCaption}{Validation of the functional verification tests.}
+    \providecommand{\exPerfHeadQuery}{Query operation}
+    \providecommand{\exPerfHeadGain}{Improvement achieved}
+    \providecommand{\exPerfPK}{Search by primary key (ID).}
+    \providecommand{\exPerfPKGain}{Latency reduced to <10\,ms.}
+    \providecommand{\exPerfDates}{Filtering by date range.}
+    \providecommand{\exPerfDatesGain}{Performance improved by 90\%.}
+    \providecommand{\exPerfAgg}{Grouped count (aggregation).}
+    \providecommand{\exPerfAggGain}{Reduced from 1.2\,s to 0.3\,s.}
+    \providecommand{\exPerfCaption}{Results of the performance and optimisation tests.}
+    \providecommand{\exSQLCaption}{Optimised query for the weekly ticket report.}
+    \providecommand{\exResHeadConcept}{Item / Resource}
+    \providecommand{\exResHeadTotal}{Total cost}
+    \providecommand{\exResHeadAmort}{Depreciated*}
+    \providecommand{\exResLaptop}{Development computer (i7 laptop, 32\,GB RAM)}
+    \providecommand{\exResCloud}{Cloud infrastructure (AWS/Azure, 6 months)}
+    \providecommand{\exResLicences}{Software licences (IDE, domains)}
+    \providecommand{\exResTotal}{Total resources}
+    \providecommand{\exResCaptionShort}{Breakdown of material resource costs.}
+    \providecommand{\exResCaption}{Breakdown of material resource costs. *Depreciation calculated for the duration of the thesis.}
+    \providecommand{\exPersHeadProfile}{Assumed role}
+    \providecommand{\exPersHeadTask}{Phase / Task}
+    \providecommand{\exPersHeadHours}{Hours}
+    \providecommand{\exPersHeadRate}{€/hour}
+    \providecommand{\exPersHeadSubtotal}{Subtotal}
+    \providecommand{\exPersAnalyst}{Analyst}
+    \providecommand{\exPersAnalystTask}{Requirements engineering and design}
+    \providecommand{\exPersDeveloper}{Developer}
+    \providecommand{\exPersDeveloperTask}{Implementation and coding}
+    \providecommand{\exPersTester}{Tester (QA)}
+    \providecommand{\exPersTesterTask}{Testing and quality control}
+    \providecommand{\exPersTotal}{Total personnel cost}
+    \providecommand{\exPersCaption}{Estimate of personnel costs.}
+    \providecommand{\exROIHeadTask}{Automated task}
+    \providecommand{\exROIHeadFreq}{Monthly frequency}
+    \providecommand{\exROIHeadManual}{Manual time}
+    \providecommand{\exROIHeadSoftware}{Time with software}
+    \providecommand{\exROIHeadSaving}{Monthly saving}
+    \providecommand{\exROIIncidents}{Incident management}
+    \providecommand{\exROIReports}{Report generation}
+    \providecommand{\exROINotifications}{Sending notifications}
+    \providecommand{\exTimes}{times}
+    \providecommand{\exROITotal}{Total monthly saving}
+    \providecommand{\exROICaption}{Time and efficiency study of the tasks that the system automates or speeds up.}
+    \providecommand{\exROIIntro}{Based on the data in Table~\ref{tab:time_efficiency}, and assuming a cost of €22.00/h for the staff who use the system, the following values are obtained:}
+    \providecommand{\exROIHoursYear}{Annual hours saved}
+    \providecommand{\exROIMoneyYear}{Annual financial saving}
+    \providecommand{\exROIMoneyMonth}{Monthly financial saving}
+    \providecommand{\exROIInvestment}{Total investment}
+    \providecommand{\exROIInvestmentNote}{sum of sections 6.1 and 6.2}
+    \providecommand{\exHPerMonth}{h/month}
+    \providecommand{\exMonths}{months}
+    \providecommand{\exHPerYear}{h/year}
+    \providecommand{\exPaybackLabel}{Payback (months)}
+    \providecommand{\exTotalInvestment}{Total investment}
+    \providecommand{\exMonthlySaving}{Monthly saving (€)}
+    \providecommand{\exROIConclusion}{Given that the resulting ROI is 74.03\% and the payback period is approximately 7 months, the project is considered profitable.}
+    \providecommand{\exGlossaryDocker}{Container technology that allows software to be packaged with all its dependencies to ensure that it runs in any environment.}
+    \providecommand{\exGlossaryML}{Subfield of Artificial Intelligence based on the development of algorithms and statistical models that allow computer systems to learn patterns from data. In the context of cybersecurity, it is used to detect anomalies and identify unknown threats by analysing network behaviour.}
+    \providecommand{\exUCSystem}{Ticket management system}
+    \providecommand{\exUCCustomer}{Customer}
+    \providecommand{\exUCTechnician}{Technician}
+    \providecommand{\exUCAdmin}{Administrator}
+    \providecommand{\exUCLogin}{Log in}
+    \providecommand{\exUCCredentials}{Verify credentials}
+    \providecommand{\exUCCreate}{Create ticket}
+    \providecommand{\exUCAttach}{Attach files}
+    \providecommand{\exUCStatus}{Check status}
+    \providecommand{\exUCResolve}{Resolve ticket}
+    \providecommand{\exUCUsers}{Manage users}
+    \providecommand{\exNetInternet}{Internet}
+    \providecommand{\exNetFirewall}{Firewall}
+    \providecommand{\exNetRouter}{Router}
+    \providecommand{\exNetMail}{Mail server}
+    \providecommand{\exNetWeb}{Web server}
+    \providecommand{\exNetPC}{PC}
+    \providecommand{\pct}[1]{#1\%}
+\fi
+
+% ################################################################
+% #######      NUMBER FORMATS                      ##############
+% ################################################################
+% \numfmt{es/eu format}{en format}: e.g. \numfmt{1.500,25}{1,500.25}
+% \eur{es/eu format}{en format}:    e.g. \eur{1.500,25}{1,500.25}
+\providecommand{\numfmt}[2]{\ifdefined\documentLanguageEnglish#2\else#1\fi}
+\providecommand{\eur}[2]{\ifdefined\documentLanguageEnglish€#2\else#1~€\fi}
+
+% ################################################################
+% #######      BIBLIOGRAPHY (IEEE NUMERIC STYLE)   ##############
+% ################################################################
+% References are stored in bibliography/bibliography.bib and processed
+% with Biber. Cite with \cite{key}; references are numbered [1], [2]...
+% in the order in which they are first cited.
+\usepackage{csquotes}
+% Basque has no quotation style in csquotes: use the Spanish one (« »)
+\ifdefined\documentLanguageBasque
+    \DeclareQuoteAlias{spanish}{basque}
+\fi
+\usepackage[style=ieee, backend=biber]{biblatex}
+\addbibresource{bibliography/bibliography.bib}
+% Basque: "In" instead of "Non" before the title of the book or proceedings
+\ifdefined\documentLanguageBasque
+    \DefineBibliographyStrings{basque}{in = {In}}
+\fi
+% Help note printed above the bibliography (see main.tex)
+\defbibnote{bibhelp}{{\small\itshape\color{gray} \bibHelpText}\par\vspace{1cm}}
+
+% ################################################################
+% #######      HYPERLINKS (ALWAYS LOAD LAST)        ##############
+% ################################################################
+\usepackage{hyperref}
+\usepackage{xurl}

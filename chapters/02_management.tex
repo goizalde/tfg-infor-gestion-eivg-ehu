@@ -1,0 +1,113 @@
+% =====================================================================
+% CHAPTER 2: PROJECT MANAGEMENT
+% =====================================================================
+\chapter{\mgmt}
+\label{ch:management}
+
+% ---------------------------------------------------------
+\section{\sectMethod}
+\label{sec:methodology}
+{\small\itshape\color{gray} \methodHelpText}
+
+% Write the methodology here...
+
+% ---------------------------------------------------------
+\section{\sectPlanning}
+\label{sec:planning}
+{\small\itshape\color{gray} \planningHelpText}
+
+% Write the planning here...
+
+\subsection{\sectWBS}
+\label{subsec:wbs}
+{\small\itshape\color{gray} \wbsHelpText}
+
+% Write the work breakdown structure here...
+
+\subsection{\sectGantt}
+\label{subsec:gantt}
+{\small\itshape\color{gray} \ganttHelpText}
+
+% Example Gantt chart (replace it with your own schedule)
+\begin{figure}[H]
+\centering
+\begin{ganttchart}[
+    hgrid,
+    vgrid={*{1}{dotted}},
+    x unit=0.72cm,
+    y unit title=0.55cm,
+    y unit chart=0.55cm,
+    title label font=\bfseries\footnotesize,
+    bar label font=\tiny,
+    bar label node/.append style={align=left, text width=3.8cm},
+    bar/.append style={fill=ganttblue, rounded corners=2pt, draw=none},
+    bar height=0.5,
+    group label font=\scriptsize\bfseries,
+    group label node/.append style={align=left, text width=3.8cm},
+    group/.append style={fill=gray!40, draw=none},
+    milestone/.append style={fill=red!75, draw=none, xscale=1.5},
+    milestone label font=\tiny\itshape\color{red!80!black},
+    link/.append style={->, thick, black!40},
+    link label font=\tiny\bfseries,
+    link label node/.append style={below left=-2pt and 0pt}
+]{1}{15}
+    \gantttitle{\exGanttWeeks}{15} \\
+    \gantttitlelist{1,...,15}{1} \\
+
+    % Phase 1
+    \ganttgroup{\exGanttPhaseOne}{1}{3} \\
+    \ganttbar[name=b11]{\exGanttStateArt}{1}{2} \\
+    \ganttbar[name=b12]{\exGanttReq}{2}{3} \\
+    \ganttmilestone[name=m1]{\exGanttMilestone{} 1: \exSpecObjPrefix1 \exGanttDone}{3} \\
+
+    % Phase 2
+    \ganttgroup{\exGanttPhaseTwo}{3}{6} \\
+    \ganttbar[name=b21]{\exGanttArch}{3}{5} \\
+    \ganttbar[name=b22]{\exGanttComp}{4}{6} \\
+    \ganttmilestone[name=m2]{\exGanttMilestone{} 2: \exSpecObjPrefix2 \exGanttDone}{6} \\
+
+    % Phase 3
+    \ganttgroup{\exGanttPhaseThree}{6}{10} \\
+    \ganttbar[name=b31]{\exGanttEnv}{6}{7} \\
+    \ganttbar[name=b32]{\exGanttDeploy}{7}{9} \\
+    \ganttbar[name=b33]{\exGanttIntegr}{9}{10} \\
+    \ganttmilestone[name=m3]{\exGanttMilestone{} 3: \exSpecObjPrefix3 \exGanttDone}{10} \\
+
+    % Phase 4
+    \ganttgroup{\exGanttPhaseFour}{10}{13} \\
+    \ganttbar[name=b41]{\exGanttTests}{10}{12} \\
+    \ganttbar[name=b42]{\exGanttTuning}{12}{13} \\
+    \ganttmilestone[name=m4]{\exGanttMilestone{} 4: \exSpecObjPrefix4 \exGanttDone}{13} \\
+
+    % Phase 5
+    \ganttgroup{\exGanttPhaseFive}{1}{15} \\
+    \ganttbar[name=b51]{\exGanttWriting}{1}{13} \\
+    \ganttbar[name=b52]{\exGanttReview}{14}{15} \\
+    \ganttmilestone[name=m5]{\exGanttMilestone{} 5: \exGanttDelivery}{15}
+\end{ganttchart}
+\caption{\exGanttCaption}
+\label{fig:gantt_chart}
+\end{figure}
+
+% ---------------------------------------------------------
+\section{\sectRisks}
+\label{sec:risks}
+{\small\itshape\color{gray} \risksHelpText}
+
+% Write the risk analysis here...
+
+% Example risk table (replace it with your own risks)
+\begin{table}[htbp]
+    \centering
+    \small
+    \begin{tabular}{|p{3.2cm}|p{2.9cm}|p{1.8cm}|p{5.1cm}|}
+        \hline
+        \textbf{\exRiskHeadRisk} & \textbf{\exRiskHeadProb} & \textbf{\exRiskHeadImpact} & \textbf{\exRiskHeadPlan} \\ \hline
+        \exRiskHardware & \exLow    & \exHighM   & \exRiskHardwarePlan \\ \hline
+        \exRiskLearning & \exHigh   & \exMediumM & \exRiskLearningPlan \\ \hline
+        \exRiskData     & \exMedium & \exLowM    & \exRiskDataPlan \\ \hline
+        \exRiskSchedule & \exMedium & \exHighM   & \exRiskSchedulePlan \\ \hline
+    \end{tabular}
+    \caption{\exRiskCaption}
+    \label{tab:risks}
+\end{table}

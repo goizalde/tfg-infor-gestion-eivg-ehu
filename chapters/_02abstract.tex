@@ -1,0 +1,26 @@
+% =====================================================================
+% ABSTRACT
+% =====================================================================
+\chapter*{\abstract}
+\addcontentsline{toc}{chapter}{\abstract}
+
+% --- 1. Abstract in the language of the document ---
+\abstractHelpText
+
+% Write your abstract here...
+
+\textbf{\keywordsLabel} \keywordsHelpText % Write your keywords here...
+
+\vspace{2ex}
+
+% --- 2. Abstract in English (only when the document is not in English) ---
+\ifdefined\documentLanguageEnglish
+\else
+    \vspace{4ex}
+
+    \abstractHelpTextEnglish % Write your English abstract here...
+
+    \vspace{1ex}
+
+    \textbf{\keywordsLabelEnglish} \keywordsHelpTextEnglish % Write your English keywords here...
+\fi

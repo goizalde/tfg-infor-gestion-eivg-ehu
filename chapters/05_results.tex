@@ -1,0 +1,84 @@
+% =====================================================================
+% CHAPTER 5: RESULTS AND TESTING
+% =====================================================================
+\chapter{\results}
+\label{ch:results}
+
+% Write the introduction to the results here...
+
+% ---------------------------------------------------------
+\section{\sectObtained}
+\label{sec:results_obtained}
+{\small\itshape\color{gray} \obtainedHelpText}
+
+% Write the results obtained here...
+
+\subsection{\sectCompliance}
+\label{subsec:objectives_achievement}
+% Example table of achievement of objectives (replace it with your own)
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|p{6cm}|c|}
+        \hline
+        \textbf{\exHeadID} & \textbf{\exComplianceHeadObj} & \textbf{\exComplianceHeadDegree} \\ \hline
+        \exSpecObjPrefix-01 & & \pct{100} (\exCompleted) \\ \hline
+        \exSpecObjPrefix-02 & & \pct{100} (\exCompleted) \\ \hline
+        \exSpecObjPrefix-03 & & \pct{100} (\exCompleted) \\ \hline
+        \exSpecObjPrefix-04 & & \pct{90} (\exFunctional) \\ \hline
+    \end{tabular}
+    \caption{\exComplianceCaption}
+    \label{tab:objectives_achievement}
+\end{table}
+
+% ---------------------------------------------------------
+\section{\sectTests}
+\label{sec:tests}
+{\small\itshape\color{gray} \testsHelpText}
+
+% Write the verification tests here...
+
+% Example table of functional tests (replace it with your own)
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|p{4cm}|p{5cm}|c|}
+        \hline
+        \textbf{\exHeadID} & \textbf{\exHeadDescription} & \textbf{\exTestHeadExpected} & \textbf{\exHeadStatus} \\ \hline
+        \exTestPrefix-01 & \exTestNull & \exTestNullExp & \color{green!50!black} OK \\ \hline
+        \exTestPrefix-02 & \exTestSQL  & \exTestSQLExp  & \color{green!50!black} OK \\ \hline
+        \exTestPrefix-03 & \exTestAPI  & \exTestAPIExp  & \color{green!50!black} OK \\ \hline
+    \end{tabular}
+    \caption{\exTestCaption}
+    \label{tab:functional_tests}
+\end{table}
+
+\subsection{\sectPerformance}
+\label{subsec:performance}
+{\small\itshape\color{gray} \performanceHelpText}
+
+% Write the performance analysis here...
+
+% Example table of performance tests (replace it with your own)
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|p{4.6cm}|p{4cm}|c|}
+        \hline
+        \textbf{\exHeadID} & \textbf{\exPerfHeadQuery} & \textbf{\exPerfHeadGain} & \textbf{\exHeadStatus} \\ \hline
+        PERF-01 & \exPerfPK    & \exPerfPKGain    & \color{green!50!black} OK \\ \hline
+        PERF-02 & \exPerfDates & \exPerfDatesGain & \color{green!50!black} OK \\ \hline
+        PERF-03 & \exPerfAgg   & \exPerfAggGain   & \color{green!50!black} OK \\ \hline
+    \end{tabular}
+    \caption{\exPerfCaption}
+    \label{tab:performance_tests}
+\end{table}
+
+% Example SQL listing (replace it with your own code)
+\begin{lstlisting}[language=SQL, numbers=none, caption={\exSQLCaption}, label={lst:sql_performance}]
+EXPLAIN ANALYZE
+SELECT status, count(*)
+FROM tickets
+WHERE created_at > NOW() - INTERVAL '7 days'
+GROUP BY status;
+\end{lstlisting}
